@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong> expense type:</strong>
+  <%= @item. expense_type %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @item.amount %>
+</p>
+
+<p>
+  <strong>Ba approval:</strong>
+  <%= @item.ba_approval %>
+</p>
+
+<p>
+  <strong>Ba reason:</strong>
+  <%= @item.ba_reason %>
+</p>
+
+<p>
+  <strong>Image url:</strong>
+  <%= @item.image_url %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>
