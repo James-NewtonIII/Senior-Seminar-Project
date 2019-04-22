@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Item.delete_all
+# . . .
+Item.create!(   expense_type: 'Travel',
+                amount: 600.00,
+                ba_approval: nil,
+                ba_reason: '',
+                image_url: '',
+)

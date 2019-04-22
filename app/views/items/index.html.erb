@@ -1,35 +1,45 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+  <aside id="notice"><%= notice %></aside>
+<% end %>
 
 <h1>Items</h1>
 
 <table>
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        <%= link_to 'New Item', new_item_path %>
+      </td>
+    </tr>
+  </tfoot>
+
   <thead>
     <tr>
-      <th> expense type</th>
-      <th>Amount</th>
-      <th>Ba approval</th>
-      <th>Ba reason</th>
-      <th>Image url</th>
+      <th> Expense Type |</th>
+      <th> Amount |</th>
+      <th> BA's approval |</th>
+      <th> BA's reason |</th>
+      <th> Image url |</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @items.each do |item| %>
-      <tr>
-        <td><%= item. expense_type %></td>
-        <td><%= item.amount %></td>
-        <td><%= item.ba_approval %></td>
-        <td><%= item.ba_reason %></td>
-        <td><%= item.image_url %></td>
-        <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_item_path(item) %></td>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+        <td class="type"><%= item.expense_type %></td>
+        <td class="amount"><%= item.amount %></td>
+        <td class="wasApproved"><%= item.ba_approval %></td>
+        <td class="rejectReason"><%= item.ba_reason %></td>
+        <td class="image"><%= item.image_url %></td>
+      <td class="actions">
+          <ul>
+            <li><%= link_to 'Show', item %></li>
+            <li><%= link_to 'Edit', edit_item_path(item) %></li>
+            <li><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+          </ul>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Item', new_item_path %>
