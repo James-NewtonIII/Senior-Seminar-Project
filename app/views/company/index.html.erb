@@ -1,0 +1,23 @@
+<% if notice %>
+    <aside id="notice"><%= notice %></aside>
+<% end %>
+
+<h1>Your Pragmatic EXPENSE ITEMS</h1>
+<ul class="catalog">
+    <% cache @items do %>
+        <% @items.each do |item| %>
+            <% cache @item do %>
+                <li>
+                    <%= image_tag(item.image_url) %>
+                    <h2><%= item.title %></h2>
+                    <p>
+                        <%= sanitize(item.ba_reason) %>
+                    </p>
+                    <div class="amount">
+                        <%= number_to_currency(item.amount) %>
+                    </div>
+                </li>
+            <% end %>
+        <% end %>
+    <% end %>
+</ul>
