@@ -9,12 +9,13 @@
             <% cache @item do %>
                 <li>
                     <%= image_tag(item.image_url) %>
-                    <h2><%= item.title %></h2>
+                    <h2><%= item.id %></h2>
                     <p>
                         <%= sanitize(item.ba_reason) %>
                     </p>
                     <div class="amount">
                         <%= number_to_currency(item.amount) %>
+                        <%= button_to 'Add to Cart', line_items_path(item_id: item) %>
                     </div>
                 </li>
             <% end %>
