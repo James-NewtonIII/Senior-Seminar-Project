@@ -1,0 +1,42 @@
+<%= form_with(model: request_item, local: true) do |form| %>
+  <% if request_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(request_item.errors.count, "error") %> prohibited this request_item from being saved:</h2>
+
+      <ul>
+      <% request_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :expense_type %>
+    <%= form.text_field :expense_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reason %>
+    <%= form.text_area :reason %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ba_approval %>
+    <%= form.check_box :ba_approval %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ba_reason %>
+    <%= form.text_field :ba_reason %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
