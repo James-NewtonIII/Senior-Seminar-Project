@@ -13,19 +13,25 @@
 
   <div class="field">
     <%= form.label :expense_type %>
-    <%= form.text_field :expense_type %>
+    <%= form.select :expense_type, ['Flight','Travel','Taxi','Hotel','Food','Miscellaneous','Other'] %>
   </div>
-
+  <div class="field">
+    <%= form.label :actual_expense_date %>
+    <%= form.date_field :actual_expense_date %>
+  </div>
   <div class="field">
     <%= form.label :amount %>
     <%= form.text_field :amount %>
   </div>
-
+   <div class="field">
+    <%= form.label :department %>
+   <%= form.select :department, ['Agents', 'Politicals','Research']%>
+  </div>
   <div class="field">
     <%= form.label :ba_approval %>
     <%= form.check_box :ba_approval %>
   </div>
-
+  
   <div class="field">
     <%= form.label :ba_reason %>
     <%= form.text_field :ba_reason %>
@@ -33,7 +39,7 @@
 
   <div class="field">
     <%= form.label :image_url %>
-    <%= form.text_field :image_url %>
+    <%= form.file_field :image_url %>
   </div>
 
   <div class="actions">
