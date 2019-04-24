@@ -76,4 +76,15 @@ ActiveRecord::Schema.define(version: 2019_04_24_175523) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "taf_items", force: :cascade do |t|
+    t.string "request_reason"
+    t.date "expense_date"
+    t.decimal "estimated_amount"
+    t.string "dept"
+    t.boolean "ba_approval"
+    t.text "ba_reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end
