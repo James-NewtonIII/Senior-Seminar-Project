@@ -7,6 +7,7 @@ class CreateTafItems < ActiveRecord::Migration[5.2]
       t.string :dept
       t.boolean :ba_approval
       t.text :ba_reason
+      t.string :expense_type
 
       t.timestamps
     end
