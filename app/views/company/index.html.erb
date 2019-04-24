@@ -1,7 +1,7 @@
 <% if notice %>
     <aside id="notice"><%= notice %></aside>
 <% end %>
-
+<!--
 <h1>Your Pragmatic EXPENSE ITEMS</h1>
 <ul class="catalog">
     <% cache @items do %>
@@ -39,10 +39,11 @@
             <% end %>
         <% end %>
     <% end %>
-
+-->
     <% cache @taf_items do %>
         <% @taf_items.each do |item| %>
             <% cache @item do %>
+                <%# <% if item.ba_approval == true%> 
                 <li>
                     
                     <h2>TAF_ID: <%= item.id %></h2>
@@ -52,9 +53,35 @@
                     <div class="amount">
                         <%= number_to_currency(item.estimated_amount) %>
                         <%# <%= button_to 'Add to Cart', line_items_path(item_id: item) %> 
+                        <%= link_to 'Accept', { :controller => "taf_items",
+                                                :action => "decision",
+                                                :id => item.id,
+                                                :decision => "true"}, method: 'post', class: "btn btn-sm btn-success" %>
                     </div>
                 </li>
+                <%# <% else %> 
+                <%# <% end %> 
+
+                <% if item.ba_approval == true %>
+                <li>
+                    
+                    <h2>TAF_ID: <%= item.id %></h2>
+                    <p>
+                        <%= sanitize(item.ba_reason) %>
+                    </p>
+                    <div class="amount">
+                        <%= number_to_currency(item.estimated_amount) %>
+                        <%# <%= button_to 'Add to Cart', line_items_path(item_id: item) %> 
+                        <%= link_to 'Accept', { :controller => "taf_items",
+                                                :action => "decision",
+                                                :id => item.id,
+                                                :decision => "true"}, method: 'post', class: "btn btn-sm btn-success" %>
+                    </div>
+                </li>
+                <% else %> 
+                <% end %>
             <% end %>
         <% end %>
     <% end %>
 </ul>
+
