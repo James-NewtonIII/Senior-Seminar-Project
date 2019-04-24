@@ -5,107 +5,301 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+TafItem.delete_all
+# . . .
+TafItem.create!(   expense_type: 'Travel',
+estimated_amount: 600.00,
+                request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Food',
+estimated_amount: 50.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Lodging',
+estimated_amount: 300.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Food',
+estimated_amount: 60.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Food',
+estimated_amount: 20.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Food',
+estimated_amount:60.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Travel',
+estimated_amount: 900.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Lodging',
+estimated_amount: 1000.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Food',
+estimated_amount: 80.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Food',
+estimated_amount: 60.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Food',
+estimated_amount: 700.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Food',
+estimated_amount: 65.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Travel',
+estimated_amount: 120.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Lodging',
+estimated_amount: 40.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Food',
+estimated_amount: 12.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Food',
+estimated_amount: 11.00,
+request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+TafItem.create!(   expense_type: 'Food',
+                estimated_amount: 5.00,
+                request_reason: '',
+                dept: '',
+                ba_approval: nil,
+                ba_reason: '',
+)
+
+# 
 Item.delete_all
 # . . .
 Item.create!(   expense_type: 'Travel',
                 amount: 600.00,
+
+                actual_expense_date: 2019-04-01,
+                department: 'Politicals',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt.jpg',
+                
 )
 Item.create!(   expense_type: 'Food',
                 amount: 50.00,
+
+                actual_expense_date: 2019-04-01,
+                department: 'Agents',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt2.jpg',
 )
 Item.create!(   expense_type: 'Lodging',
                 amount: 300.00,
+
+                actual_expense_date: 2019-04-01,
+                department: 'Agents',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt3.jpg',
 )
 Item.create!(   expense_type: 'Food',
                 amount: 60.00,
+
+                actual_expense_date: 2019-04-01,
+                department: 'Research',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt4.jpg',
 )
 Item.create!(   expense_type: 'Food',
                 amount: 20.00,
+
+                actual_expense_date: 2019-04-01,
+                department: 'Research',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt.jpg',
 )
 Item.create!(   expense_type: 'Food',
                 amount:60.00,
+
+                actual_expense_date: 2019-04-01,
+                department: 'Agents',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt2.jpg',
 )
 Item.create!(   expense_type: 'Travel',
                 amount: 900.00,
+
+                actual_expense_date: 2019-04-01,
+                department: 'Research',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt3.jpg',
 )
 Item.create!(   expense_type: 'Lodging',
                 amount: 1000.00,
+
+                actual_expense_date: 2019-04-01,
+                department: 'Agents',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt4.jpg',
 )
 Item.create!(   expense_type: 'Food',
                 amount: 80.00,
+
+                actual_expense_date: 2019-04-01,
+                department: 'Politicals',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt.jpg',
 )
 Item.create!(   expense_type: 'Food',
                 amount: 60.00,
+
+                actual_expense_date: 2019-04-01,
+                department: 'Politicals',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt2.jpg',
 )
 Item.create!(   expense_type: 'Food',
                 amount: 700.00,
+
+                actual_expense_date: 2018-04-03,
+                department: 'Politicals',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt3.jpg',
 )
 Item.create!(   expense_type: 'Food',
                 amount: 65.00,
+
+                actual_expense_date: 2019-07-11,
+                department: 'Agents',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt4.jpg',
 )
 Item.create!(   expense_type: 'Travel',
                 amount: 120.00,
+
+                actual_expense_date: 2016-04-01,
+                department: 'Research',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt.jpg',
 )
 Item.create!(   expense_type: 'Lodging',
                 amount: 40.00,
+
+                actual_expense_date: 2018-05-01,
+                department: 'Politicals',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt2.jpg',
 )
 Item.create!(   expense_type: 'Food',
                 amount: 12.00,
+
+                actual_expense_date: 2017-04-01,
+                department: 'Politicals',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt3.jpg',
 )
 Item.create!(   expense_type: 'Food',
                 amount: 11.00,
+
+                actual_expense_date: 2019-03-01,
+                department: 'Research',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt4.jpg',
 )
 Item.create!(   expense_type: 'Food',
                 amount: 5.00,
+
+                actual_expense_date: 2018-04-21,
+                department: 'Agents',
+
                 ba_approval: nil,
                 ba_reason: '',
-                image_url: '',
+                image_url: 'receipt.jpg',
 )
+
+

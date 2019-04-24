@@ -6,6 +6,7 @@
     <% @cart.line_items.each do |item| %>
         <li><%= item.item.id %></li>
         <li style="display:none"><%=@cart.quantity+=1%></li>
+        <li style="display:none"><%=@cart.total_expense+=item.item.amount%></li>
     <% end %>
-    <%=@cart.quantity%>
+    <%=@cart.quantity%> | <%=@cart.total_expense%>
 </ul>

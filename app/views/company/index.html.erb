@@ -15,7 +15,7 @@
                     </p>
                     <div class="amount">
                         <%= number_to_currency(item.amount) %>
-                        <%= button_to 'Add to Cart', line_items_path(item_id: item) %>
+                        <%= button_to 'Add to Cart', line_items_path(item_id: item) %> 
                     </div>
                 </li>
             <% end %>
@@ -27,13 +27,31 @@
             <% cache @item do %>
                 <li>
                     
-                    <h2><%= item.id %></h2>
+                    <h2>Request_ID: <%= item.id %></h2>
                     <p>
                         <%= sanitize(item.ba_reason) %>
                     </p>
                     <div class="amount">
                         <%= number_to_currency(item.amount) %>
-                        <%= button_to 'Add to Cart', line_items_path(item_id: item) %>
+                        <%= button_to 'Add to Cart', line_items_path(item_id: item) %> 
+                    </div>
+                </li>
+            <% end %>
+        <% end %>
+    <% end %>
+
+    <% cache @taf_items do %>
+        <% @taf_items.each do |item| %>
+            <% cache @item do %>
+                <li>
+                    
+                    <h2>TAF_ID: <%= item.id %></h2>
+                    <p>
+                        <%= sanitize(item.ba_reason) %>
+                    </p>
+                    <div class="amount">
+                        <%= number_to_currency(item.estimated_amount) %>
+                        <%# <%= button_to 'Add to Cart', line_items_path(item_id: item) %> 
                     </div>
                 </li>
             <% end %>

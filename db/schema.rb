@@ -10,12 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_23_185238) do
+ActiveRecord::Schema.define(version: 2019_04_24_193259) do
+
+  create_table "budget_approvers", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 0
+    t.decimal "total_expense", default: "0.0"
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string "name"
+    t.decimal "funds"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "items", force: :cascade do |t|
@@ -26,6 +48,8 @@ ActiveRecord::Schema.define(version: 2019_04_23_185238) do
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "actual_expense_date"
+    t.string "department"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -37,6 +61,13 @@ ActiveRecord::Schema.define(version: 2019_04_23_185238) do
     t.index ["item_id"], name: "index_line_items_on_item_id"
   end
 
+  create_table "payment_managers", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "request_items", force: :cascade do |t|
     t.string "expense_type"
     t.decimal "amount"
@@ -45,6 +76,35 @@ ActiveRecord::Schema.define(version: 2019_04_23_185238) do
     t.string "ba_reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "taf_items", force: :cascade do |t|
+    t.string "request_reason"
+    t.date "expense_date"
+    t.decimal "estimated_amount"
+    t.string "dept"
+    t.boolean "ba_approval"
+    t.text "ba_reason"
+    t.string "expense_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "taf_line_items", force: :cascade do |t|
+    t.integer "taf_item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["taf_item_id"], name: "index_taf_line_items_on_taf_item_id"
+  end
+
+  create_table "tafs", force: :cascade do |t|
+    t.string "pm_reject_reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "taf_line_item_id"
+    t.integer "payment_manager_id"
+    t.index ["payment_manager_id"], name: "index_tafs_on_payment_manager_id"
+    t.index ["taf_line_item_id"], name: "index_tafs_on_taf_line_item_id"
   end
 
 end

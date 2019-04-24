@@ -1,0 +1,47 @@
+<%= form_with(model: taf_item, local: true) do |form| %>
+  <% if taf_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(taf_item.errors.count, "error") %> prohibited this taf_item from being saved:</h2>
+
+      <ul>
+      <% taf_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :request_reason %>
+    <%= form.text_field :request_reason %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expense_date %>
+    <%= form.date_select :expense_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :estimated_amount %>
+    <%= form.text_field :estimated_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dept %>
+    <%= form.text_field :dept %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ba_approval %>
+    <%= form.check_box :ba_approval %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ba_reason %>
+    <%= form.text_area :ba_reason, id: :ba_reason, rows: 10, cols: 60 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

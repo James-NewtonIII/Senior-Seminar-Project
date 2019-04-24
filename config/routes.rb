@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :tafs
+  resources :taf_items
   resources :request_items
   resources :line_items
   resources :carts

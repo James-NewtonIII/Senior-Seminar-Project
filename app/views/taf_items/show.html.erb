@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Request reason:</strong>
+  <%= @taf_item.request_reason %>
+</p>
+
+<p>
+  <strong>Expense date:</strong>
+  <%= @taf_item.expense_date %>
+</p>
+
+<p>
+  <strong>Estimated amount:</strong>
+  <%= @taf_item.estimated_amount %>
+</p>
+
+<p>
+  <strong>Dept:</strong>
+  <%= @taf_item.dept %>
+</p>
+
+<p>
+  <strong>Ba approval:</strong>
+  <%= @taf_item.ba_approval %>
+</p>
+
+<p>
+  <strong>Ba reason:</strong>
+  <%= @taf_item.ba_reason %>
+</p>
+
+<%= link_to 'Edit', edit_taf_item_path(@taf_item) %> |
+<%= link_to 'Back', taf_items_path %>
