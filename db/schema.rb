@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_24_175523) do
+ActiveRecord::Schema.define(version: 2019_04_24_184007) do
 
   create_table "budget_approvers", force: :cascade do |t|
     t.string "name"
@@ -83,6 +83,11 @@ ActiveRecord::Schema.define(version: 2019_04_24_175523) do
     t.string "dept"
     t.boolean "ba_approval"
     t.text "ba_reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tafs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
