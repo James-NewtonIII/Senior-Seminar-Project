@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  request_reason: MyString
+  expense_date: 2019-04-23
+  estimated_amount: 9.99
+  dept: MyString
+  ba_approval: false
+  ba_reason: MyText
+
+two:
+  request_reason: MyString
+  expense_date: 2019-04-23
+  estimated_amount: 9.99
+  dept: MyString
+  ba_approval: false
+  ba_reason: MyText
