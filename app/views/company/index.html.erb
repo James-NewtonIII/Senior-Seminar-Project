@@ -15,7 +15,7 @@
                     </p>
                     <div class="amount">
                         <%= number_to_currency(item.amount) %>
-                        <%# <%= button_to 'Add to Cart', line_items_path(item_id: item) %> 
+                        <%= button_to 'Add to Cart', line_items_path(item_id: item) %> 
                     </div>
                 </li>
             <% end %>
@@ -33,7 +33,7 @@
                     </p>
                     <div class="amount">
                         <%= number_to_currency(item.amount) %>
-                        <%# <%= button_to 'Add to Cart', line_items_path(item_id: item) %> 
+                        <%= button_to 'Add to Cart', line_items_path(item_id: item) %> 
                     </div>
                 </li>
             <% end %>
