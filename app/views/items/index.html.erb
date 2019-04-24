@@ -31,7 +31,7 @@
         <td class="amount"><%= item.amount %></td>
         <td class="wasApproved"><%= item.ba_approval %></td>
         <td class="rejectReason"><%= item.ba_reason %></td>
-        <td class="image"><%= item.image_url %></td>
+        <td class="image"><%=image_tag(item.image_url,class: 'list_image')%></td>
       <td class="actions">
           <ul>
             <li><%= link_to 'Show', item %></li>
