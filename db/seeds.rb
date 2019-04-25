@@ -5,6 +5,72 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Department.delete_all
+#. . .
+Department.create!(
+    id: 1,
+    name: "QA",
+    actual_funds: 10000.00,
+    available_funds: 10000.00,
+)
+Department.create!(
+    id: 2,
+    name: "RnD",
+    actual_funds: 10000.00,
+    available_funds: 10000.00,
+)
+Department.create!(
+    id: 3,
+    name: "DnD",
+    actual_funds: 10000.00,
+    available_funds: 10000.00,
+)
+
+Employee.delete_all
+#. . .
+Employee.create!(
+    id: 1,
+    name: "Emily",
+    address: "Why Did We Include This Circle",
+)
+Employee.create!(
+    id: 2,
+    name: "Earl",
+    address: "Why Did We Include This Court",
+)
+Employee.create!(
+    id: 3,
+    name: "Ernie",
+    address: "Why Did We Include This Square",
+)
+
+BudgetApprover.delete_all
+#. . .
+BudgetApprover.create!(
+    id: 1,
+    name: "Burt",
+    address: "Why Did We Include This Way",
+)
+BudgetApprover.create!(
+    id: 2,
+    name: "Becky",
+    address: "Why Did We Include This Lane",
+)
+BudgetApprover.create!(
+    id: 3,
+    name: "Bogustus",
+    address: "Why Did We Include This Boulevard",
+)
+
+PaymentManager.delete_all
+#. . .
+PaymentManager.create!(
+    id: 1,
+    name: "Pam",
+    address: "Why Did We Include This Avenue",
+)
+
 TafItem.delete_all
 # . . .
 TafItem.create!(    id: 1,
@@ -68,7 +134,7 @@ TafItem.create!(    id: 8,
                     estimated_amount: 1000.00,
                     request_reason: 'Ye Olde Presidential Suite',
                     dept: 2,
-                    ba_approval: false,
+                    ba_approval: nil,
                     ba_reason: '',
 )
 TafItem.create!(    id: 9,
@@ -76,7 +142,7 @@ TafItem.create!(    id: 9,
                     estimated_amount: 80.00,
                     request_reason: 'Yes I can eat $80 of food.',
                     dept: 3,
-                    ba_approval: false,
+                    ba_approval: nil,
                     ba_reason: '',
 )
 TafItem.create!(    id: 10,
@@ -84,7 +150,7 @@ TafItem.create!(    id: 10,
                     estimated_amount: 60.00,
                     request_reason: 'Ye olde 7Eleven',
                     dept: 1,
-                    ba_approval: false,
+                    ba_approval: nil,
                     ba_reason: '',
 )
 TafItem.create!(    id: 11,
@@ -92,7 +158,7 @@ TafItem.create!(    id: 11,
                     estimated_amount: 700.00,
                     request_reason: 'Fatty ate the whole dinner bar.',
                     dept: 2,
-                    ba_approval: false,
+                    ba_approval: nil,
                     ba_reason: '',
 )
 TafItem.create!(    id: 12,
@@ -100,7 +166,7 @@ TafItem.create!(    id: 12,
                     estimated_amount: 65.00,
                     request_reason: 'We didn\'t eat at the other place again',
                     dept: 3,
-                    ba_approval: false,
+                    ba_approval: nil,
                     ba_reason: '',
 )
 TafItem.create!(    id: 13,
@@ -108,7 +174,7 @@ TafItem.create!(    id: 13,
                     estimated_amount: 120.00,
                     request_reason: 'Client in the armpit of Florida',
                     dept: 1,
-                    ba_approval: false,
+                    ba_approval: nil,
                     ba_reason: '',
 )
 TafItem.create!(    id: 14,
@@ -116,7 +182,7 @@ TafItem.create!(    id: 14,
                     estimated_amount: 40.00,
                     request_reason: 'Used to be Motel 6, Florida man knocked it down to Motel 3.2',
                     dept: 2,
-                    ba_approval: false,
+                    ba_approval: nil,
                     ba_reason: '',
 )
 TafItem.create!(    id: 15,
@@ -124,7 +190,7 @@ TafItem.create!(    id: 15,
                     estimated_amount: 12.00,
                     request_reason: 'Chicken feet for Florida Man\'s Breakfast',
                     dept: 3,
-                    ba_approval: false,
+                    ba_approval: nil,
                     ba_reason: '',
 )
 TafItem.create!(    id: 16,
@@ -132,7 +198,7 @@ TafItem.create!(    id: 16,
                     estimated_amount: 11.00,
                     request_reason: 'Meth for Florida Man\'s Lunch',
                     dept: 1,
-                    ba_approval: false,
+                    ba_approval: nil,
                     ba_reason: '',
 )
 TafItem.create!(    id: 17,
@@ -140,7 +206,7 @@ TafItem.create!(    id: 17,
                     estimated_amount: 5.00,
                     request_reason: 'VERY CHEAP VODKA',
                     dept: 2,
-                    ba_approval: false,
+                    ba_approval: nil,
                     ba_reason: '',
 )
 TafItem.create!(    id: 18,
@@ -148,7 +214,7 @@ TafItem.create!(    id: 18,
                     estimated_amount: 8.00,
                     request_reason: 'Le candy from ze quickie mart',
                     dept: 3,
-                    ba_approval: false,
+                    ba_approval: nil,
                     ba_reason: '',
 )
 
