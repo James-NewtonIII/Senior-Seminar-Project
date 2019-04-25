@@ -5,8 +5,8 @@
 <table>
   <thead>
     <tr>
-      <th>Travel Authorization Form Item ID</th>
-      <th>Travel Authorization Form ID</th>
+      <th>TAF Item ID</th>
+      <th>Travel Auth Form ID</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,8 +14,8 @@
   <tbody>
     <% @taf_line_items.each do |taf_line_item| %>
       <tr>
-        <td><%= taf_line_item.taf_item_id %></td>
-        <td><%= taf_line_item.taf_id %></td>
+        <td><%= taf_line_item.taf_item %></td>
+        <td><%= taf_line_item.taf %></td>
         <td><%= link_to 'Show', taf_line_item %></td>
         <td><%= link_to 'Edit', edit_taf_line_item_path(taf_line_item) %></td>
         <td><%= link_to 'Destroy', taf_line_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>

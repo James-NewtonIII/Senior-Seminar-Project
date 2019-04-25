@@ -12,6 +12,9 @@
   <tbody>
     <% @payment_managers.each do |payment_manager| %>
       <tr>
+        <td><%=payment_manager.id %></td>
+        <td><%=payment_manager.name%></td>
+        <td><%=payment_manager.address%></td>
         <td><%= link_to 'Show', payment_manager %></td>
         <td><%= link_to 'Edit', edit_payment_manager_path(payment_manager) %></td>
         <td><%= link_to 'Destroy', payment_manager, method: :delete, data: { confirm: 'Are you sure?' } %></td>

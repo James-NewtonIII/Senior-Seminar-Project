@@ -3,7 +3,7 @@
 <% end %>
 <h2>Your Pragmatic Expense Report</h2>
 
-<% if false %> <!-- Employee -->
+<% if true %> <!-- Employee -->
     <table>
         <thead>
             <tr>
@@ -31,7 +31,7 @@
 
     <%=@cart.quantity%> | <%=number_to_currency(@cart.total_expense)%>
 
-<% elsif false %> <!-- BUDGET APPROVER -->
+<% elsif true %> <!-- BUDGET APPROVER -->
     <div class="Funds" style="align-right">
         <table>
             <thead>

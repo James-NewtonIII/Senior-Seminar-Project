@@ -11,9 +11,22 @@
     </div>
   <% end %>
 
+<%= form_for @new_taf_item_form do |new_taf_item| %>
+  <%= new_taf_item.hidden_field :taf_item_id, :value => @taf_item.id  %>
+  <%= new_taf_item.select :request_reason  %>
+  <%= new_taf_item.date_select :expense_date  %>
+  <%= new_taf_item.text_field :estimated_amount %>
+  <%= new_taf_item.select :dept, ['QA', 'RnD','DnD']%>
+  <br>
+  IF BUDGET APPROVER
+  <%= new_taf_item.check_box :ba_approval %>
+  <%= new_taf_item.text_area :ba_reason, id: :ba_reason, rows: 10, cols: 60 %>
+  <br>
+<% end %>
+<!--
   <div class="field">
     <%= form.label :request_reason %>
-    <%= form.text_field :request_reason %>
+    <%= form.select :request_reason, ['Travel','Taxi','Lodging','Food','Other'] %>
   </div>
 
   <div class="field">
@@ -28,7 +41,7 @@
 
   <div class="field">
     <%= form.label :dept %>
-    <%= form.text_field :dept %>
+    <%= form.select :dept, ['QA', 'RnD','DnD']%>
   </div>
 
   <div class="field">
@@ -40,6 +53,8 @@
     <%= form.label :ba_reason %>
     <%= form.text_area :ba_reason, id: :ba_reason, rows: 10, cols: 60 %>
   </div>
+-->
+  <br>
 
   <div class="actions">
     <%= form.submit %>

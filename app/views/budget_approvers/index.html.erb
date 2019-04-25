@@ -12,6 +12,9 @@
   <tbody>
     <% @budget_approvers.each do |budget_approver| %>
       <tr>
+        <td><%= budget_approver.id %></td>
+        <td><%=budget_approver.name%></td>
+        <td><%=budget_approver.address%></td>
         <td><%= link_to 'Show', budget_approver %></td>
         <td><%= link_to 'Edit', edit_budget_approver_path(budget_approver) %></td>
         <td><%= link_to 'Destroy', budget_approver, method: :delete, data: { confirm: 'Are you sure?' } %></td>

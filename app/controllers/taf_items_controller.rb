@@ -29,6 +29,7 @@ class TafItemsController < ApplicationController
     respond_to do |format|
       if @taf_item.save
         format.html { redirect_to @taf_item, notice: 'Taf item was successfully created.' }
+        format.js { @current_item = @taf_line_item }
         format.json { render :show, status: :created, location: @taf_item }
       else
         format.html { render :new }

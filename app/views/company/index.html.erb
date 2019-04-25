@@ -2,25 +2,7 @@
     <aside id="notice"><%= notice %></aside>
 <% end %>
 
-<h1>Your Pragmatic EXPENSE ITEMS</h1>
-<ul class="catalog">
-    <% cache @items do %>
-        <% @items.each do |item| %>
-            <% cache @item do %>
-                <li>
-                    
-                    <h2>Report ID: <%= item.id %></h2>
-                    <p>
-                        <%= sanitize(item.ba_reason) %>
-                    </p>
-                    <div class="amount">
-                        <%= number_to_currency(item.amount) %>
-                        <%= button_to 'Add to Cart', line_items_path(item_id: item) %> 
-                    </div>
-                </li>
-            <% end %>
-        <% end %>
-    <% end %>
+<h1> WELCOME TO THE COMPANY<br>WE DON'T HAVE ANYTHING TO PUT HERE RIGHT NOW</h1>
 <!--
     <% cache @request_items do %>
         <% @request_items.each do |item| %>

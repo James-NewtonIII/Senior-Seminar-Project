@@ -1,5 +1,7 @@
 class TafsController < ApplicationController
-  before_action :set_taf, only: [:show, :edit, :update, :destroy]
+  include CurrentTaf
+  before_action :set_current_taf, only: [:new, :show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_taf
 
   # GET /tafs
   # GET /tafs.json
@@ -16,6 +18,10 @@ class TafsController < ApplicationController
   # GET /tafs/new
   def new
     @taf = Taf.new
+    @new_taf_item_form = TafLineItem.new
+    @taf_item = TafItem.new
+    @taf_line_item = TafLineItem.new(params[taf_id: @taf.id, taf_item_id: @taf_item.id])
+    #@taf_item.new_taf_item_form.build
   end
 
   # GET /tafs/1/edit
@@ -80,5 +86,10 @@ class TafsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def taf_params
       params.fetch(:taf, {})
+    end
+
+    def invalid_taf
+      logger.error "Attempt to access invalid TAF #{params[:id]}"
+      redirect_to company_index_url, notice: 'Invalid TAF'
     end
 end

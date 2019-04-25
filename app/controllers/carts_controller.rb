@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts
   # GET /carts.json
@@ -35,6 +36,7 @@ class CartsController < ApplicationController
   # POST /carts.json
   def create
     @cart = Cart.new(cart_params)
+    @line_item = @cart.add_item(item)
 
     respond_to do |format|
       if @cart.save
@@ -81,4 +83,10 @@ class CartsController < ApplicationController
     def cart_params
       params.fetch(:cart, {})
     end
+
+    def invalid_cart
+      logger.error "Attempt to access invalid Expense Report #{params[:id]}"
+      redirect_to company_index_url, notice: 'Invalid Expense Report'
+    end
+
 end

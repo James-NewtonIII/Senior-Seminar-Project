@@ -11,6 +11,80 @@
     </div>
   <% end %>
 
+  <div class="Created_TAF_Items_Form">
+            <table>
+            <thead>
+                <tr>
+                    <th> ID </th>
+                    <th> Expense Type </th>
+                    <th> Amount </th>
+                    <th> Was Approved? </th>
+                    <th> Rejection Reason </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <% @taf.taf_line_items.each do |taf_line_item| %>
+                <tr>
+                    <td><%= taf_line_item.taf_item.id %></li>
+                    <td> <%= taf_line_item.taf_item.expense_type %> </td> 
+                    <td> <%= number_to_currency(taf_line_item.taf_item.estimated_amount) %> </td>
+                    <td> <%= taf_line_item.taf_item.ba_approval ? "true" : "false" %> </td>
+                    <td> <%= taf_line_item.taf_item.ba_reason %> </td>
+                
+                </tr>
+                
+                <li style="display:none"><%=@taf.quantity+=1%></li>
+                <li style="display:none"><%=@taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
+                <% end %>
+        </table>
+            
+        <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
+  </div>
+
+  <div class="New_TAF_Item_Form">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th> Expense Type </th>
+          <th> Expense Date </th>
+          <th> Amount </th>
+          <th> From Department </th>
+        </tr>
+      </thead>
+      <%= form.nested_fields_for :taf_item do |new_taf_item| %>
+        <tr>
+        <td><%= new_taf_item.hidden_field :taf_item_id, :value => @taf_item.id  %></td>
+        <td><%= new_taf_item.select :request_reason, ['Travel','Taxi','Lodging','Food','Other'] %></td>
+        <td><%= new_taf_item.date_select :expense_date  %></td>
+        <td><%= new_taf_item.text_field :estimated_amount %></td>
+        <td><%= new_taf_item.select :dept, ['QA', 'RnD','DnD'] %></td>
+      </tr>
+    <% end %>
+    </table>
+
+    <!-- IF BUDGET APPROVER -->
+    <table>
+      <thead>
+        <tr>
+          <th> Approved? </th>
+          <th> Rejection Reason </th>
+        </tr>
+      </thead>
+      <%= form.nested_fields_for :taf_item do |new_taf_item| %>
+        <tr>
+          <td><%= new_taf_item.check_box :ba_approval %></td>
+          <td><%= new_taf_item.text_area :ba_reason, id: :ba_reason, rows: 1, cols: 30 %></td>
+        </tr>
+      <% end %>
+    </table>
+    
+    <%= form.add_nested_fields_link :taf_item do %>
+    <span>New Item</span>
+  </div>
+    
+  <br>
   <div class="actions">
     <%= form.submit %>
   </div>

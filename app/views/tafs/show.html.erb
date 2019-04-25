@@ -1,97 +1,42 @@
-<% if notice %>
-    <aside id="notice"><%= notice %></aside>
-<% end %>
+<article>
+    <% if notice %>
+        <aside id="notice"><%= notice %></aside>
+    <% end %>
 
-<h2>Your Pragmatic Travel Authorization Form</h2>
+    <h2>Your Pragmatic Travel Authorization Form</h2>
 
-<% if false %> <!-- Employee -->
-    <table>
-        <thead>
-            <tr>
-                <th> ID </th>
-                <th> Expense Type </th>
-                <th> Amount </th>
-                <th> Was Approved? </th>
-                <th> Rejection Reason </th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-            <tr>
-            <% @taf.taf_line_items.each do |taf_line_item| %>
-                <td><%= taf_line_item.taf_item.id %></li>
-                <td> <%= taf_line_item.taf_item.expense_type %> </td> 
-                <td> <%= number_to_currency(taf_line_item.taf_item.estimated_amount) %> </td>
-                <td> <%= taf_line_item.taf_item.ba_approval ? "true" : "false" %> </td>
-                <td> <%= taf_line_item.taf_item.ba_reason %> </td>
-                <li style="display:none"><%=@taf.quantity+=1%></li>
-                <li style="display:none"><%=@taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
-            <% end %>
-        </tr>
-    </table>
-        
-    <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
-
-<% elsif false %> <!-- BUDGET APPROVER -->
-    <div class="Funds" style="allign-right">
+    <% if true %> <!-- Employee -->
         <table>
             <thead>
-                <th>Department ID</th>
-                <th>Department Name</th>
-                <th>Actual Funds</th>
-                <th>Available Funds</th>
+                <tr>
+                    <th> ID </th>
+                    <th> Expense Type </th>
+                    <th> Amount </th>
+                    <th> Was Approved? </th>
+                    <th> Rejection Reason </th>
+                    <th></th>
+                    <th></th>
+                </tr>
             </thead>
-            <% @departments.each do |dept| %>
-                    <tr>
-                        <td> <%= dept.id %> </td>
-                        <td> <%= dept.name %> </td>
-                        <td> <%= number_to_currency(dept.available_funds) %> </td>
-                        <td> <%= number_to_currency(dept.actual_funds) %> </td>
-                    </tr>
-            <% end %>
+            <% @taf.taf_line_items.each do |taf_line_item| %>
+                <tr>
+                    <td><%= taf_line_item.taf_item.id %></li>
+                    <td> <%= taf_line_item.taf_item.expense_type %> </td> 
+                    <td> <%= number_to_currency(taf_line_item.taf_item.estimated_amount) %> </td>
+                    <td> <%= taf_line_item.taf_item.ba_approval ? "true" : "false" %> </td>
+                    <td> <%= taf_line_item.taf_item.ba_reason %> </td>
+                
+                </tr>
+                
+                <li style="display:none"><%=@taf.quantity+=1%></li>
+                <li style="display:none"><%=@taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
+                <% end %>
         </table>
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th> ID </th>
-                <th> Expense Type </th>
-                <th> Amount </th>
-                <th> Was Approved? </th>
-                <th> Rejection Reason </th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <% @taf.taf_line_items.each do |taf_line_item| %>
-            <tr>
-                <td> <%= taf_line_item.taf_item.id %> </td> 
-                <td> <%= taf_line_item.taf_item.expense_type %> </td> 
-                <td> <%= number_to_currency(taf_line_item.taf_item.estimated_amount) %> </td>
-                <td> <%= taf_line_item.taf_item.ba_approval ? "true" : "false" %> </td>
-                <td> <%= taf_line_item.taf_item.ba_reason %> </td>
-                <td> <%= button_to 'Accept', { :controller => "taf_line_items",
-                                        :action => "decision",
-                                        :id => taf_line_item.taf_item.id,
-                                        :decision => "true"}, method: 'post', class: "btn btn-success" %>
-                </td>
-                <td> <%= button_to 'Reject', { :controller => "taf_line_items",
-                                        :action => "decision",
-                                        :id => taf_line_item.taf_item.id,
-                                        :decision => "false"}, method: 'post', class: "btn btn-danger" %>
-                </td>
-            </tr>
-        
-        <li style="display:none"><%=@taf.quantity+=1%></li>
-        <li style="display:none"><%=@taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
-        <% end %>
-    </table>
+            
+        <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
 
-    <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
-
-<% elsif true %> <!-- Payment Manager -->
-    <div class="pm_top_div">
-        <div class="pm_funds_div">
+    <% elsif true %> <!-- BUDGET APPROVER -->
+        <div class="Funds" style="allign-right">
             <table>
                 <thead>
                     <th>Department ID</th>
@@ -100,58 +45,118 @@
                     <th>Available Funds</th>
                 </thead>
                 <% @departments.each do |dept| %>
-                    <tr>
-                        <td> <%= dept.id %> </td>
-                        <td> <%= dept.name %> </td>
-                        <td> <%= number_to_currency(dept.available_funds) %> </td>
-                        <td> <%= number_to_currency(dept.actual_funds) %> </td>
-                    </tr>
+                        <tr>
+                            <td> <%= dept.id %> </td>
+                            <td> <%= dept.name %> </td>
+                            <td> <%= number_to_currency(dept.available_funds) %> </td>
+                            <td> <%= number_to_currency(dept.actual_funds) %> </td>
+                        </tr>
                 <% end %>
             </table>
         </div>
-        <div class="pm_accept_div">
-            <td> <%= button_to 'Accept', { :controller => "tafs",
-                                        :action => "decision",
-                                        :id => @taf.id,
-                                        :decision => "true"}, method: 'post', class: "btn btn-success" %>
-            </td>
-            <td> <%= button_to 'Reject', { :controller => "tafs",
-                                        :action => "decision",
-                                        :id => @taf.id,
-                                        :decision => "false"}, method: 'post', class: "btn btn-danger" %>
-            </td>
+        <table>
+            <thead>
+                <tr>
+                    <th> ID </th>
+                    <th> Expense Type </th>
+                    <th> Amount </th>
+                    <th> Was Approved? </th>
+                    <th> Rejection Reason </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <% @taf.taf_line_items.each do |taf_line_item| %>
+                <tr>
+                    <td> <%= taf_line_item.taf_item.id %> </td> 
+                    <td> <%= taf_line_item.taf_item.expense_type %> </td> 
+                    <td> <%= number_to_currency(taf_line_item.taf_item.estimated_amount) %> </td>
+                    <td> <%= taf_line_item.taf_item.ba_approval ? "true" : "false" %> </td>
+                    <td> <%= taf_line_item.taf_item.ba_reason %> </td>
+                    <td> <%= button_to 'Accept', { :controller => "taf_line_items",
+                                            :action => "decision",
+                                            :id => taf_line_item.taf_item.id,
+                                            :decision => "true"}, method: 'post', class: "btn btn-success" %>
+                    </td>
+                    <td> <%= button_to 'Reject', { :controller => "taf_line_items",
+                                            :action => "decision",
+                                            :id => taf_line_item.taf_item.id,
+                                            :decision => "false"}, method: 'post', class: "btn btn-danger" %>
+                    </td>
+                </tr>
+            
+            <li style="display:none"><%=@taf.quantity+=1%></li>
+            <li style="display:none"><%=@taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
+            <% end %>
+        </table>
+
+        <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
+
+    <% elsif true %> <!-- Payment Manager -->
+        <div class="pm_top_div">
+            <div class="pm_funds_div">
+                <table>
+                    <thead>
+                        <th>Department ID</th>
+                        <th>Department Name</th>
+                        <th>Actual Funds</th>
+                        <th>Available Funds</th>
+                    </thead>
+                    <% @departments.each do |dept| %>
+                        <tr>
+                            <td> <%= dept.id %> </td>
+                            <td> <%= dept.name %> </td>
+                            <td> <%= number_to_currency(dept.available_funds) %> </td>
+                            <td> <%= number_to_currency(dept.actual_funds) %> </td>
+                        </tr>
+                    <% end %>
+                </table>
+            </div>
+            <div class="pm_accept_div">
+                <td> <%= button_to 'Accept', { :controller => "tafs",
+                                            :action => "decision",
+                                            :id => @taf.id,
+                                            :decision => "true"}, method: 'post', class: "btn btn-success" %>
+                </td>
+                <td> <%= button_to 'Reject', { :controller => "tafs",
+                                            :action => "decision",
+                                            :id => @taf.id,
+                                            :decision => "false"}, method: 'post', class: "btn btn-danger" %>
+                </td>
+            </div>
         </div>
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th> ID </th>
-                <th> Expense Type </th>
-                <th> Amount </th>
-                <th> Was Approved? </th>
-                <th> Rejection Reason </th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>    
-        <% @taf.taf_line_items.each do |taf_line_item| %>
-            <tr>
-                <td><%= taf_line_item.taf_item.id %></li>
-                <td> <%= taf_line_item.taf_item.expense_type %> </td> 
-                <td> <%= number_to_currency(taf_line_item.taf_item.estimated_amount) %> </td>
-                <td> <%= taf_line_item.taf_item.ba_approval ? "true" : "false" %> </td>
-                <td> <%= taf_line_item.taf_item.ba_reason %> </td>
-                <li style="display:none"><%=@taf.quantity+=1%></li>
-                <li style="display:none"><%=@taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
-            </tr>
-        <% end %>
-    </table>
+        <table>
+            <thead>
+                <tr>
+                    <th> ID </th>
+                    <th> Expense Type </th>
+                    <th> Amount </th>
+                    <th> Was Approved? </th>
+                    <th> Rejection Reason </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>    
+            <% @taf.taf_line_items.each do |taf_line_item| %>
+                <tr>
+                    <td><%= taf_line_item.taf_item.id %></li>
+                    <td> <%= taf_line_item.taf_item.expense_type %> </td> 
+                    <td> <%= number_to_currency(taf_line_item.taf_item.estimated_amount) %> </td>
+                    <td> <%= taf_line_item.taf_item.ba_approval ? "true" : "false" %> </td>
+                    <td> <%= taf_line_item.taf_item.ba_reason %> </td>
+                    <li style="display:none"><%=@taf.quantity+=1%></li>
+                    <li style="display:none"><%=@taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
+                </tr>
+            <% end %>
+        </table>
 
-    <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
+        <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
 
-<% else %> <!-- SUPER ACCOUNT -->
+    <% else %> <!-- SUPER ACCOUNT -->
 
-<% end %>
-
-<%= link_to 'Edit', edit_taf_path(@taf) %> |
-<%= link_to 'Back', tafs_path %>
+    <% end %>
+    
+    <br>
+    <%= link_to 'Edit', edit_taf_path(@taf) %> |
+    <%= link_to 'Back', tafs_path %>
+</article>

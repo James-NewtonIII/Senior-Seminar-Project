@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :expense_type %>
-    <%= form.select :expense_type, ['Flight','Travel','Taxi','Hotel','Food','Miscellaneous','Other'] %>
+    <%= form.select :expense_type, ['Travel','Taxi','Lodging','Food','Other'] %>
   </div>
   <div class="field">
     <%= form.label :actual_expense_date %>
@@ -25,7 +25,7 @@
   </div>
    <div class="field">
     <%= form.label :department %>
-   <%= form.select :department, ['Agents', 'Politicals','Research']%>
+    <%= form.select :department, ['QA', 'RnD','DnD']%>
   </div>
   <div class="field">
     <%= form.label :ba_approval %>

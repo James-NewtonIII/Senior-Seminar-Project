@@ -1,6 +1,4 @@
 class TafLineItemsController < ApplicationController
-  include CurrentTaf
-  before_action :set_taf, only: [:create]
   before_action :set_taf_line_item, only: [:show, :edit, :update, :destroy]
 
   # GET /taf_line_items
@@ -36,12 +34,13 @@ class TafLineItemsController < ApplicationController
   # POST /taf_line_items.json
   def create
     taf_item = TafItem.find(params[:taf_item_id])
-    @taf_line_item = TafLineItem.new(taf_line_item_params)
+    @taf_line_item = @taf.add_taf_item(taf_item)
 
     respond_to do |format|
-      if @taf_line_item.save
-        format.html { redirect_to @taf_line_item, notice: 'Taf line item was successfully created.' }
-        format.json { render :show, status: :created, location: @taf_line_item }
+      if @line_item.save
+        format.html { redirect_to store_index_url }
+        format.js
+        format.json { render :show, status: :created, location: @line_item }
       else
         format.html { render :new }
         format.json { render json: @taf_line_item.errors, status: :unprocessable_entity }
@@ -83,4 +82,5 @@ class TafLineItemsController < ApplicationController
     def taf_line_item_params
       params.require(:taf_line_item).permit(:taf_item_id, :taf_id)
     end
+    
 end
