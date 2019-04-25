@@ -10,6 +10,7 @@ class TafsController < ApplicationController
   # GET /tafs/1
   # GET /tafs/1.json
   def show
+    @departments = Department.order(:id)
   end
 
   # GET /tafs/new
@@ -19,6 +20,15 @@ class TafsController < ApplicationController
 
   # GET /tafs/1/edit
   def edit
+  end
+
+  def decision
+    @tafs = Taf.where(id: params[:id]) 
+    if params[:decision] == "true"
+      @tafs.update(pm_approval: true)
+    else
+      @tafs.update(pm_approval: false)
+    end
   end
 
   # POST /tafs

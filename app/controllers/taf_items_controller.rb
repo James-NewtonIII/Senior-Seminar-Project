@@ -21,15 +21,6 @@ class TafItemsController < ApplicationController
   def edit
   end
 
-  def decision
-    @taf_item = TafItem.where(id: params[:id]) 
-    if params[:decision] == "true"
-      @taf_item.update(ba_approval: true)
-    else
-      @taf_item.update(ba_approval: false)
-    end
-  end
-
   # POST /taf_items
   # POST /taf_items.json
   def create

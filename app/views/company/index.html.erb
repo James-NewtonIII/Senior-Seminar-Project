@@ -56,7 +56,7 @@
                     <div class="amount">
                         <%= number_to_currency(item.estimated_amount) %>
                         <%# <%= button_to 'Add to Cart', line_items_path(item_id: item) %> 
-                        <%= link_to 'Accept', { :controller => "taf_items",
+                        <%= link_to 'Accept', { :controller => "taf_line_items",
                                                 :action => "decision",
                                                 :id => item.id,
                                                 :decision => "true"}, method: 'post', class: "btn btn-sm btn-success" %>

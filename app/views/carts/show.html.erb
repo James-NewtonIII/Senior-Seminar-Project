@@ -4,46 +4,70 @@
 <h2>Your Pragmatic Expense Report</h2>
 
 <% if false %> <!-- Employee -->
-<ul>
-    <% @cart.line_items.each do |item| %>
-        <li><%= item.item.id %></li>
-        <li style="display:none"><%=@cart.quantity+=1%></li>
-        <li style="display:none"><%=@cart.total_expense+=item.item.amount%></li>
-    <% end %>
-    <%=@cart.quantity%> | <%=@cart.total_expense%>
-</ul>
-
-<% elsif true %> <!-- BUDGET APPROVER -->
-    <div class="Funds" style="align-right">
-        <table>
-            <thead>
-                <td>Actual Funds</td>
-                <td>Available Funds</td>
-            </thead>
-            <tr>
-                <td> <%= item.department.available_funds %> </td>
-                <td> <%= department.actual_funds %> </td>
-            </tr>
-        </table>
-    </div>
     <table>
         <thead>
             <tr>
-                <td> ID </td>
-                <td> Expense Type </td>
-                <td> Amount </td>
-                <td> Image URL </td>
-                <td> Was Approved? </td>
-                <td> Rejection Reason </td>
-                <td></td>
-                <td></td>
+                <th> ID </th>
+                <th> Expense Type </th>
+                <th> Amount </th>
+                <th> Image URL </th>
+                <th> Was Approved? </th>
+                <th> Rejection Reason </th>
             </tr>
         </thead>
         <% @cart.line_items.each do |item| %>
             <tr>
                 <td> <%= item.item.id %> </td> 
                 <td> <%= item.item.expense_type %> </td> 
-                <td> <%= item.item.amount %> </td>
+                <td> <%= number_to_currency(item.item.amount) %> </td>
+                <td> <%= item.item.image_url %> </td>
+                <td> <%= item.item.ba_approval ? "true" : "false" %> </td>
+                <td> <%= item.item.ba_reason %> </td>
+            </tr>
+            <li style="display:none"><%=@cart.quantity+=1%></li>
+            <li style="display:none"><%=@cart.total_expense+=item.item.amount%></li>
+        <% end %>
+    </table>
+
+    <%=@cart.quantity%> | <%=number_to_currency(@cart.total_expense)%>
+
+<% elsif false %> <!-- BUDGET APPROVER -->
+    <div class="Funds" style="align-right">
+        <table>
+            <thead>
+                <th>Department ID</th>
+                <th>Department Name</th>
+                <th>Actual Funds</th>
+                <th>Available Funds</th>
+            </thead>
+            <% @departments.each do |dept| %>
+                    <tr>
+                        <td> <%= dept.id %> </td>
+                        <td> <%= dept.name %> </td>
+                        <td> <%= number_to_currency(dept.available_funds) %> </td>
+                        <td> <%= number_to_currency(dept.actual_funds) %> </td>
+                    </tr>
+            <% end %>
+        </table>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th> ID </th>
+                <th> Expense Type </th>
+                <th> Amount </th>
+                <th> Image URL </th>
+                <th> Was Approved? </th>
+                <th> Rejection Reason </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <% @cart.line_items.each do |item| %>
+            <tr>
+                <td> <%= item.item.id %> </td> 
+                <td> <%= item.item.expense_type %> </td> 
+                <td> <%= number_to_currency(item.item.amount) %> </td>
                 <td> <%= item.item.image_url %> </td>
                 <td> <%= item.item.ba_approval ? "true" : "false" %> </td>
                 <td> <%= item.item.ba_reason %> </td>
@@ -58,15 +82,72 @@
                                         :decision => "false"}, method: 'post', class: "btn btn-danger" %>
                 </td>
             </tr>
-        
-        <li style="display:none"><%=@cart.quantity+=1%></li>
-        <li style="display:none"><%=@cart.total_expense+=item.item.amount%></li>
+            <li style="display:none"><%=@cart.quantity+=1%></li>
+            <li style="display:none"><%=@cart.total_expense+=item.item.amount%></li>
         <% end %>
     </table>
 
-    <%=@cart.quantity%> | <%=@cart.total_expense%>
+    <%=@cart.quantity%> | <%=number_to_currency(@cart.total_expense)%>
 
 <% elsif true %> <!-- Payment Manager -->
+    <div class="pm_top_div">
+        <div class="pm_funds_div">
+            <table>
+                <thead>
+                    <th>Department ID</th>
+                    <th>Department Name</th>
+                    <th>Actual Funds</th>
+                    <th>Available Funds</th>
+                </thead>
+                <% @departments.each do |dept| %>
+                        <tr>
+                            <td> <%= dept.id %> </td>
+                            <td> <%= dept.name %> </td>
+                            <td> <%= number_to_currency(dept.available_funds) %> </td>
+                            <td> <%= number_to_currency(dept.actual_funds) %> </td>
+                        </tr>
+                <% end %>
+            </table>
+        </div>
+        <div class="pm_accept_div">
+            <td> <%= button_to 'Accept', { :controller => "carts",
+                                        :action => "decision",
+                                        :id => @cart.id,
+                                        :decision => "true"}, method: 'post', class: "btn btn-success" %>
+            </td>
+            <td> <%= button_to 'Reject', { :controller => "carts",
+                                        :action => "decision",
+                                        :id => @cart.id,
+                                        :decision => "false"}, method: 'post', class: "btn btn-danger" %>
+            </td>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th> ID </th>
+                <th> Expense Type </th>
+                <th> Amount </th>
+                <th> Image URL </th>
+                <th> Was Approved? </th>
+                <th> Rejection Reason </th>
+            </tr>
+        </thead>
+        <% @cart.line_items.each do |item| %>
+            <tr>
+                <td> <%= item.item.id %> </td> 
+                <td> <%= item.item.expense_type %> </td> 
+                <td> <%= number_to_currency(item.item.amount) %> </td>
+                <td> <%= item.item.image_url %> </td>
+                <td> <%= item.item.ba_approval ? "true" : "false" %> </td>
+                <td> <%= item.item.ba_reason %> </td>
+            </tr>
+            <li style="display:none"><%=@cart.quantity+=1%></li>
+            <li style="display:none"><%=@cart.total_expense+=item.item.amount%></li>
+        <% end %>
+    </table>
+
+    <%=@cart.quantity%> | <%=number_to_currency(@cart.total_expense)%>
 
 <% else %> <!-- SUPER ACCOUNT -->
 

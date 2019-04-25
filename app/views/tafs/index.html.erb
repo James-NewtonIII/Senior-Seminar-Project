@@ -5,13 +5,21 @@
 <table>
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>TAF ID</th>
+      <th>TAF Estimated Amount</th>
     </tr>
   </thead>
 
   <tbody>
     <% @tafs.each do |taf| %>
       <tr>
+        <td><%= taf.id %></td>
+        <td>
+          <% taf.taf_line_items.each do |taf_line_item| %>
+            <li style="display:none"><%=taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
+          <% end %>
+          <%= number_to_currency(taf.total_estimated_amount) %>
+        </td>
         <td><%= link_to 'Show', taf %></td>
         <td><%= link_to 'Edit', edit_taf_path(taf) %></td>
         <td><%= link_to 'Destroy', taf, method: :delete, data: { confirm: 'Are you sure?' } %></td>

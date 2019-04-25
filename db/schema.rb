@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_24_193259) do
+ActiveRecord::Schema.define(version: 2019_04_25_054241) do
 
   create_table "budget_approvers", force: :cascade do |t|
     t.string "name"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 2019_04_24_193259) do
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 0
     t.decimal "total_expense", default: "0.0"
+    t.boolean "pm_approval"
+    t.string "pm_reason"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -102,12 +104,14 @@ ActiveRecord::Schema.define(version: 2019_04_24_193259) do
 
   create_table "tafs", force: :cascade do |t|
     t.string "pm_reject_reason"
+    t.decimal "total_estimated_amount", default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "taf_line_item_id"
     t.integer "payment_manager_id"
+    t.integer "quantity", default: 0
+    t.boolean "pm_approval"
+    t.string "pm_reason"
     t.index ["payment_manager_id"], name: "index_tafs_on_payment_manager_id"
-    t.index ["taf_line_item_id"], name: "index_tafs_on_taf_line_item_id"
   end
 
 end

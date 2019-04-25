@@ -10,6 +10,7 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
+    @departments = Department.order(:id)
   end
 
   # GET /carts/new
@@ -19,6 +20,15 @@ class CartsController < ApplicationController
 
   # GET /carts/1/edit
   def edit
+  end
+
+  def decision
+    @cart = Cart.where(id: params[:id]) 
+    if params[:decision] == "true"
+      @cart.update(pm_approval: true)
+    else
+      @cart.update(pm_approval: false)
+    end
   end
 
   # POST /carts

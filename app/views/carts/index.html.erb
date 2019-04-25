@@ -5,13 +5,21 @@
 <table>
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>Report ID</th>
+      <th>Total Expense</th>
     </tr>
   </thead>
 
   <tbody>
     <% @carts.each do |cart| %>
       <tr>
+        <td><%= cart.id %></td>
+        <td>
+          <% cart.line_items.each do |line_item| %>
+            <li style="display:none"><%=cart.total_expense+=line_item.item.amount%></li>
+          <% end %>
+          <%= number_to_currency(cart.total_expense) %>
+        </td>
         <td><%= link_to 'Show', cart %></td>
         <td><%= link_to 'Edit', edit_cart_path(cart) %></td>
         <td><%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
