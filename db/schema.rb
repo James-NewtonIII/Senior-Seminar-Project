@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(version: 2019_04_24_193259) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name"
-    t.decimal "funds"
+    t.decimal "actual_funds"
+    t.decimal "available_funds"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,7 +50,7 @@ ActiveRecord::Schema.define(version: 2019_04_24_193259) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "actual_expense_date"
-    t.string "department"
+    t.integer "department"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -92,8 +93,10 @@ ActiveRecord::Schema.define(version: 2019_04_24_193259) do
 
   create_table "taf_line_items", force: :cascade do |t|
     t.integer "taf_item_id"
+    t.integer "taf_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["taf_id"], name: "index_taf_line_items_on_taf_id"
     t.index ["taf_item_id"], name: "index_taf_line_items_on_taf_item_id"
   end
 

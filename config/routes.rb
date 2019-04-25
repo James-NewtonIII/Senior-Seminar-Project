@@ -11,7 +11,13 @@ Rails.application.routes.draw do
     member do
         post :decision
     end
-end
+  end
+
+  resources :line_items do
+    member do
+        post :decision
+    end
+  end
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

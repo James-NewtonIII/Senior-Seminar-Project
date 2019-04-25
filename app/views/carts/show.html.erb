@@ -2,6 +2,8 @@
     <aside id="notice"><%= notice %></aside>
 <% end %>
 <h2>Your Pragmatic Expense Report</h2>
+
+<% if false %> <!-- Employee -->
 <ul>
     <% @cart.line_items.each do |item| %>
         <li><%= item.item.id %></li>
@@ -10,3 +12,64 @@
     <% end %>
     <%=@cart.quantity%> | <%=@cart.total_expense%>
 </ul>
+
+<% elsif true %> <!-- BUDGET APPROVER -->
+    <div class="Funds" style="align-right">
+        <table>
+            <thead>
+                <td>Actual Funds</td>
+                <td>Available Funds</td>
+            </thead>
+            <tr>
+                <td> <%= item.department.available_funds %> </td>
+                <td> <%= department.actual_funds %> </td>
+            </tr>
+        </table>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <td> ID </td>
+                <td> Expense Type </td>
+                <td> Amount </td>
+                <td> Image URL </td>
+                <td> Was Approved? </td>
+                <td> Rejection Reason </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <% @cart.line_items.each do |item| %>
+            <tr>
+                <td> <%= item.item.id %> </td> 
+                <td> <%= item.item.expense_type %> </td> 
+                <td> <%= item.item.amount %> </td>
+                <td> <%= item.item.image_url %> </td>
+                <td> <%= item.item.ba_approval ? "true" : "false" %> </td>
+                <td> <%= item.item.ba_reason %> </td>
+                <td> <%= button_to 'Accept', { :controller => "line_items",
+                                        :action => "decision",
+                                        :id => item.item.id,
+                                        :decision => "true"}, method: 'post', class: "btn btn-success" %>
+                </td>
+                <td> <%= button_to 'Reject', { :controller => "line_items",
+                                        :action => "decision",
+                                        :id => item.item.id,
+                                        :decision => "false"}, method: 'post', class: "btn btn-danger" %>
+                </td>
+            </tr>
+        
+        <li style="display:none"><%=@cart.quantity+=1%></li>
+        <li style="display:none"><%=@cart.total_expense+=item.item.amount%></li>
+        <% end %>
+    </table>
+
+    <%=@cart.quantity%> | <%=@cart.total_expense%>
+
+<% elsif true %> <!-- Payment Manager -->
+
+<% else %> <!-- SUPER ACCOUNT -->
+
+<% end %>
+
+

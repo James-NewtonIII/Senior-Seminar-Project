@@ -23,6 +23,15 @@ class LineItemsController < ApplicationController
   def edit
   end
 
+  def decision
+    @item = Item.where(id: params[:id]) 
+    if params[:decision] == "true"
+      @item.update(ba_approval: true)
+    else
+      @item.update(ba_approval: false)
+    end
+  end
+
   # POST /line_items
   # POST /line_items.json
   def create
