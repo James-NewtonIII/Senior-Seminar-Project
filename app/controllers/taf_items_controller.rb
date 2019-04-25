@@ -25,12 +25,14 @@ class TafItemsController < ApplicationController
   # POST /taf_items.json
   def create
     @taf_item = TafItem.new(taf_item_params)
-
+    
     respond_to do |format|
       if @taf_item.save
         format.html { redirect_to @taf_item, notice: 'Taf item was successfully created.' }
         format.js { @current_item = @taf_line_item }
         format.json { render :show, status: :created, location: @taf_item }
+       
+        
       else
         format.html { render :new }
         format.json { render json: @taf_item.errors, status: :unprocessable_entity }

@@ -17,7 +17,7 @@
 
   <tbody>
     <% @taf_items.each do |taf_item| %>
-      <tr>
+      <tr class="loop">
         <td><%= taf_item.request_reason %></td>
         <td><%= taf_item.expense_date %></td>
         <td><%= number_to_currency(taf_item.estimated_amount) %></td>
