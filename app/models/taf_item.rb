@@ -2,7 +2,7 @@ class TafItem < ApplicationRecord
     
     #validates :request_reason, :expense_date, :estimated_amount, :dept, presence: true
     validates :estimated_amount, numericality: {greater_than_or_equal_to: 0.01}
-    belongs_to :taf_line_items
+    has_one :taf_line_item
     before_destroy :ensure_not_referenced_by_any_taf_line_item
 
     def add_taf_item(taf_item)

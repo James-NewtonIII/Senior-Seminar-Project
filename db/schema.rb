@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(version: 2019_04_25_054241) do
     t.string "expense_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "taf_line_items_id"
-    t.index ["taf_line_items_id"], name: "index_taf_items_on_taf_line_items_id"
+    t.integer "taf_line_item_id"
+    t.index ["taf_line_item_id"], name: "index_taf_items_on_taf_line_item_id"
   end
 
   create_table "taf_line_items", force: :cascade do |t|

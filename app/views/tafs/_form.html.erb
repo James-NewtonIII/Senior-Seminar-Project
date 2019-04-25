@@ -53,7 +53,7 @@
           <th> From Department </th>
         </tr>
       </thead>
-      <%= form.nested_fields_for :taf_item do |new_taf_item| %>
+      <%= form.nested_fields_for :taf_items do |new_taf_item| %>
         <tr>
         <td><%= new_taf_item.hidden_field :taf_item_id, :value => @taf_item.id  %></td>
         <td><%= new_taf_item.select :request_reason, ['Travel','Taxi','Lodging','Food','Other'] %></td>
@@ -64,7 +64,7 @@
     <% end %>
     </table>
 
-    <!-- IF BUDGET APPROVER -->
+    <!-- IF BUDGET APPROVER --
     <table>
       <thead>
         <tr>
@@ -72,16 +72,17 @@
           <th> Rejection Reason </th>
         </tr>
       </thead>
-      <%= form.nested_fields_for :taf_item do |new_taf_item| %>
+      <%= form.nested_fields_for :taf_items do |ba_taf_item| %>
         <tr>
-          <td><%= new_taf_item.check_box :ba_approval %></td>
-          <td><%= new_taf_item.text_area :ba_reason, id: :ba_reason, rows: 1, cols: 30 %></td>
+          <td><%= ba_taf_item.check_box :ba_approval %></td>
+          <td><%= ba_taf_item.text_area :ba_reason, id: :ba_reason, rows: 1, cols: 30 %></td>
         </tr>
       <% end %>
     </table>
-    
+    -->
     <%= form.add_nested_fields_link :taf_item do %>
     <span>New Item</span>
+    <% end %>
   </div>
     
   <br>
