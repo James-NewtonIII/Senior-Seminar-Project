@@ -1,5 +1,10 @@
 class EmployeesController < ApplicationController
+  before_action :authenticate_account!
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+
+  def pundit_user
+    current_account
+  end
 
   # GET /employees
   # GET /employees.json
@@ -19,6 +24,7 @@ class EmployeesController < ApplicationController
 
   # GET /employees/1/edit
   def edit
+    authorize @employee
   end
 
   # POST /employees
@@ -40,6 +46,7 @@ class EmployeesController < ApplicationController
   # PATCH/PUT /employees/1
   # PATCH/PUT /employees/1.json
   def update
+    authorize @employee
     respond_to do |format|
       if @employee.update(employee_params)
         format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }

@@ -1,5 +1,10 @@
 class TafItemsController < ApplicationController
+  before_action :authenticate_account!
   before_action :set_taf_item, only: [:show, :edit, :update, :destroy]
+
+  def pundit_user
+    current_account
+  end
 
   # GET /taf_items
   # GET /taf_items.json
@@ -10,21 +15,25 @@ class TafItemsController < ApplicationController
   # GET /taf_items/1
   # GET /taf_items/1.json
   def show
+    authorize @taf_item
   end
 
   # GET /taf_items/new
   def new
     @taf_item = TafItem.new
+    authorize @taf_item
   end
 
   # GET /taf_items/1/edit
   def edit
+    authorize @taf_item
   end
 
   # POST /taf_items
   # POST /taf_items.json
   def create
     @taf_item = TafItem.new(taf_item_params)
+    authorize @taf_item
     
     respond_to do |format|
       if @taf_item.save
@@ -57,6 +66,7 @@ class TafItemsController < ApplicationController
   # DELETE /taf_items/1
   # DELETE /taf_items/1.json
   def destroy
+    authorize @taf_item
     @taf_item.destroy
     respond_to do |format|
       format.html { redirect_to taf_items_url, notice: 'Taf item was successfully destroyed.' }

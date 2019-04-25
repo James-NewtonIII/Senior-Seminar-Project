@@ -3,6 +3,10 @@ class LineItemsController < ApplicationController
   before_action :set_cart, only: [:create]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
+  def pundit_user
+    current_account
+  end
+
   # GET /line_items
   # GET /line_items.json
   def index
@@ -83,4 +87,16 @@ class LineItemsController < ApplicationController
     def line_item_params
       params.require(:line_item).permit(:item_id, :cart_id)
     end
+
+    def show_cart_for_employee
+      employee = Employee.find(params[:id])
+
+      authorize employee, :show_cart_for_employee?
+      items = employee.items
+      @line_items = LineItem.where(item_id: items)
+      items.each do |item|
+        logger.info(item)
+      end
+    end
+
 end

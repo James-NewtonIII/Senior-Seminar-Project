@@ -1,5 +1,10 @@
 class BudgetApproversController < ApplicationController
+  before_action :authenticate_account!
   before_action :set_budget_approver, only: [:show, :edit, :update, :destroy]
+
+  def pundit_user
+    current_account
+  end
 
   # GET /budget_approvers
   # GET /budget_approvers.json
@@ -19,6 +24,7 @@ class BudgetApproversController < ApplicationController
 
   # GET /budget_approvers/1/edit
   def edit
+    authorize @budget_approver
   end
 
   # POST /budget_approvers
@@ -40,6 +46,7 @@ class BudgetApproversController < ApplicationController
   # PATCH/PUT /budget_approvers/1
   # PATCH/PUT /budget_approvers/1.json
   def update
+    authorize @budget_approver
     respond_to do |format|
       if @budget_approver.update(budget_approver_params)
         format.html { redirect_to @budget_approver, notice: 'Budget approver was successfully updated.' }

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :accounts
   resources :taf_items
   resources :taf_line_items
   resources :tafs
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
   resources :payment_managers
   root 'company#index', as: 'company_index'
   
+  devise_for :accounts,  :controllers => { :registrations => 'registrations' }
 
   resources :taf_line_items do
     member do

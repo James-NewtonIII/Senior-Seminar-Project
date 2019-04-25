@@ -1,5 +1,10 @@
 class PaymentManagersController < ApplicationController
+  before_action :authenticate_account!
   before_action :set_payment_manager, only: [:show, :edit, :update, :destroy]
+
+  def pundit_user
+    current_account
+  end
 
   # GET /payment_managers
   # GET /payment_managers.json
@@ -19,6 +24,7 @@ class PaymentManagersController < ApplicationController
 
   # GET /payment_managers/1/edit
   def edit
+    authorize @payment_manager
   end
 
   # POST /payment_managers
@@ -40,6 +46,7 @@ class PaymentManagersController < ApplicationController
   # PATCH/PUT /payment_managers/1
   # PATCH/PUT /payment_managers/1.json
   def update
+    authorize @payment_manager
     respond_to do |format|
       if @payment_manager.update(payment_manager_params)
         format.html { redirect_to @payment_manager, notice: 'Payment manager was successfully updated.' }
