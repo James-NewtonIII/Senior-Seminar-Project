@@ -24,5 +24,9 @@
 </table>
 
 <br>
+<%= button_to 'Log out', destroy_account_session_path, method: :delete %>
 
-<%= link_to 'New Budget Approver', new_budget_approver_path %>
+ <% if current_account.accountable_type == "SuperAccount" %>
+  <%= link_to 'New Budget Approver', new_budget_approver_path %>
+<% end %>
+
