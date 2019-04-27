@@ -25,4 +25,8 @@
 
 <br>
 
-<%= link_to 'New Employee', new_employee_path %>
+<%= button_to 'Log out', destroy_account_session_path, method: :delete %>
+
+<% if current_account.accountable_type == "SuperAccount" %>
+    <%= link_to 'New Employee', new_employee_path %>
+<% end %>
