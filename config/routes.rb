@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+
+  namespace :admin do
+    resources :accounts
+    resources :budget_approvers
+    resources :carts
+    resources :departments
+    resources :employees
+    resources :items
+    resources :line_items
+    resources :payment_managers
+    resources :request_items
+    resources :tafs
+    resources :taf_items
+    resources :taf_line_items
+    resources :super_accounts
+    root to: "accounts#index"
+  end
  
   
   devise_for :account, :controllers => { :registrations => 'registrations' }
@@ -23,6 +40,13 @@ Rails.application.routes.draw do
         post :decision
     end
   end
+
+  resources :taf_line_items do
+    member do
+        post :decision
+    end
+  end
+
 
   resources :items do
     member do
