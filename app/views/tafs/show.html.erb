@@ -5,12 +5,13 @@
 
     <h2>Your Pragmatic Travel Authorization Form</h2>
 
-    <% if true %> <!-- Employee -->
+    <% if false %> <!-- Employee -->
         <table>
             <thead>
                 <tr>
                     <th> ID </th>
                     <th> Expense Type </th>
+                    <th> From Department </th>
                     <th> Amount </th>
                     <th> Was Approved? </th>
                     <th> Rejection Reason </th>
@@ -22,6 +23,7 @@
                 <tr>
                     <td> <%= taf_item.id %></li>
                     <td> <%= taf_item.expense_type %> </td> 
+                    <td> <%= taf_item.dept %> </td> 
                     <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
                     <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
                     <td> <%= taf_item.ba_reason %> </td>
@@ -59,6 +61,7 @@
                 <tr>
                     <th> ID </th>
                     <th> Expense Type </th>
+                    <th> From Department </th>
                     <th> Amount </th>
                     <th> Was Approved? </th>
                     <th> Rejection Reason </th>
@@ -70,6 +73,7 @@
                 <tr>
                     <td> <%= taf_item.id %> </td> 
                     <td> <%= taf_item.expense_type %> </td> 
+                    <td> <%= taf_item.dept %> </td> 
                     <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
                     <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
                     <td> <%= taf_item.ba_reason %> </td>
@@ -130,6 +134,7 @@
                 <tr>
                     <th> ID </th>
                     <th> Expense Type </th>
+                    <th> From Department </th>
                     <th> Amount </th>
                     <th> Was Approved? </th>
                     <th> Rejection Reason </th>
@@ -141,6 +146,7 @@
                 <tr>
                     <td><%= taf_item.id %></li>
                     <td> <%= taf_item.expense_type %> </td> 
+                    <td> <%= taf_item.dept %> </td> 
                     <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
                     <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
                     <td> <%= taf_item.ba_reason %> </td>

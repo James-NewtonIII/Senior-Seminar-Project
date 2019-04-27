@@ -51,7 +51,7 @@
     </thead>
     <tbody class='items'>
       <%= f.simple_fields_for :taf_items do |builder| %>
-        <%= render 'taf_item_form', f: builder %>
+        <%= render 'taf_item_fields', f: builder %>
       <% end %>
     </tbody>
 

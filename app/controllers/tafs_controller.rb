@@ -1,6 +1,6 @@
 class TafsController < ApplicationController
   include CurrentTaf
-  before_action :set_current_taf, only: [:new, :show, :edit, :update, :destroy]
+  #before_action :set_current_taf, only: [:new, :edit, :update, :destroy]
   before_action :set_taf, only: [:new, :show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_taf
 
@@ -19,10 +19,6 @@ class TafsController < ApplicationController
   # GET /tafs/new
   def new
     @taf = Taf.new
-    @new_taf_item_form = TafLineItem.new
-    @taf_item = TafItem.new
-    @taf_line_item = TafLineItem.new(params[taf_id: @taf.id, taf_item_id: @taf_item.id])
-    #@taf_item.new_taf_item_form.build
   end
 
   # GET /tafs/1/edit
