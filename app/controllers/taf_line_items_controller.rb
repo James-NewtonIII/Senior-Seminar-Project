@@ -87,12 +87,12 @@ class TafLineItemsController < ApplicationController
       params.require(:taf_line_item).permit(:taf_item_id, :taf_id)
     end
 
-    def show_taf_line_items_for_employee
+    def show_taf_items_for_employee
       employee = Employee.find(params[:id])
 
       authorize employee, :show_taf_for_employee?
       taf_items = employee.taf_items
-      @taf_line_items = TafLineItem.where(taf_item_id: taf_items)
+      @taf_items = TafLineItem.where(taf_item_id: taf_items)
       taf_items.each do |taf_item|
         logger.info(taf_item)
       end

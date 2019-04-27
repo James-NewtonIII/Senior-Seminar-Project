@@ -18,13 +18,13 @@ Rails.application.routes.draw do
   root 'company#index', as: 'company_index'
 
 
-  resources :taf_line_items do
+  resources :taf_items do
     member do
         post :decision
     end
   end
 
-  resources :line_items do
+  resources :items do
     member do
         post :decision
     end

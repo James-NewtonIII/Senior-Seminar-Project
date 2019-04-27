@@ -29,6 +29,15 @@ class TafItemsController < ApplicationController
     authorize @taf_item
   end
 
+  def decision
+    @taf_item = TafItem.where(id: params[:id]) 
+    if params[:decision] == "true"
+      @taf_item.update(ba_approval: true)
+    else
+      @taf_item.update(ba_approval: false)
+    end
+  end
+
   # POST /taf_items
   # POST /taf_items.json
   def create
@@ -84,4 +93,16 @@ class TafItemsController < ApplicationController
     def taf_item_params
       params.require(:taf_item).permit(:request_reason, :expense_date, :estimated_amount, :dept, :ba_approval, :ba_reason)
     end
+
+    def show_taf_items_for_employee
+      employee = Employee.find(params[:id])
+
+      authorize employee, :show_taf_for_employee?
+      taf_items = employee.taf_items
+      @taf_items = TafItem.where(taf_item_id: taf_items)
+      taf_items.each do |taf_item|
+        logger.info(taf_item)
+      end
+    end 
+    
 end

@@ -11,17 +11,17 @@
         <th></th>
       </tr>
     </thead>
-    <% @taf.taf_line_items.each do |taf_line_item| %>
+    <% @taf.taf_items.each do |taf_item| %>
       <tr>
-        <td> <%= taf_line_item.taf_item.id %></li>
-        <td> <%= taf_line_item.taf_item.expense_type %> </td> 
-        <td> <%= number_to_currency(taf_line_item.taf_item.estimated_amount) %> </td>
-        <td> <%= taf_line_item.taf_item.ba_approval ? "true" : "false" %> </td>
-        <td> <%= taf_line_item.taf_item.ba_reason %> </td>
+        <td> <%= taf_item.id %></li>
+        <td> <%= taf_item.expense_type %> </td> 
+        <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
+        <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
+        <td> <%= taf_item.ba_reason %> </td>
       </tr>
                 
       <li style="display:none"><%=@taf.quantity+=1%></li>
-      <li style="display:none"><%=@taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
+      <li style="display:none"><%=@taf.total_estimated_amount+=taf_item.estimated_amount%></li>
     <% end %>
   </table>
             
@@ -59,6 +59,6 @@
 
   <div class="form-actions">
     <%= f.button :submit %>
-    <%= link_to_add_association 'Add Task', f, :taf_items, class: 'btn btn-primary', data: { association_insertion_node: '.tasks', association_insertion_method: :append } %>
+    <%= link_to_add_association 'Add Item', f, :taf_items, class: 'btn btn-primary', data: { association_insertion_node: '.tasks', association_insertion_method: :append } %>
   </div>
 <% end %>

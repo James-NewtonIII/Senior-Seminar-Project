@@ -1,6 +1,7 @@
 class TafsController < ApplicationController
   include CurrentTaf
   before_action :set_current_taf, only: [:new, :show, :edit, :update, :destroy]
+  before_action :set_taf, only: [:new, :show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_taf
 
   # GET /tafs
@@ -89,7 +90,7 @@ class TafsController < ApplicationController
     def taf_params
       params
         .require(:taf)
-        .permit(:id, :total_estimated_amount, :quantity, :payment_manager_id, :pm_approval, :pm_reason, taf_item_attributes: TafItem.attribute_names.map(&:to_sym).push(:_destroy))
+        .permit(:id, :total_estimated_amount, :quantity, :payment_manager_id, :pm_approval, :pm_reason, taf_item_attributes: TafItem.attribute_names.map(&:to_sym).push(:_destroy) ) #[:id, :request_reason, :expense_date, :estimated_amount, :dept, :ba_approval, :ba_reason, :expense_type, :taf_line_items_id]
     end
 
     def invalid_taf

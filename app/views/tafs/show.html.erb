@@ -20,7 +20,7 @@
             </thead>
             <% @taf.taf_items.each do |taf_item| %>
                 <tr>
-                    <td><%= taf_item.id %></li>
+                    <td> <%= taf_item.id %></li>
                     <td> <%= taf_item.expense_type %> </td> 
                     <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
                     <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
@@ -153,7 +153,7 @@
         <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
 
     <% else %> <!-- SUPER ACCOUNT -->
-
+        
     <% end %>
     
     <br>
