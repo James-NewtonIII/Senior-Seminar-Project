@@ -1,48 +1,16 @@
-<%= form_with(model: taf, local: true) do |form| %>
-  <% if taf.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(taf.errors.count, "error") %> prohibited this taf from being saved:</h2>
-
-      <ul>
-      <% taf.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="Created_TAF_Items_Form">
-            <table>
-            <thead>
-                <tr>
-                    <th> ID </th>
-                    <th> Expense Type </th>
-                    <th> Amount </th>
-                    <th> Was Approved? </th>
-                    <th> Rejection Reason </th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <% @taf.taf_line_items.each do |taf_line_item| %>
-                <tr>
-                    <td><%= taf_line_item.taf_item.id %></li>
-                    <td> <%= taf_line_item.taf_item.expense_type %> </td> 
-                    <td> <%= number_to_currency(taf_line_item.taf_item.estimated_amount) %> </td>
-                    <td> <%= taf_line_item.taf_item.ba_approval ? "true" : "false" %> </td>
-                    <td> <%= taf_line_item.taf_item.ba_reason %> </td>
-                
-                </tr>
-                
-                <li style="display:none"><%=@taf.quantity+=1%></li>
-                <li style="display:none"><%=@taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
-                <% end %>
-        </table>
-            
-        <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
-  </div>
-
-  <%= simple_form_for @taf do |f| %>
+<div class="Created_TAF_Items_Form">
+  <table>
+    <thead>
+      <tr>
+        <th> ID </th>
+        <th> Expense Type </th>
+        <th> Amount </th>
+        <th> Was Approved? </th>
+        <th> Rejection Reason </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
     <% @taf.taf_line_items.each do |taf_line_item| %>
       <tr>
         <td> <%= taf_line_item.taf_item.id %></li>
@@ -51,21 +19,46 @@
         <td> <%= taf_line_item.taf_item.ba_approval ? "true" : "false" %> </td>
         <td> <%= taf_line_item.taf_item.ba_reason %> </td>
       </tr>
-  <%= f.input :name %>
-  <%= f.input :description %>
-  <h3>Tasks</h3>
-  <div id='tasks'>
-    <%= f.simple_fields_for :tasks do |task| %>
-      <%= render 'task_fields', :f => task %>
+                
+      <li style="display:none"><%=@taf.quantity+=1%></li>
+      <li style="display:none"><%=@taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
     <% end %>
-    <div class='links'>
-      <%= link_to_add_association 'add task', f, :tasks %>
-    </div>
+  </table>
+            
+  <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
+</div>
+
+<%= simple_form_for(@taf) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :pm_approval %>
+    <%= f.input :pm_reason %>
   </div>
-  <%= f.submit 'Save' %>
-<% end %>
-  <br>
-  <div class="actions">
-    <%= form.submit %>
+  <h3>Items</h3>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th> ID </th>
+        <th> Expense Type </th>
+        <th> Amount </th>
+        <th> Was Approved? </th>
+        <th> Rejection Reason </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class='items'>
+      <%= f.simple_fields_for :taf_items do |builder| %>
+        <%= render 'taf_item_form', f: builder %>
+      <% end %>
+    </tbody>
+
+  </table>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+    <%= link_to_add_association 'Add Task', f, :taf_items, class: 'btn btn-primary', data: { association_insertion_node: '.tasks', association_insertion_method: :append } %>
   </div>
 <% end %>

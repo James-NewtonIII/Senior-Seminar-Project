@@ -87,7 +87,9 @@ class TafsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def taf_params
-      params.require(:taf).permit(:id, :total_estimated_amount, :quantity, :payment_manager_id, :pm_approval, :pm_reason, taf_item_attributes:[:id, :request_reason, :expense_date, :estimated_amount, :dept, :ba_approval, :ba_reason, :expense_type, :taf_line_items_id] )
+      params
+        .require(:taf)
+        .permit(:id, :total_estimated_amount, :quantity, :payment_manager_id, :pm_approval, :pm_reason, taf_item_attributes: TafItem.attribute_names.map(&:to_sym).push(:_destroy))
     end
 
     def invalid_taf

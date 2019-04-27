@@ -1,6 +1,6 @@
 class Taf < ApplicationRecord
     has_many :taf_line_items, dependent: :destroy
-    has_many :taf_items, through: :taf_line_items
+    has_many :taf_items, dependent: :destroy
     accepts_nested_attributes_for :taf_items, reject_if: :all_blank, allow_destroy: true
 
     private
