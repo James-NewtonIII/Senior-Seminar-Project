@@ -517,7 +517,7 @@ Item.transaction do
                     :department => 1,
                     :ba_approval => nil,
                     :ba_reason => '',
-                    :image_url => 'receipt.jpg =>',
+                    :image_url => 'receipt.jpg',
     )
     Item.create!(  :id =>14,
                     :expense_type => 'Lodging',
@@ -565,11 +565,11 @@ Cart.transaction do
     #. . .
     Cart.delete_all
     #. . .
-    :Cart.create!(  :id => 1,
+    Cart.create!(  :id => 1,
     )
-    :Cart.create!(  :id => 2,
+    Cart.create!(  :id => 2,
     )
-    :Cart.create!(  :id => 3,
+    Cart.create!(  :id => 3,
     )
 end
 
