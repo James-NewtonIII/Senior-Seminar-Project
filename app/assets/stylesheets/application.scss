@@ -27,7 +27,7 @@ header.main {
         /*left align on desktop*/
     }
 
-    background: #282;
+    background:blue;
     margin: 0;
 
     h1 {
@@ -54,7 +54,7 @@ header.main {
 
     nav {
         padding-bottom: 1em;
-        background: #141;
+        background: darkblue;
         text-align: center;
         /*mobile has centered nav*/
 
@@ -99,10 +99,10 @@ header.main {
     }
 }
 .notice, #notice {
-    background: #ffb;
+    background: lightblue;
     border-radius: 0.5em;
-    border: solid 0.177em #882;
-    color: #882;
+    border: solid 0.177em blue;
+    color: black;
     font-weight: bold;
     margin-bottom: 1em;
     padding: 1em 1.414em;
