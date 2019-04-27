@@ -71,6 +71,52 @@ PaymentManager.create!(
     address: "Why Did We Include This Avenue",
 )
 
+Account.delete_all
+#. . .
+Account.create!(
+    email: "emily@company.com",
+    password: "changeme",
+    password_confirmation: "changeme",
+    accountable: Employee.find_by_name("Emily"),
+)
+Account.create!(
+    email: "earl@company.com",
+    password: "changeme",
+    password_confirmation: "changeme",
+    accountable: Employee.find_by_name("Earl"),
+)
+Account.create!(
+    email: "ernie@company.com",
+    password: "changeme",
+    password_confirmation: "changeme",
+    accountable: Employee.find_by_name("Ernie"),
+)
+Account.create!(
+    email: "burt@company.com",
+    password: "changeme",
+    password_confirmation: "changeme",
+    accountable: BudgetApprover.find_by_name("Burt"),
+)
+Account.create!(
+    email: "becky@company.com",
+    password: "changeme",
+    password_confirmation: "changeme",
+    accountable: BudgetApprover.find_by_name("Becky"),
+)
+Account.create!(
+    email: "bogustus@company.com",
+    password: "changeme",
+    password_confirmation: "changeme",
+    accountable: BudgetApprover.find_by_name("Bogustus"),
+)
+Account.create!(
+    email: "pam@company.com",
+    password: "changeme",
+    password_confirmation: "changeme",
+    accountable: PaymentManager.find_by_name("Pam"),
+)
+
+
 TafItem.delete_all
 # . . .
 TafItem.create!(    id: 1,
