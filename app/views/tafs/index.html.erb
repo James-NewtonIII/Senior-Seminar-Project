@@ -15,8 +15,8 @@
       <tr>
         <td><%= taf.id %></td>
         <td>
-          <% taf.taf_line_items.each do |taf_line_item| %>
-            <li style="display:none"><%=taf.total_estimated_amount+=taf_line_item.taf_item.estimated_amount%></li>
+          <% taf.taf_items.each do |taf_item| %>
+            <li style="display:none"><%=taf.total_estimated_amount+=taf_item.estimated_amount%></li>
           <% end %>
           <%= number_to_currency(taf.total_estimated_amount) %>
         </td>
