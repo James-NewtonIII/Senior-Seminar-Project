@@ -4,6 +4,6 @@ class Account < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   belongs_to :accountable, polymorphic: true
-  ACCOUNT_TYPES=["Employee", "Budget Approver", "Payment Manager"]
+  ACCOUNT_TYPES=["SuperAccount","Employee", "Budget Approver", "Payment Manager"]
   attr_accessor :type
 end

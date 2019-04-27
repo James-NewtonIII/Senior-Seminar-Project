@@ -1,5 +1,21 @@
 Rails.application.routes.draw do
-  devise_for :accounts
+  namespace :admin do
+      resources :accounts
+      resources :budget_approvers
+      resources :carts
+      resources :departments
+      resources :employees
+      resources :items
+      resources :line_items
+      resources :payment_managers
+      resources :request_items
+      resources :tafs
+      resources :taf_items
+      resources :taf_line_items
+      resources :super_accounts
+      root to: "accounts#index"
+    end
+  # devise_for :accounts
   resources :taf_items
   resources :taf_line_items
   resources :tafs

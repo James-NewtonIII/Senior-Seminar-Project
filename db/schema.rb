@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_25_212155) do
+ActiveRecord::Schema.define(version: 2019_04_27_165443) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 2019_04_25_212155) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "accountable_type"
+    t.integer "accountable_id"
+    t.index ["accountable_type", "accountable_id"], name: "index_accounts_on_accountable_type_and_accountable_id"
     t.index ["email"], name: "index_accounts_on_email", unique: true
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
   end
@@ -67,14 +70,6 @@ ActiveRecord::Schema.define(version: 2019_04_25_212155) do
     t.integer "department"
   end
 
-  create_table "kids", force: :cascade do |t|
-    t.integer "parent_id"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_kids_on_parent_id"
-  end
-
   create_table "line_items", force: :cascade do |t|
     t.integer "item_id"
     t.integer "cart_id"
@@ -82,11 +77,6 @@ ActiveRecord::Schema.define(version: 2019_04_25_212155) do
     t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
     t.index ["item_id"], name: "index_line_items_on_item_id"
-  end
-
-  create_table "parents", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "payment_managers", force: :cascade do |t|
@@ -102,6 +92,12 @@ ActiveRecord::Schema.define(version: 2019_04_25_212155) do
     t.text "reason"
     t.boolean "ba_approval"
     t.string "ba_reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "super_accounts", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
