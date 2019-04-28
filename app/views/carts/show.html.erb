@@ -15,14 +15,14 @@
                 <th> Rejection Reason </th>
             </tr>
         </thead>
-        <% @cart.line_items.each do |item| %>
+        <% @cart.items.each do |item| %>
             <tr>
-                <td> <%= item.item.id %> </td> 
-                <td> <%= item.item.expense_type %> </td> 
+                <td> <%= item.id %> </td> 
+                <td> <%= item.expense_type %> </td> 
                 <td> <%= number_to_currency(item.item.amount) %> </td>
-                <td> <%= item.item.image_url %> </td>
-                <td> <%= item.item.ba_approval ? "true" : "false" %> </td>
-                <td> <%= item.item.ba_reason %> </td>
+                <td> <%= item.image_url %> </td>
+                <td> <%= item.ba_approval ? "true" : "false" %> </td>
+                <td> <%= item.ba_reason %> </td>
             </tr>
             <li style="display:none"><%=@cart.quantity+=1%></li>
             <li style="display:none"><%=@cart.total_expense+=item.item.amount%></li>
@@ -63,27 +63,27 @@
                 <th></th>
             </tr>
         </thead>
-        <% @cart.line_items.each do |item| %>
+        <% @cart.items.each do |item| %>
             <tr>
-                <td> <%= item.item.id %> </td> 
-                <td> <%= item.item.expense_type %> </td> 
-                <td> <%= number_to_currency(item.item.amount) %> </td>
-                <td> <%= item.item.image_url %> </td>
-                <td> <%= item.item.ba_approval ? "true" : "false" %> </td>
-                <td> <%= item.item.ba_reason %> </td>
-                <td> <%= button_to 'Accept', { :controller => "line_items",
+                <td> <%= item.id %> </td> 
+                <td> <%= item.expense_type %> </td> 
+                <td> <%= number_to_currency(item.amount) %> </td>
+                <td> <%= item.image_url %> </td>
+                <td> <%= item.ba_approval ? "true" : "false" %> </td>
+                <td> <%= item.ba_reason %> </td>
+                <td> <%= button_to 'Accept', { :controller => "items",
                                         :action => "decision",
-                                        :id => item.item.id,
+                                        :id => item.id,
                                         :decision => "true"}, method: 'post', class: "btn btn-success" %>
                 </td>
-                <td> <%= button_to 'Reject', { :controller => "line_items",
+                <td> <%= button_to 'Reject', { :controller => "items",
                                         :action => "decision",
-                                        :id => item.item.id,
+                                        :id => item.id,
                                         :decision => "false"}, method: 'post', class: "btn btn-danger" %>
                 </td>
             </tr>
             <li style="display:none"><%=@cart.quantity+=1%></li>
-            <li style="display:none"><%=@cart.total_expense+=item.item.amount%></li>
+            <li style="display:none"><%=@cart.total_expense+=item.amount%></li>
         <% end %>
     </table>
 
@@ -133,17 +133,17 @@
                 <th> Rejection Reason </th>
             </tr>
         </thead>
-        <% @cart.line_items.each do |item| %>
+        <% @cart.items.each do |item| %>
             <tr>
-                <td> <%= item.item.id %> </td> 
-                <td> <%= item.item.expense_type %> </td> 
-                <td> <%= number_to_currency(item.item.amount) %> </td>
-                <td> <%= item.item.image_url %> </td>
-                <td> <%= item.item.ba_approval ? "true" : "false" %> </td>
-                <td> <%= item.item.ba_reason %> </td>
+                <td> <%= item.id %> </td> 
+                <td> <%= item.expense_type %> </td> 
+                <td> <%= number_to_currency(item.amount) %> </td>
+                <td> <%= item.image_url %> </td>
+                <td> <%= item.ba_approval ? "true" : "false" %> </td>
+                <td> <%= item.ba_reason %> </td>
             </tr>
             <li style="display:none"><%=@cart.quantity+=1%></li>
-            <li style="display:none"><%=@cart.total_expense+=item.item.amount%></li>
+            <li style="display:none"><%=@cart.total_expense+=item.amount%></li>
         <% end %>
     </table>
 

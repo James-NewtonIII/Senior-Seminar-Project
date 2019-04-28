@@ -15,8 +15,8 @@
       <tr>
         <td><%= cart.id %></td>
         <td>
-          <% cart.line_items.each do |line_item| %>
-            <li style="display:none"><%=cart.total_expense+=line_item.item.amount%></li>
+          <% cart.items.each do |line_item| %>
+            <%# <li style="display:none"><%=cart.total_expense+=line_item.item.amount</li> %>
           <% end %>
           <%= number_to_currency(cart.total_expense) %>
         </td>
