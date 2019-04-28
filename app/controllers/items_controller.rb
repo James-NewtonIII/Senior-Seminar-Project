@@ -12,6 +12,9 @@ class ItemsController < ApplicationController
     if (params[:employee_id])
       @employee = Employee.find(params[:employee_id])
       @items = @employee.items
+    elsif (params[:budget_approver_id])
+      @department = Department.find(params[:budget_approver_id])
+      @items = @department.items
     else
       @items = Item.all
     end  
@@ -33,6 +36,16 @@ class ItemsController < ApplicationController
   def edit
     authorize @item
   end
+  
+  def decision
+    @item = Item.where(id: params[:id]) 
+    if params[:decision] == "true"
+      @item.update(ba_approval: true)
+    else
+      @taf_item.update(ba_approval: false)
+    end
+  end
+  
 
   # POST /items
   # POST /items.json
