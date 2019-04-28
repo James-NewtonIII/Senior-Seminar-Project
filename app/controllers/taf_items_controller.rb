@@ -1,7 +1,7 @@
 class TafItemsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   include CurrentTaf
-  before_action :authenticate_account!
-  before_action :set_current_taf, only: [:new, :create]
+  before_action :set_current_taf, only: [:create]
   before_action :set_taf_item, only: [:show, :edit, :update, :destroy]
 
   def pundit_user
@@ -55,16 +55,18 @@ class TafItemsController < ApplicationController
   # POST /taf_items.json
   def create
     @taf_item = TafItem.new(taf_item_params)
-    authorize @taf_item
-     if current_account && current_account.accountable_type == "Employee"
-        @taf_item.employee = current_account.accountable
-     end
-    respond_to do |format|
-      if @taf_item.save
-        format.html { redirect_back(fallback_location: :back) }
-      else
-        format.html { render :new }
-        format.json { render json: @taf_item.errors, status: :unprocessable_entity }
+
+    if current_account && current_account.accountable_type == "Employee"
+      @taf_item.employee = current_account.accountable
+    
+      @taf_item = @taf.add_taf_item(@taf_item)
+      respond_to do |format|
+        if @taf_item.save
+          format.html { redirect_back(fallback_location: :back) }
+        else
+          format.html { render :new }
+          format.json { render json: @taf_item.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -74,7 +76,7 @@ class TafItemsController < ApplicationController
   def update
     respond_to do |format|
       if @taf_item.update(taf_item_params)
-        format.html { redirect_to @taf_item, notice: 'Taf item was successfully updated.' }
+        format.html { redirect_back(fallback_location: :back) }
         format.json { render :show, status: :ok, location: @taf_item }
       else
         format.html { render :edit }

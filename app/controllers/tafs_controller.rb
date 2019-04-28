@@ -1,7 +1,5 @@
 class TafsController < ApplicationController
-  include CurrentTaf
-  before_action :authenticate_account!
-  before_action :set_current_taf, only: [:new, :create]
+  skip_before_action :verify_authenticity_token
   before_action :set_taf, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_taf
 
@@ -26,8 +24,6 @@ class TafsController < ApplicationController
   def new
     @taf = Taf.new
     @taf_item = TafItem.new
-    @taf.taf_items.build
-    
 
     if current_account && current_account.accountable_type == "Employee"
       @taf.employee_id  = Employee.find_by_name(current_account.accountable.name).id
@@ -41,6 +37,7 @@ class TafsController < ApplicationController
 
   # GET /tafs/1/edit
   def edit
+    @taf_item = TafItem.new
     if current_account && current_account.accountable_type == "Payment Manager"
       @taf.payment_manager_id = PaymentManager.find_by_name(current_account.accountable.name).id
     end
@@ -61,9 +58,6 @@ class TafsController < ApplicationController
   # POST /tafs.json
   def create
     @taf = Taf.new(taf_params)
-    if current_account && current_account.accountable_type == "Employee"
-      @taf.employee_id  = Employee.find_by_name(current_account.accountable.name).id
-    end
     
     respond_to do |format|
       if @taf.save
@@ -93,7 +87,9 @@ class TafsController < ApplicationController
   # DELETE /tafs/1
   # DELETE /tafs/1.json
   def destroy
-    @taf.destroy
+    @taf.destroy if @taf.id == session[:taf_id]
+
+    session[:taf_id] = nil
     respond_to do |format|
       format.html { redirect_to tafs_url, notice: 'Taf was successfully destroyed.' }
       format.json { head :no_content }
@@ -108,25 +104,7 @@ class TafsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def taf_params
-      params
-        .require(:taf)
-        .permit(  :id, 
-                  :total_estimated_amount, 
-                  :quantity, 
-                  :payment_manager_id, 
-                  :pm_approval, 
-                  :pm_reason, 
-                  taf_item_attributes: [
-                        :id, 
-                        :request_reason, 
-                        :expense_date, 
-                        :estimated_amount, 
-                        :dept, 
-                        :ba_approval, 
-                        :ba_reason, 
-                        :expense_type
-                  ]
-                )
+      params.fetch(:taf, {})
     end
 
     def show_tafs_for_payment_manager?

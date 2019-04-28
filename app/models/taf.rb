@@ -1,7 +1,21 @@
 class Taf < ApplicationRecord
     has_many :taf_items, dependent: :destroy
-    accepts_nested_attributes_for :taf_items, reject_if: :all_blank, allow_destroy: true
-    belongs_to :employee
-    belongs_to :budget_approver, optional: true
-    belongs_to :payment_manager, optional: true
+
+    def add_taf_item(taf_item)
+        current_item = taf_items.build(id: taf_item.id)
+        
+        current_item
+    end
+
+    def remove_taf_item(taf_item)
+        taf_item = taf_item.find_by(taf_item_id: taf_item.id)
+        taf_item.quantity -= 1
+        
+        taf_item
+    end
+
+    def total_expected_amount
+        taf_item.to_a.sum { |taf_item| taf_item.expected_amount }
+    end
+
 end
