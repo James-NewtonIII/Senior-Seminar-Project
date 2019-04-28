@@ -17,9 +17,8 @@ Rails.application.routes.draw do
     root to: "accounts#index"
   end
  
-  
   devise_for :account, :controllers => { :registrations => 'registrations' }
-
+  
   resources :taf_items
   resources :taf_line_items
   resources :tafs
@@ -29,9 +28,9 @@ Rails.application.routes.draw do
   resources :carts
   
   resources :departments
-  resources :employees
-  resources :budget_approvers
-  resources :payment_managers
+  resources :employees, only: [:edit, :update]
+  resources :budget_approvers, only: [:edit, :update]
+  resources :payment_managers, only: [:edit, :update]
   root 'company#index', as: 'company_index'
 
 
@@ -63,6 +62,15 @@ Rails.application.routes.draw do
   resources :tafs do
     member do
         post :decision
+    end
+  end
+
+  resources :employees do
+    resources :taf_items                                          # a nested route: employee_taf_items_path
+    resources :items                                              # a nested route: employee_items_path
+    member do
+        get 'tafs', to: 'taf_items#show_taf_items_for_employee'   # a nested route: orders_seller_path
+        get 'carts', to: 'items#show_items_for_employee'          # a nested route: orders_seller_path
     end
   end
 

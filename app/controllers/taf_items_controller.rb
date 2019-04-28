@@ -9,7 +9,15 @@ class TafItemsController < ApplicationController
   # GET /taf_items
   # GET /taf_items.json
   def index
-    @taf_items = TafItem.all
+    if (params[:employee_id])
+      @employee = Employee.find(params[:employeeid])
+      @taf_items = @employee.taf_items
+    elsif (params[:budget_approver_id])
+      @department = Department.find(params[:budget_approver_id])
+      @taf_items = @department.taf_items
+    else
+      @taf_items = TafItem.all
+    end
   end
 
   # GET /taf_items/1
@@ -94,12 +102,14 @@ class TafItemsController < ApplicationController
       params.require(:taf_item).permit(:request_reason, :expense_date, :estimated_amount, :dept, :ba_approval, :ba_reason)
     end
 
+    def show_taf_items_for_budget_approvers?
+      @current_account == @budget_approver.account
+    end
+
     def show_taf_items_for_employee
       employee = Employee.find(params[:id])
-
-      authorize employee, :show_taf_for_employee?
+      authorize employee, :show_taf_items_for_employee?
       taf_items = employee.taf_items
-      @taf_items = TafItem.where(taf_item_id: taf_items)
       taf_items.each do |taf_item|
         logger.info(taf_item)
       end

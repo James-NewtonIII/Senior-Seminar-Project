@@ -21,5 +21,13 @@ class EmployeePolicy
     def show_taf_for_employee?
       @current_account == @employee.account
     end
+
+    def show_items_for_employees?
+      @current_account == @employee.account
+    end
+
+    def show_taf_items_for_employees?
+      @current_account == @employee.account
+    end
   
   end

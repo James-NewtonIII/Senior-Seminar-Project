@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :authenticate_account!
-  before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  before_action :set_employee, only: [:edit, :update]
 
   def pundit_user
     current_account

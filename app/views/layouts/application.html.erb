@@ -19,25 +19,47 @@
         <nav class="side_nav">
           <ul>
             <li><a href="/">Home</a></li>
-            <li></li>
-            <li><a href="/carts">Expense Reports</a></li>
-            <li><a href="/carts/new">New Expense Report</a></li>
-            <li><a href="/line_items">Report Line Items</a></li>
-            <li><a href="/items">Report Items</a></li>
-            <li><a href="/items/new">New Report Item</a></li>
-            <li></li>
-            <li><a href="/tafs">Travel Authorization</a></li>
-            <li><a href="/tafs/new">New Travel Auth Form</a></li>
-            <li><a href="/taf_items">TAF_Items</a></li>
-            <li><a href="/taf_items/new">New TAF Item</a></li>
-            <li></li>
-            <li><a href="/departments">Departments</a></li>
-            <li><a href="/employees">Employees</a></li>
-            <li><a href="/budget_approvers">Budget Approvers</a></li>
-            <li><a href="/payment_managers">Payment Managers</a></li>
+            <% if account_signed_in? %>
+              <% if current_account.accountable_type == "SuperAccount"%>
+                <li><a href="/carts">View All Expense Reports</a></li>
+                <li><a href="/items">View All Report Items</a></li>
+                <li></li>
+                <li><a href="/tafs">View All Travel Authorizations</a></li>
+                <li><a href="/taf_items">View All TAF_Items</a></li>
+                <li></li>
+                <li><a href="/departments">View All Departments</a></li>
+                <li><a href="/employees">View All Employees</a></li>
+                <li><a href="/budget_approvers">View All Budget Approvers</a></li>
+                <li><a href="/payment_managers">View All Payment Managers</a></li>
+                                  
+              <% elsif current_account.accountable_type == "Employee"%>
+                <li><a href="/tafs/new">New Travel Auth Form</a></li>
+                <li><a href="/carts/new">New Expense Report</a></li>
+              <% elsif current_account.accountable_type == "Budget Approver"%>
+                <li><a href="/tafs">Approve Travel Authorizations</a></li>
+                <li></li>
+                <li><a href="/carts">Approve Expenses</a></li>
+              <% else %> <!-- Payment Manager-->
+                <li><a href="/tafs">Approve Travel Authorizations</a></li>
+                <li></li>
+                <li><a href="/carts">Approve Expenses</a></li>
+              <% end %>
+            <% end %>
+
+            <% if account_signed_in? %>
+              <li class="nav-item">
+                <%= link_to 'Edit account', edit_account_registration_path, class:"nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Sign out', destroy_account_session_path, :method=>'delete', class:"nav-link" %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'Sign in', new_account_session_path, class:"nav-link" %>
+              </li>
+            <% end %>
           </ul>
         </nav>
-
       <main class='<%= controller.controller_name %>'>
         <%= yield %>
       </main>

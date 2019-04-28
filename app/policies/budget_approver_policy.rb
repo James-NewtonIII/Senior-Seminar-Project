@@ -13,5 +13,13 @@ class BudgetApproverPolicy
     def update?
       @current_account == @budget_approver.account
     end
+
+    def show_items_for_budget_approvers
+      @current_account == @budget_approver.account
+    end
+
+    def show_taf_items_for_budget_approvers
+      @current_account == @budget_approver.account
+    end
   
   end

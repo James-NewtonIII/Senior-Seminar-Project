@@ -1,11 +1,17 @@
 class CartsController < ApplicationController
+  before_action :authenticate_account!
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts
   # GET /carts.json
   def index
-    @carts = Cart.all
+    if (params[:employee_id])
+      @employee = Employee.find(params[:employee_id])
+      @carts = @employee.carts
+    else
+      @carts = Cart.all
+    end
   end
 
   # GET /carts/1
@@ -17,10 +23,12 @@ class CartsController < ApplicationController
   # GET /carts/new
   def new
     @cart = Cart.new
+    authorize @cart
   end
 
   # GET /carts/1/edit
   def edit
+    authorize @cart
   end
 
   def decision
@@ -52,6 +60,7 @@ class CartsController < ApplicationController
   # PATCH/PUT /carts/1
   # PATCH/PUT /carts/1.json
   def update
+    authorize @cart
     respond_to do |format|
       if @cart.update(cart_params)
         format.html { redirect_to @cart, notice: 'Expense Report was successfully updated.' }
@@ -82,6 +91,14 @@ class CartsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def cart_params
       params.fetch(:cart, {})
+    end
+
+    def show_carts_for_employees?
+      @current_account == @employee.account
+    end
+
+    def show_carts_for_payment_manager?
+      @current_account == @payment_manager.account
     end
 
     def invalid_cart

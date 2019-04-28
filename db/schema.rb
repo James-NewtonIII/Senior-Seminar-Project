@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_27_165443) do
+ActiveRecord::Schema.define(version: 2019_04_27_230423) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_165443) do
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "department_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -39,8 +40,11 @@ ActiveRecord::Schema.define(version: 2019_04_27_165443) do
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 0
     t.decimal "total_expense", default: "0.0"
+    t.integer "payment_manager_id"
     t.boolean "pm_approval"
     t.string "pm_reason"
+    t.integer "employee_id"
+    t.index ["payment_manager_id"], name: "index_carts_on_payment_manager_id"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -56,6 +60,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_165443) do
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "department_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -68,6 +73,9 @@ ActiveRecord::Schema.define(version: 2019_04_27_165443) do
     t.datetime "updated_at", null: false
     t.date "actual_expense_date"
     t.integer "department"
+    t.integer "cart_id"
+    t.integer "budget_approver_id"
+    t.integer "employee_id"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -84,6 +92,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_165443) do
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "department_id"
   end
 
   create_table "request_items", force: :cascade do |t|
@@ -113,6 +122,8 @@ ActiveRecord::Schema.define(version: 2019_04_27_165443) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "taf_id"
+    t.integer "budget_approver_id"
+    t.integer "employee_id"
     t.index ["taf_id"], name: "index_taf_items_on_taf_id"
   end
 
@@ -134,6 +145,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_165443) do
     t.integer "quantity", default: 0
     t.boolean "pm_approval"
     t.string "pm_reason"
+    t.integer "employee_id"
     t.index ["payment_manager_id"], name: "index_tafs_on_payment_manager_id"
   end
 

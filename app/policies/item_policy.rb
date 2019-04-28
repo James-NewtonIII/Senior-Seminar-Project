@@ -8,10 +8,12 @@ class ItemPolicy
 
   def index?
     current_account.accountable_type == "Employee"
+    current_account.accountable_type == "Budget Approver"
   end
 
   def show?
     @current_account == @item.employee.account
+    @current_account == @item.budget_approver.account
   end
 
   def new?
@@ -24,10 +26,12 @@ class ItemPolicy
 
   def edit?
     @current_account == @item.employee.account
+    @current_account == @item.budget_approver.account
   end
 
   def update?
     @current_account == @item.employee.account
+    @current_account == @item.budget_approver.account
   end
 
   def destroy?
@@ -37,6 +41,7 @@ class ItemPolicy
   class Scope < Struct.new(:current_account, :model)
     def resolve
         model.where(employee: current_account.accountable)
+        model.where(budget_approver: current_account.accountable)
     end
   end
 

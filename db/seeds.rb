@@ -41,16 +41,19 @@ Employee.transaction do
         :id => 1,
         :name => "Emily",
         :address => "Why Did We Include This Circle",
+        :department_id => 1,
     )
     Employee.create!(
         :id => 2,
         :name => "Earl",
         :address => "Why Did We Include This Court",
+        :department_id => 2,
     )
     Employee.create!(
         :id => 3,
         :name => "Ernie",
         :address => "Why Did We Include This Square",
+        :department_id => 3,
     )
 end
 
@@ -61,16 +64,19 @@ BudgetApprover.transaction do
         :id => 1,
         :name => "Burt",
         :address => "Why Did We Include This Way",
+        :department_id => 1,
     )
     BudgetApprover.create!(
         :id => 2,
         :name => "Becky",
         :address => "Why Did We Include This Lane",
+        :department_id => 2,
     )
     BudgetApprover.create!(
         :id => 3,
         :name => "Bogustus",
         :address => "Why Did We Include This Boulevard",
+        :department_id => 3,
     )
 end
 
@@ -81,6 +87,7 @@ PaymentManager.transaction do
         :id => 1,
         :name => "Pam",
         :address => "Why Did We Include This Avenue",
+        :department_id => 1,
     )
 end
 
@@ -136,11 +143,42 @@ Account.transaction do
     )
 end
 
+Taf.transaction do
+    #. . .
+    Taf.delete_all
+    #. . .
+    Taf.create!(    :id => 1,
+                    :employee_id => Employee.find_by_name("Emily").id,
+    )
+    Taf.create!(    :id => 2,
+                    :employee_id => Employee.find_by_name("Earl").id,
+    )
+    Taf.create!(    :id => 3,
+                    :employee_id => Employee.find_by_name("Ernie").id,
+    )
+end
+
+Cart.transaction do
+    #. . .
+    Cart.delete_all
+    #. . .
+    Cart.create!(   :id => 1,
+                    :employee_id => Employee.find_by_name("Emily").id,
+    )
+    Cart.create!(   :id => 2,
+                    :employee_id => Employee.find_by_name("Earl").id,
+    )
+    Cart.create!(   :id => 3,
+                    :employee_id => Employee.find_by_name("Ernie").id,
+    )
+end
+
 TafItem.transaction do
     TafItem.delete_all
     # . . .
-    TafItem.create!(   :id => 1,
+    TafItem.create!(    :id => 1,
                         :taf_id => 1,
+                        :employee_id => Employee.find_by_name("Emily").id,
                         :expense_type => 'Travel',
                         :estimated_amount => 600.00,
                         :request_reason => 'One does not simply walk to Jamaca',
@@ -148,8 +186,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 2,
+    TafItem.create!(    :id => 2,
                         :taf_id => 1,
+                        :employee_id => Employee.find_by_name("Emily").id,
                         :expense_type => 'Food',
                         :estimated_amount => 50.00,
                         :request_reason => 'What If I told you that I needed to eat',
@@ -157,8 +196,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 3,
+    TafItem.create!(    :id => 3,
                         :taf_id => 1,
+                        :employee_id => Employee.find_by_name("Emily").id,
                         :expense_type => 'Lodging',
                         :estimated_amount => 300.00,
                         :request_reason => 'You can\'t rest while enemies are nearby!',
@@ -166,8 +206,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 4,
+    TafItem.create!(    :id => 4,
                         :taf_id => 1,
+                        :employee_id => Employee.find_by_name("Emily").id,
                         :expense_type => 'Food',
                         :estimated_amount => 60.00,
                         :request_reason => 'I\'ll be hungry',
@@ -175,8 +216,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 5,                
+    TafItem.create!(    :id => 5,                
                         :taf_id => 1,
+                        :employee_id => Employee.find_by_name("Emily").id,
                         :expense_type => 'Food',
                         :estimated_amount => 20.00,
                         :request_reason => 'I\'ll be a little less hungry',
@@ -184,17 +226,19 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 6,
+    TafItem.create!(    :id => 6,
                         :taf_id => 1,
+                        :employee_id => Employee.find_by_name("Emily").id,
                         :expense_type => 'Food',
-                        estimated_amount:60.00,
+                        :estimated_amount => 60.00,
                         :request_reason => 'Oink.',
                         :dept => 3,
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 7,
+    TafItem.create!(    :id => 7,
                         :taf_id => 2,
+                        :employee_id => Employee.find_by_name("Earl").id,
                         :expense_type => 'Travel',
                         :estimated_amount => 900.00,
                         :request_reason => 'One does not simply walk to England',
@@ -203,7 +247,8 @@ TafItem.transaction do
                         :ba_reason => '',
     )
     TafItem.create!(   :id => 8,
-                        :taf_id => 2,
+                        :taf_id => 2, 
+                        :employee_id => Employee.find_by_name("Earl").id,
                         :expense_type => 'Lodging',
                         :estimated_amount => 1000.00,
                         :request_reason => 'Ye Olde Presidential Suite',
@@ -211,8 +256,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 9,
+    TafItem.create!(    :id => 9,
                         :taf_id => 2,
+                        :employee_id => Employee.find_by_name("Earl").id,
                         :expense_type => 'Food',
                         :estimated_amount => 80.00,
                         :request_reason => 'Yes I can eat $80 of food.',
@@ -220,8 +266,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 10,
+    TafItem.create!(    :id => 10,
                         :taf_id => 2,
+                        :employee_id => Employee.find_by_name("Earl").id,
                         :expense_type => 'Food',
                         :estimated_amount => 60.00,
                         :request_reason => 'Ye olde 7Eleven',
@@ -229,8 +276,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 11,
+    TafItem.create!(    :id => 11,
                         :taf_id => 2,
+                        :employee_id => Employee.find_by_name("Earl").id,
                         :expense_type => 'Food',
                         :estimated_amount => 700.00,
                         :request_reason => 'Fatty ate the whole dinner bar.',
@@ -238,8 +286,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 12,
+    TafItem.create!(    :id => 12,
                         :taf_id => 2,
+                        :employee_id => Employee.find_by_name("Earl").id,
                         :expense_type => 'Food',
                         :estimated_amount => 65.00,
                         :request_reason => 'We didn\'t eat at the other place again',
@@ -247,8 +296,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 13,
+    TafItem.create!(    :id => 13,
                         :taf_id => 3,
+                        :employee_id => Employee.find_by_name("Ernie").id,
                         :expense_type => 'Travel',
                         :estimated_amount => 120.00,
                         :request_reason => 'Client in the armpit of Florida',
@@ -256,8 +306,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 14,
+    TafItem.create!(    :id => 14,
                         :taf_id => 3,
+                        :employee_id => Employee.find_by_name("Ernie").id,
                         :expense_type => 'Lodging',
                         :estimated_amount => 40.00,
                         :request_reason => 'Used to be Motel 6, Florida man knocked it down to Motel 3.2',
@@ -265,8 +316,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 15,
+    TafItem.create!(    :id => 15,
                         :taf_id => 3,
+                        :employee_id => Employee.find_by_name("Ernie").id,
                         :expense_type => 'Food',
                         :estimated_amount => 12.00,
                         :request_reason => 'Chicken feet for Florida Man\'s Breakfast',
@@ -274,8 +326,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 16,
+    TafItem.create!(    :id => 16,
                         :taf_id => 3,
+                        :employee_id => Employee.find_by_name("Ernie").id,
                         :expense_type => 'Food',
                         :estimated_amount => 11.00,
                         :request_reason => 'Meth for Florida Man\'s Lunch',
@@ -283,8 +336,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 17,
+    TafItem.create!(    :id => 17,
                         :taf_id => 3,
+                        :employee_id => Employee.find_by_name("Ernie").id,
                         :expense_type => 'Food',
                         :estimated_amount => 5.00,
                         :request_reason => 'VERY CHEAP VODKA',
@@ -292,8 +346,9 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 18,
+    TafItem.create!(    :id => 18,
                         :taf_id => 3,
+                        :employee_id => Employee.find_by_name("Ernie").id,
                         :expense_type => 'Food',
                         :estimated_amount => 8.00,
                         :request_reason => 'Le candy from ze quickie mart',
@@ -303,119 +358,13 @@ TafItem.transaction do
     )
 end
 
-Taf.transaction do
-    #. . .
-    Taf.delete_all
-    #. . .
-    Taf.create!(  :id => 1,
-    )
-    Taf.create!(  :id => 2,
-    )
-    Taf.create!(  :id => 3,
-    )
-end
-
-TafLineItem.transaction do
-    #. . .
-    TafLineItem.delete_all
-    #. . .
-    TafLineItem.create!(
-        :id => 1,
-        :taf_item_id => 1,
-        :taf_id => 1,
-    )
-    TafLineItem.create!(
-        :id => 2,
-        :taf_item_id => 2,
-        :taf_id => 1,
-    )
-    TafLineItem.create!(
-        :id => 3,
-        :taf_item_id => 3,
-        :taf_id => 1,
-    )
-    TafLineItem.create!(
-        :id => 4,
-        :taf_item_id => 4,
-        :taf_id => 1,
-    )
-    TafLineItem.create!(
-        :id => 5,
-        :taf_item_id => 5,
-        :taf_id => 1,
-    )
-    TafLineItem.create!(
-        :id => 6,
-        :taf_item_id => 6,
-        :taf_id => 1,
-    )
-    TafLineItem.create!(
-        :id => 7,
-        :taf_item_id => 7,
-        :taf_id => 2,
-    )
-    TafLineItem.create!(
-        :id => 8,
-        :taf_item_id => 8,
-        :taf_id => 2,
-    )
-    TafLineItem.create!(
-        :id => 9,
-        :taf_item_id => 9,
-        :taf_id => 2,
-    )
-    TafLineItem.create!(
-        :id => 10,
-        :taf_item_id => 10,
-        :taf_id => 2,
-    )
-    TafLineItem.create!(
-        :id => 11,
-        :taf_item_id => 11,
-        :taf_id => 2,
-    )
-    TafLineItem.create!(
-        :id => 12,
-        :taf_item_id => 12,
-        :taf_id => 2,
-    )
-    TafLineItem.create!(
-        :id => 13,
-        :taf_item_id => 13,
-        :taf_id => 3,
-    )
-    TafLineItem.create!(
-        :id => 14,
-        :taf_item_id => 14,
-        :taf_id => 3,
-    )
-    TafLineItem.create!(
-        :id => 15,
-        :taf_item_id => 15,
-        :taf_id => 3,
-    )
-    TafLineItem.create!(
-        :id => 16,
-        :taf_item_id => 16,
-        :taf_id => 3,
-    )
-    TafLineItem.create!(
-        :id => 17,
-        :taf_item_id => 17,
-        :taf_id => 3,
-    )
-    TafLineItem.create!(
-        :id => 18,
-        :taf_item_id => 18,
-        :taf_id => 3,
-    )
-end
-
 Item.transaction do
     # 
     Item.delete_all
     # . . .
     Item.create!(   :id => 1,
+                    :cart_id => 1,
+                    :employee_id => Employee.find_by_name("Emily").id,
                     :expense_type => 'Travel',
                     :amount => 600.00,                
                     :department => 1,
@@ -424,6 +373,8 @@ Item.transaction do
                     :image_url => 'receipt.jpg',  
     )
     Item.create!(   :id => 2,
+                    :cart_id => 1,
+                    :employee_id => Employee.find_by_name("Emily").id,
                     :expense_type => 'Food',
                     :amount => 50.00,
                     :department => 2,
@@ -432,6 +383,8 @@ Item.transaction do
                     :image_url => 'receipt2.jpg',
     )
     Item.create!(   :id => 3,
+                    :cart_id => 1,
+                    :employee_id => Employee.find_by_name("Emily").id,
                     :expense_type => 'Lodging',
                     :amount => 300.00,
                     :department => 3,
@@ -440,6 +393,8 @@ Item.transaction do
                     :image_url => 'receipt3.jpg',
     )
     Item.create!(   :id => 4,
+                    :cart_id => 1,
+                    :employee_id => Employee.find_by_name("Emily").id,
                     :expense_type => 'Food',
                     :amount => 60.00,
                     :department => 1,
@@ -448,6 +403,8 @@ Item.transaction do
                     :image_url => 'receipt4.jpg',
     )
     Item.create!(   :id => 5,
+                    :cart_id => 1,
+                    :employee_id => Employee.find_by_name("Emily").id,
                     :expense_type => 'Food',
                     :amount => 20.00,
                     :department => 2,
@@ -455,7 +412,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
     )
-    Item.create!(  :id =>6,
+    Item.create!(   :id =>6,
+                    :cart_id => 1,
+                    :employee_id => Employee.find_by_name("Emily").id,
                     :expense_type => 'Food',
                     :amount => 60.00,
                     :department => 3,
@@ -463,7 +422,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt2.jpg',
     )
-    Item.create!(  :id =>7,
+    Item.create!(   :id =>7,
+                    :cart_id => 2,
+                    :employee_id => Employee.find_by_name("Earl").id,
                     :expense_type => 'Travel',
                     :amount => 900.00,               
                     :department => 1,
@@ -471,7 +432,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt3.jpg',
     )
-    Item.create!(  :id =>8,
+    Item.create!(   :id =>8,
+                    :cart_id => 2,
+                    :employee_id => Employee.find_by_name("Earl").id,
                     :expense_type => 'Lodging',
                     :amount => 1000.00,
                     :department => 2,
@@ -479,7 +442,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt4.jpg',
     )
-    Item.create!(  :id =>9,
+    Item.create!(   :id =>9,
+                    :cart_id => 2,
+                    :employee_id => Employee.find_by_name("Earl").id,
                     :expense_type => 'Food',
                     :amount => 80.00,
                     :department => 3,
@@ -487,7 +452,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
     )
-    Item.create!(  :id =>10,
+    Item.create!(   :id =>10,
+                    :cart_id => 2,
+                    :employee_id => Employee.find_by_name("Earl").id,
                     :expense_type => 'Food',
                     :amount => 60.00,
                     :department => 1,
@@ -495,7 +462,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt2.jpg',
     )
-    Item.create!(  :id =>11,
+    Item.create!(   :id =>11,
+                    :cart_id => 2,
+                    :employee_id => Employee.find_by_name("Earl").id,
                     :expense_type => 'Food',
                     :amount => 700.00,
                     :department => 2,
@@ -503,7 +472,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt3.jpg',
     )
-    Item.create!(  :id =>12,
+    Item.create!(   :id =>12,
+                    :cart_id => 2,
+                    :employee_id => Employee.find_by_name("Earl").id,
                     :expense_type => 'Food',
                     :amount => 65.00,
                     :department => 3,
@@ -511,7 +482,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt4.jpg',
     )
-    Item.create!(  :id =>13,
+    Item.create!(   :id =>13,
+                    :cart_id => 3,
+                    :employee_id => Employee.find_by_name("Ernie").id,
                     :expense_type => 'Travel',
                     :amount => 120.00,
                     :department => 1,
@@ -519,7 +492,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
     )
-    Item.create!(  :id =>14,
+    Item.create!(   :id =>14,
+                    :cart_id => 3,
+                    :employee_id => Employee.find_by_name("Ernie").id,
                     :expense_type => 'Lodging',
                     :amount => 40.00,
                     :department => 2,
@@ -527,7 +502,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt2.jpg',
     )
-    Item.create!(  :id =>15,
+    Item.create!(   :id =>15,
+                    :cart_id => 3,
+                    :employee_id => Employee.find_by_name("Ernie").id,
                     :expense_type => 'Food',
                     :amount => 12.00,
                     :department => 3,
@@ -535,7 +512,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt3.jpg',
     )
-    Item.create!(  :id =>16,
+    Item.create!(   :id =>16,
+                    :cart_id => 3,
+                    :employee_id => Employee.find_by_name("Ernie").id,
                     :expense_type => 'Food',
                     :amount  => 11.00,
                     :department => 1,
@@ -543,7 +522,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt4.jpg',
     )
-    Item.create!(  :id =>17,
+    Item.create!(   :id =>17,
+                    :cart_id => 3,
+                    :employee_id => Employee.find_by_name("Ernie").id,
                     :expense_type => 'Food',
                     :amount => 5.00,
                     :department => 2,
@@ -551,7 +532,9 @@ Item.transaction do
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
     )
-    Item.create!(  :id =>18,
+    Item.create!(   :id =>18,
+                    :cart_id => 3,
+                    :employee_id => Employee.find_by_name("Ernie").id,
                     :expense_type => 'Food',
                     :amount => 8.00,
                     :department => 3,
@@ -561,110 +544,3 @@ Item.transaction do
     )
 end 
 
-Cart.transaction do
-    #. . .
-    Cart.delete_all
-    #. . .
-    Cart.create!(  :id => 1,
-    )
-    Cart.create!(  :id => 2,
-    )
-    Cart.create!(  :id => 3,
-    )
-end
-
-LineItem.transaction do
-    #. . .
-    LineItem.delete_all
-    #. . .
-    LineItem.create!(
-        :id => 1,
-        :item_id => 1,
-        :cart_id => 1,
-    )
-    LineItem.create!(
-        :id => 2,
-        :item_id => 2,
-        :cart_id => 1,
-    )
-    LineItem.create!(
-        :id => 3,
-        :item_id => 3,
-        :cart_id => 1,
-    )
-    LineItem.create!(
-        :id => 4,
-        :item_id => 4,
-        :cart_id => 1,
-    )
-    LineItem.create!(
-        :id => 5,
-        :item_id => 5,
-        :cart_id => 1,
-    )
-    LineItem.create!(
-        :id => 6,
-        :item_id => 6,
-        :cart_id => 1,
-    )
-    LineItem.create!(
-        :id => 7,
-        :item_id => 7,
-        :cart_id => 2,
-    )
-    LineItem.create!(
-        :id => 8,
-        :item_id => 8,
-        :cart_id => 2,
-    )
-    LineItem.create!(
-        :id => 9,
-        :item_id => 9,
-        :cart_id => 2,
-    )
-    LineItem.create!(
-        :id => 10,
-        :item_id => 10,
-        :cart_id => 2,
-    )
-    LineItem.create!(
-        :id => 11,
-        :item_id => 11,
-        :cart_id => 2,
-    )
-    LineItem.create!(
-        :id => 12,
-        :item_id => 12,
-        :cart_id => 2,
-    )
-    LineItem.create!(
-        :id => 13,
-        :item_id => 13,
-        :cart_id => 3,
-    )
-    LineItem.create!(
-        :id => 14,
-        :item_id => 14,
-        :cart_id => 3,
-    )
-    LineItem.create!(
-        :id => 15,
-        :item_id => 15,
-        :cart_id => 3,
-    )
-    LineItem.create!(
-        :id => 16,
-        :item_id => 16,
-        :cart_id => 3,
-    )
-    LineItem.create!(
-        :id => 17,
-        :item_id => 17,
-        :cart_id => 3,
-    )
-    LineItem.create!(
-        :id => 18,
-        :item_id => 18,
-        :cart_id => 3,
-    )
-end 

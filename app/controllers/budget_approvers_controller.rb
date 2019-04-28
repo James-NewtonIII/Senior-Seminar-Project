@@ -1,6 +1,6 @@
 class BudgetApproversController < ApplicationController
   before_action :authenticate_account!
-  before_action :set_budget_approver, only: [:show, :edit, :update, :destroy]
+  before_action :set_budget_approver, only: [:edit, :update]
 
   def pundit_user
     current_account

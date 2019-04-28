@@ -1,13 +1,17 @@
 class TafsController < ApplicationController
-  include CurrentTaf
-  #before_action :set_current_taf, only: [:new, :edit, :update, :destroy]
+  before_action :authenticate_account!
   before_action :set_taf, only: [:new, :show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_taf
 
   # GET /tafs
   # GET /tafs.json
   def index
-    @tafs = Taf.all
+    if (params[:employee_id])
+      @employee = Employee.find(params[:employee_id])
+      @tafs = @employee.tafs
+    else
+      @tafs = Taf.all
+    end 
   end
 
   # GET /tafs/1
@@ -19,10 +23,22 @@ class TafsController < ApplicationController
   # GET /tafs/new
   def new
     @taf = Taf.new
+
+    if current_account && current_account.accountable_type == "Employee"
+      @taf.employee_id  = Employee.find_by_name(current_account.accountable.name).id
+  end
+
+  respond_to do |format|
+    format.html
+    format.json { render json: {"redirect":true,"redirect_url": new_order_path }}
+  end
   end
 
   # GET /tafs/1/edit
   def edit
+    if current_account && current_account.accountable_type == "Payment Manager"
+      @taf.payment_manager_id = PaymentManager.find_by_name(current_account.accountable.name).id
+    end
   end
 
   def decision
@@ -40,6 +56,10 @@ class TafsController < ApplicationController
   # POST /tafs.json
   def create
     @taf = Taf.new(taf_params)
+
+    if current_account && current_account.accountable_type == "Employee"
+      @taf_item.employee = current_account.accountable
+    end
 
     respond_to do |format|
       if @taf.save
@@ -87,6 +107,14 @@ class TafsController < ApplicationController
       params
         .require(:taf)
         .permit(:id, :total_estimated_amount, :quantity, :payment_manager_id, :pm_approval, :pm_reason, taf_item_attributes: TafItem.attribute_names.map(&:to_sym).push(:_destroy) ) #[:id, :request_reason, :expense_date, :estimated_amount, :dept, :ba_approval, :ba_reason, :expense_type, :taf_line_items_id]
+    end
+
+    def show_tafs_for_employees?
+      @current_account == @employee.account
+    end
+
+    def show_tafs_for_payment_manager?
+      @current_account == @payment_manager.account
     end
 
     def invalid_taf

@@ -90,10 +90,16 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:expense_type, :department, :actual_expense_date, :amount, :ba_approval, :ba_reason, :image_url)
     end
 
-    def show_line_items_for_employee
-      employee = Employee.find(params[:id])   
+    def show_items_for_budget_approver?
+      budget_approver = BudgetApprover.find(params[:id])
+      authorize budget_approver, :show_items_for_budget_approver?
+      items = Item.where(department = budget_approver.department_id)
+    end
+
+    def show_items_for_employee?
+      employee = Employee.find(params[:id])
+      authorize employee, :show_items_for_employee?
       items = employee.items
-      @line_items = LineItem.where(item_id: items)
       items.each do |item|
         logger.info(item)
       end
