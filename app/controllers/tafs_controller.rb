@@ -25,6 +25,7 @@ class TafsController < ApplicationController
   # GET /tafs/new
   def new
     @taf = Taf.new
+    @taf_item = TafItem.new
     @taf.taf_items.build
     
 
@@ -126,12 +127,31 @@ class TafsController < ApplicationController
                 )
     end
 
-    def show_tafs_for_employees?
-      @current_account == @employee.account
+    def show_tafs_for_payment_manager?
+      payment_manager = PaymentManager.find(params[:id])
+      authorize payment_manager, :show_taf_for_payment_manager?
+      tafs = payment_manager.taf
+      tafs.each do |taf_item|
+        logger.info(taf_item)
+      end
     end
 
-    def show_tafs_for_payment_manager?
-      @current_account == @payment_manager.account
+    def show_tafs_for_budget_approver?
+      budget_approver = BudgetApprover.find(params[:id])
+      authorize budget_approver, :show_taf_for_budget_approver?
+      tafs = budget_approver.taf
+      tafs.each do |taf_item|
+        logger.info(taf_item)
+      end
+    end
+
+    def show_tafs_for_employee?
+      employee = Employee.find(params[:id])
+      authorize employee, :show_taf_for_employee?
+      tafs = employee.taf
+      tafs.each do |taf_item|
+        logger.info(taf_item)
+      end
     end
 
     def invalid_taf

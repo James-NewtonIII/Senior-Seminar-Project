@@ -104,12 +104,31 @@ class CartsController < ApplicationController
       params.fetch(:cart, {})
     end
 
-    def show_carts_for_employees?
-      @current_account == @employee.account
+    def show_carts_for_payment_manager?
+      payment_manager = PaymentManager.find(params[:id])
+      authorize payment_manager, :show_cart_for_payment_manager?
+      carts = payment_manager.cart
+      carts.each do |cart_item|
+        logger.info(cart_item)
+      end
     end
 
-    def show_carts_for_payment_manager?
-      @current_account == @payment_manager.account
+    def show_carts_for_budget_approver?
+      budget_approver = BudgetApprover.find(params[:id])
+      authorize budget_approver, :show_cart_for_budget_approver?
+      carts = budget_approver.cart
+      carts.each do |cart_item|
+        logger.info(cart_item)
+      end
+    end
+
+    def show_carts_for_employee?
+      employee = Employee.find(params[:id])
+      authorize employee, :show_cart_for_employee?
+      carts = employee.cart
+      carts.each do |cart_item|
+        logger.info(cart_item)
+      end
     end
 
     def invalid_cart

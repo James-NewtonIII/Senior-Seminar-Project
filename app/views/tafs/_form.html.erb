@@ -49,16 +49,18 @@
         <th></th>
       </tr>
     </thead>
-  <% elsif current_account.accountable_type=="Budget Approver" %>
-    <table class='table'>
-    <thead>
-      <tr>
-        <th> Was Approved? </th>
-        <th> Rejection Reason </th>
-  <% else %>
-    <table class='table'>
+
+    <% elsif current_account.accountable_type=="Budget Approver" %>
+      <table class='table'>
       <thead>
-  <% end %>
+        <tr>
+          <th> Was Approved? </th>
+          <th> Rejection Reason </th>
+    <% else %>
+      <table class='table'>
+        <thead>
+    <% end %>
+    
     <tbody class='taf_items'>
     
       <%= f.simple_fields_for :taf_items do |builder| %>
@@ -69,13 +71,15 @@
 
   </table>
   <div class='links'>
-  
+  <% if current_account.accountable_type=="Employee" %>
     <%= link_to_add_association 'Add Item', 
           f, :taf_items, 
           class: 'btn btn-primary', data: { 
             association_insertion_node: '.taf_items', 
             association_insertion_method: :append 
           } %>
+    <% else %>
+  <% end %>
   </div>
 
   <br><br><br><br>
@@ -84,4 +88,57 @@
     <%= f.button :submit %>
   </div>
 
+<% end %>
+
+<%= simple_form_for(@taf_item) do |form| %>
+  <% if @taf_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@taf_item.errors.count, "error") %> prohibited this taf_item from being saved:</h2>
+
+      <ul>
+      <% @taf_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :request_reason %>
+    <%= form.select :request_reason, ['Travel','Taxi','Lodging','Food','Other'] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expense_date %>
+    <%= form.date_field :expense_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :estimated_amount %>
+    <%= form.text_field :estimated_amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dept %>
+    <%= form.select :dept, ['QA', 'RnD','DnD']%>
+  </div>
+
+  <% if current_account.accountable_type=="Budget Approver"%>
+    <div class="field">
+      <%= form.label :ba_approval %>
+      <%= form.check_box :ba_approval %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ba_reason %>
+      <%= form.text_area :ba_reason, id: :ba_reason, rows: 10, cols: 60 %>
+    </div>
+  <% else %>
+  <% end %>
+
+  <br>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
 <% end %>

@@ -21,5 +21,13 @@ class PaymentManagerPolicy
     def show_taf_for_payment_manager?
       @current_account == @payment_manager.account
     end
+
+    def show_items_for_payment_manager?
+      @current_account == @payment_manager.account
+    end
+
+    def show_taf_items_for_payment_manager?
+      @current_account == @payment_manager.account
+    end
   
   end

@@ -14,11 +14,18 @@ class BudgetApproverPolicy
       @current_account == @budget_approver.account
     end
 
-    def show_items_for_budget_approvers
+    def show_items_for_budget_approver?
       @current_account == @budget_approver.account
     end
 
-    def show_taf_items_for_budget_approvers
+    def show_taf_items_for_budget_approver?
+      @current_account == @budget_approver.account
+
+    def show_carts_for_budget_approver?
+      @current_account == @budget_approver.account
+    end
+  
+    def show_tafs_for_budget_approver?
       @current_account == @budget_approver.account
     end
   

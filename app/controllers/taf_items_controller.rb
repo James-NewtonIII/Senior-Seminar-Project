@@ -102,11 +102,25 @@ class TafItemsController < ApplicationController
       params.require(:taf_item).permit(:request_reason, :expense_date, :estimated_amount, :dept, :ba_approval, :ba_reason)
     end
 
-    def show_taf_items_for_budget_approvers?
-      @current_account == @budget_approver.account
+    def show_taf_items_for_payment_manager?
+      payment_manager = PaymentManager.find(params[:id])
+      authorize payment_manager, :show_taf_items_for_payment_manager?
+      taf_items = payment_manager.taf_items
+      taf_items.each do |taf_item|
+        logger.info(taf_item)
+      end
     end
 
-    def show_taf_items_for_employee
+    def show_taf_items_for_budget_approver?
+      budget_approver = BudgetApprover.find(params[:id])
+      authorize budget_approver, :show_taf_items_for_budget_approver?
+      taf_items = budget_approver.taf_items
+      taf_items.each do |taf_item|
+        logger.info(taf_item)
+      end
+    end
+
+    def show_taf_items_for_employee?
       employee = Employee.find(params[:id])
       authorize employee, :show_taf_items_for_employee?
       taf_items = employee.taf_items

@@ -12,6 +12,7 @@
         </tr>
     </thead>
     <% @taf.taf_items.each do |taf_item| %>
+        <% if taf_item.dept==BudgetApprover.find(current_account.accountable_id).department_id%>
         <tr>
             <td> <%= taf_item.id %></li>
             <td> <%= taf_item.expense_type %> </td> 

@@ -28,6 +28,7 @@
           <td><%= link_to 'Show', taf_item %></td>
           <td><%= link_to 'Edit', edit_taf_item_path(taf_item) %></td>
           <td><%= link_to 'Destroy', taf_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
         <% end %>
       </tr>
     <% end %>
