@@ -4,6 +4,7 @@
     <% end %>
 
     <h2>Your Pragmatic Travel Authorization Form</h2>
+    <%= puts current_account.accountable_type%>
     <% if account_signed_in? %>
         <% if current_account.accountable_type=="Employee" %> <!-- Employee -->
             <table>
@@ -33,7 +34,8 @@
             </table>
             <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
 
-        <% elsif current_account.accountable_type=="Budget Approver" %><!-- BUDGET APPROVER -->
+        <% elsif current_account.accountable_type=="BudgetApprover" %><!-- BUDGET APPROVER -->
+        <%= puts "budget approver"%>
             <div class="Funds" style="allign-right">
                 <table>
                     <thead>
@@ -92,7 +94,7 @@
 
             <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
 
-        <% elsif current_account.accountable_type=="Payment Manager" %> <!-- Payment Manager -->
+        <% elsif current_account.accountable_type=="PaymentManager" %> <!-- Payment Manager -->
             <div class="pm_top_div">
                 <div class="pm_funds_div">
                     <table>

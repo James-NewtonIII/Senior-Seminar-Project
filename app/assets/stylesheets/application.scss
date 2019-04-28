@@ -38,6 +38,8 @@ header.main {
 .content {
     margin: 0;
     padding: 0;
+    border:0.5em;
+    border-color: black;
 
     display: flex;
     display: -webkit-flex;
@@ -56,6 +58,7 @@ header.main {
         padding-bottom: 1em;
         background: darkblue;
         text-align: center;
+        border: #bfb;
         /*mobile has centered nav*/
 
         @media (min-width: 30em) {
@@ -69,6 +72,7 @@ header.main {
             list-style: none;
             margin: 0;
             padding: 0;
+            border: white;
 
             @media (min-width: 30em) {
                 padding-right: 1em;
@@ -80,15 +84,17 @@ header.main {
                 padding: 0.5em;
                 text-transform: uppercase;
                 letter-spacing: 0.354em;
+                border: white;
 
                 a {
                     color: #bfb;
                     text-decoration: none;
+                    border: white;
                 }
 
                 a:hover {
-                    background: none;
-                    color: white;
+                    background: white;
+                    color: blue;
                 }
             }
         }
