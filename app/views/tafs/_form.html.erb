@@ -41,10 +41,10 @@
   <table class='table'>
     <thead>
       <tr>
-        <th> Amount </th>
-        <th> Expense Type </th>
-        <th> Department </th>
+        <th> Request Type </th>
         <th> Expense Date </th>
+        <th> Amount </th>
+        <th> Department </th>
 
         <th></th>
       </tr>
@@ -60,29 +60,6 @@
       <table class='table'>
         <thead>
     <% end %>
-    
-    <tbody class='taf_items'>
-    
-      <%= f.simple_fields_for :taf_items do |builder| %>
-        <%= render 'taf_item_fields', f: builder %>
-      <% end %>     
-    
-    </tbody>
-
-  </table>
-  <div class='links'>
-  <% if current_account.accountable_type=="Employee" %>
-    <%= link_to_add_association 'Add Item', 
-          f, :taf_items, 
-          class: 'btn btn-primary', data: { 
-            association_insertion_node: '.taf_items', 
-            association_insertion_method: :append 
-          } %>
-    <% else %>
-  <% end %>
-  </div>
-
-  <br><br><br><br>
 
   <div class="form-actions">
     <%= f.button :submit %>
@@ -94,23 +71,22 @@
   <% if @taf_item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@taf_item.errors.count, "error") %> prohibited this taf_item from being saved:</h2>
-
       <ul>
-      <% @taf_item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @taf_item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= form.label :request_reason %>
-    <%= form.select :request_reason, ['Travel','Taxi','Lodging','Food','Other'] %>
+    <%= form.label :expense_type %>
+    <%= form.select :expense_type, ['Travel','Taxi','Lodging','Food','Other'] %>
   </div>
 
   <div class="field">
     <%= form.label :expense_date %>
-    <%= form.date_field :expense_date %>
+    <%= form.date_select :expense_date %>
   </div>
 
   <div class="field">

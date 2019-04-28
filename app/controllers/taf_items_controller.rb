@@ -1,5 +1,7 @@
 class TafItemsController < ApplicationController
+  include CurrentTaf
   before_action :authenticate_account!
+  before_action :set_current_taf, only: [:new, :create]
   before_action :set_taf_item, only: [:show, :edit, :update, :destroy]
 
   def pundit_user
