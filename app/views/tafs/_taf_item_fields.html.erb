@@ -1,10 +1,12 @@
-<div class="nested-fields">
-    <tr>
-        <td><%= f.input :expense_type %></td>
-        <td><%= f.input :estimated_amount %></td>
-        <td><%= f.input :dept %></td>
-        <td><%= f.input :ba_approval, :as => :boolean %></td>
-        <td><%= f.input :ba_reason %></td>
-        <td><%= link_to_remove_association "remove item", f %></td>
-    <tr>
-</div>
+<tr class="nested-fields">
+    <td><%= f.input :estimated_amount %></td>
+    <td>
+        <%= f.label :expense_type %>
+        <%= f.select :expense_type, ['Travel','Taxi','Lodging','Food','Other'] %>
+    </td>
+    <td><%= f.input :dept %></td>
+    <td><%= f.input :expense_date %></td>
+    <td><%= f.input :ba_approval, :as => :boolean %></td>
+    <td><%= f.input :ba_reason %></td>
+    <td><%= link_to_remove_association "remove item", f, class: 'btn btn-danger' %></td>
+<tr>

@@ -1,7 +1,7 @@
 class TafsController < ApplicationController
   include CurrentTaf
   before_action :authenticate_account!
-  before_action :set_current_taf, only: [:new]
+  before_action :set_current_taf, only: [:new, :create]
   before_action :set_taf, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_taf
 
@@ -26,9 +26,11 @@ class TafsController < ApplicationController
   def new
     @taf = Taf.new
     @taf.taf_items.build
+
     if current_account && current_account.accountable_type == "Employee"
       @taf.employee_id  = Employee.find_by_name(current_account.accountable.name).id
     end
+
     respond_to do |format|
       format.html
       format.json { render json: {"redirect":true,"redirect_url": new_order_path }}
@@ -107,7 +109,23 @@ class TafsController < ApplicationController
     def taf_params
       params
         .require(:taf)
-        .permit(:id, :total_estimated_amount, :quantity, :payment_manager_id, :pm_approval, :pm_reason, taf_item_attributes: TafItem.attribute_names.map(&:to_sym).push(:_destroy) ) #[:id, :request_reason, :expense_date, :estimated_amount, :dept, :ba_approval, :ba_reason, :expense_type, :taf_line_items_id]
+        .permit(  :id, 
+                  :total_estimated_amount, 
+                  :quantity, 
+                  :payment_manager_id, 
+                  :pm_approval, 
+                  :pm_reason, 
+                  taf_item_attributes: [
+                        :id, 
+                        :request_reason, 
+                        :expense_date, 
+                        :estimated_amount, 
+                        :dept, 
+                        :ba_approval, 
+                        :ba_reason, 
+                        :expense_type
+                  ]
+                )
     end
 
     def show_tafs_for_employees?
