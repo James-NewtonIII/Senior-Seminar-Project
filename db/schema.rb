@@ -78,31 +78,12 @@ ActiveRecord::Schema.define(version: 2019_04_27_230423) do
     t.integer "employee_id"
   end
 
-  create_table "line_items", force: :cascade do |t|
-    t.integer "item_id"
-    t.integer "cart_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cart_id"], name: "index_line_items_on_cart_id"
-    t.index ["item_id"], name: "index_line_items_on_item_id"
-  end
-
   create_table "payment_managers", force: :cascade do |t|
     t.string "name"
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "department_id"
-  end
-
-  create_table "request_items", force: :cascade do |t|
-    t.string "expense_type"
-    t.decimal "amount"
-    t.text "reason"
-    t.boolean "ba_approval"
-    t.string "ba_reason"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "super_accounts", force: :cascade do |t|
@@ -125,15 +106,6 @@ ActiveRecord::Schema.define(version: 2019_04_27_230423) do
     t.integer "budget_approver_id"
     t.integer "employee_id"
     t.index ["taf_id"], name: "index_taf_items_on_taf_id"
-  end
-
-  create_table "taf_line_items", force: :cascade do |t|
-    t.integer "taf_item_id"
-    t.integer "taf_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["taf_id"], name: "index_taf_line_items_on_taf_id"
-    t.index ["taf_item_id"], name: "index_taf_line_items_on_taf_item_id"
   end
 
   create_table "tafs", force: :cascade do |t|

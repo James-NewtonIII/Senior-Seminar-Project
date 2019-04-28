@@ -33,7 +33,7 @@ class TafsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: {"redirect":true,"redirect_url": new_order_path }}
+      format.json { render json: {"redirect" => true, "redirect_url" =>new_order_path} }
     end
   end
 
@@ -53,17 +53,13 @@ class TafsController < ApplicationController
     end
   end
 
-  
-
   # POST /tafs
   # POST /tafs.json
   def create
     @taf = Taf.new(taf_params)
-
     if current_account && current_account.accountable_type == "Employee"
       @taf_item.employee = current_account.accountable
     end
-
     respond_to do |format|
       if @taf.save
         format.html { redirect_to @taf, notice: 'Taf was successfully created.' }

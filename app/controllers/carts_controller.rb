@@ -1,5 +1,7 @@
 class CartsController < ApplicationController
+  include CurrentCart
   before_action :authenticate_account!
+   before_action :set_current_cart, only: [:new]
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
@@ -23,12 +25,21 @@ class CartsController < ApplicationController
   # GET /carts/new
   def new
     @cart = Cart.new
-    authorize @cart
+    @cart.items.build
+    if current_account && current_account.accountable_type == "Employee"
+      @cart.employee_id  = Employee.find_by_name(current_account.accountable.name).id
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: {"redirect" => true, "redirect_url" =>new_order_path} }
+    end
   end
 
   # GET /carts/1/edit
   def edit
-    authorize @cart
+    if current_account && current_account.accountable_type == "Payment Manager"
+      @cart.payment_manager_id = PaymentManager.find_by_name(current_account.accountable.name).id
+    end
   end
 
   def decision
@@ -44,8 +55,9 @@ class CartsController < ApplicationController
   # POST /carts.json
   def create
     @cart = Cart.new(cart_params)
-    @line_item = @cart.add_item(item)
-
+    if current_account && current_account.accountable_type == "Employee"
+      @item.employee = current_account.accountable
+    end
     respond_to do |format|
       if @cart.save
         format.html { redirect_to @cart, notice: 'Expense Report was successfully created.' }
@@ -60,7 +72,6 @@ class CartsController < ApplicationController
   # PATCH/PUT /carts/1
   # PATCH/PUT /carts/1.json
   def update
-    authorize @cart
     respond_to do |format|
       if @cart.update(cart_params)
         format.html { redirect_to @cart, notice: 'Expense Report was successfully updated.' }
