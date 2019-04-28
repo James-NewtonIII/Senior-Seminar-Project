@@ -246,7 +246,7 @@ TafItem.transaction do
                         :ba_approval => nil,
                         :ba_reason => '',
     )
-    TafItem.create!(   :id => 8,
+    TafItem.create!(    :id => 8,
                         :taf_id => 2, 
                         :employee_id => Employee.find_by_name("Earl").id,
                         :expense_type => 'Lodging',
