@@ -1,17 +1,61 @@
-<%= form_with(model: cart, local: true) do |form| %>
-  <% if cart.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(cart.errors.count, "error") %> prohibited this expense report from being saved:</h2>
+<div class="Created_Items_Form">
+  <table>
+    <thead>
+      <tr>
+        <th> ID </th>
+        <th> Expense Type </th>
+        <th> Amount </th>
+        <th> Was Approved? </th>
+        <th> Rejection Reason </th>
+        <th>Image Url</th>
+        <th></th>
+      </tr>
+    </thead>
+    <% @cart.items.each do |item| %>
+      <tr>
+        <td> <%= item.id %></li>
+        <td> <%= item.expense_type %> </td> 
+        <td> <%= number_to_currency(item.amount) %> </td>
+        <td> <%= item.ba_approval ? "true" : "false" %> </td>
+        <td> <%= item.ba_reason %> </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 
-      <ul>
-      <% cart.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<%= simple_form_for(@cart) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :pm_approval %>
+    <%= f.input :pm_reason %>
+  </div>
+
+  <h3>Items</h3>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th> ID </th>
+        <th> Expense Type </th>
+        <th> Department </th>
+        <th> Amount </th>
+        <th> Was Approved? </th>
+        <th> Rejection Reason </th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class='items'>
+      <%= f.simple_fields_for :items do |builder| %>
+        <%= render 'item_fields', f: builder %>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+    </tbody>
 
-  <div class="actions"  >
-    <%= form.submit "create expense report" %>
+  </table>
+
+  <div class="form-actions">
+    <%= link_to_add_association 'Add Item', f, :items, class: 'btn btn-primary', data: { association_insertion_node: '.items', association_insertion_method: :append } %>
+    <%= f.button :submit %>
   </div>
 <% end %>
