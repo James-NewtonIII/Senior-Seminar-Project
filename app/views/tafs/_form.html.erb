@@ -19,13 +19,8 @@
         <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
         <td> <%= taf_item.ba_reason %> </td>
       </tr>
-                
-      <li style="display:none"><%=@taf.quantity+=1%></li>
-      <li style="display:none"><%=@taf.total_estimated_amount+=taf_item.estimated_amount%></li>
     <% end %>
   </table>
-            
-  <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
 </div>
 
 <%= simple_form_for(@taf) do |f| %>
@@ -35,6 +30,7 @@
     <%= f.input :pm_approval %>
     <%= f.input :pm_reason %>
   </div>
+
   <h3>Items</h3>
 
   <table class='table'>
@@ -42,14 +38,15 @@
       <tr>
         <th> ID </th>
         <th> Expense Type </th>
+        <th> Department </th>
         <th> Amount </th>
         <th> Was Approved? </th>
         <th> Rejection Reason </th>
-        <th></th>
+
         <th></th>
       </tr>
     </thead>
-    <tbody class='items'>
+    <tbody class='taf_items'>
       <%= f.simple_fields_for :taf_items do |builder| %>
         <%= render 'taf_item_fields', f: builder %>
       <% end %>
@@ -58,7 +55,7 @@
   </table>
 
   <div class="form-actions">
+    <%= link_to_add_association 'Add Item', f, :taf_items, class: 'btn btn-primary', data: { association_insertion_node: '.taf_items', association_insertion_method: :append } %>
     <%= f.button :submit %>
-    <%= link_to_add_association 'Add Item', f, :taf_items, class: 'btn btn-primary', data: { association_insertion_node: '.tasks', association_insertion_method: :append } %>
   </div>
 <% end %>

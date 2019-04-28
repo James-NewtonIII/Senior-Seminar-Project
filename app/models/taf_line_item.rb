@@ -1,2 +1,0 @@
-class TafLineItem < ApplicationRecord
-end

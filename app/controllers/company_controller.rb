@@ -1,7 +1,10 @@
 class CompanyController < ApplicationController
   def index
-    @items = Item.order("amount DESC")
-    @request_items = RequestItem.order(:amount)
-    @taf_items = TafItem.order(:expense_date)
+    if (params[:employee_id])
+      @employee = Employee.find(params[:employee_id])
+      @tafs = @employee.tafs
+    else
+      @tafs = Taf.all
+    end 
   end
 end

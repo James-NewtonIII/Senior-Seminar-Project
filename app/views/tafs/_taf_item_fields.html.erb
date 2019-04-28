@@ -1,0 +1,10 @@
+<div class="nested-fields">
+    <tr>
+        <td><%= f.input :expense_type %></td>
+        <td><%= f.input :estimated_amount %></td>
+        <td><%= f.input :dept %></td>
+        <td><%= f.input :ba_approval, :as => :boolean %></td>
+        <td><%= f.input :ba_reason %></td>
+        <td><%= link_to_remove_association "remove item", f %></td>
+    <tr>
+</div>

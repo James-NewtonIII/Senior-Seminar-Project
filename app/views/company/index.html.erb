@@ -2,4 +2,18 @@
     <aside id="notice"><%= notice %></aside>
 <% end %>
 
-<h1> WELCOME TO THE COMPANY</h1>
+<% if account_signed_in? %>
+
+    <% if current_account.accountable_type=="Employee"%>
+        <%= render 'company/emp_dash' %>
+    <% elsif current_account.accountable_type=="Budget Approver"%>
+        <%= render 'company/ba_dash' %>
+    <% elsif current_account.accountable_type=="Payment Manager"%>
+        <%= render 'company/pm_dash' %>
+    <% else %> <!-- SUPER ACCOUNT-->
+
+    <% end %>
+
+<% else %>
+    <h1> Welcome to the company Travel Authorization and Compensation portal, please log in to continue.</h1>
+<% end %>

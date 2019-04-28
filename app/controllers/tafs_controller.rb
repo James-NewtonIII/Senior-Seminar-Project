@@ -1,6 +1,8 @@
 class TafsController < ApplicationController
+  include CurrentTaf
   before_action :authenticate_account!
-  before_action :set_taf, only: [:new, :show, :edit, :update, :destroy]
+  before_action :set_current_taf, only: [:new]
+  before_action :set_taf, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_taf
 
   # GET /tafs
@@ -23,15 +25,14 @@ class TafsController < ApplicationController
   # GET /tafs/new
   def new
     @taf = Taf.new
-
+    @taf.taf_items.build
     if current_account && current_account.accountable_type == "Employee"
       @taf.employee_id  = Employee.find_by_name(current_account.accountable.name).id
-  end
-
-  respond_to do |format|
-    format.html
-    format.json { render json: {"redirect":true,"redirect_url": new_order_path }}
-  end
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: {"redirect":true,"redirect_url": new_order_path }}
+    end
   end
 
   # GET /tafs/1/edit
