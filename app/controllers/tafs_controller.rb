@@ -1,5 +1,7 @@
 class TafsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  include CurrentTaf
+  before_action :set_current_taf, only: [:new, :create]
   before_action :set_taf, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_taf
 
@@ -58,10 +60,15 @@ class TafsController < ApplicationController
   # POST /tafs.json
   def create
     @taf = Taf.new(taf_params)
+    @taf_item = TafItem.new
+
+    if current_account && current_account.accountable_type == "Employee"
+      @taf.employee_id  = Employee.find_by_name(current_account.accountable.name).id
+    end
     
     respond_to do |format|
       if @taf.save
-        format.html { redirect_to @taf, notice: 'Taf was successfully created.' }
+        format.html { redirect_back(fallback_location: :back) }
         format.json { render :show, status: :created, location: @taf }
       else
         format.html { render :new }
