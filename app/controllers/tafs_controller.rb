@@ -46,8 +46,6 @@ class TafsController < ApplicationController
     end
   end
 
-  
-
   def decision
     @tafs = Taf.where(id: params[:id]) 
     if params[:decision] == "true"
