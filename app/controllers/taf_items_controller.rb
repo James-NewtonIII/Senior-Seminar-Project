@@ -41,15 +41,19 @@ class TafItemsController < ApplicationController
     @taf_item = TafItem.where(id: params[:id]) 
     if params[:decision] == "true"
       @taf_item.update(ba_approval: true)
+      redirect_back(fallback_location: :back)
     else
       @taf_item.update(ba_approval: false)
+      redirect_back(fallback_location: :back)
     end
   end
 
+  
   # POST /taf_items
   # POST /taf_items.json
   def create
     @taf_item = TafItem.new(taf_item_params)
+    @ti = @taf.add_taf_item(@taf_item)
     authorize @taf_item
      if current_account && current_account.accountable_type == "Employee"
         @taf_item.employee = current_account.accountable

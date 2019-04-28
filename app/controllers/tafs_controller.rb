@@ -44,12 +44,16 @@ class TafsController < ApplicationController
     end
   end
 
+  
+
   def decision
     @tafs = Taf.where(id: params[:id]) 
     if params[:decision] == "true"
       @tafs.update(pm_approval: true)
+      redirect_back(fallback_location: :back)
     else
       @tafs.update(pm_approval: false)
+      redirect_back(fallback_location: :back)
     end
   end
 

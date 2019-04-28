@@ -41,8 +41,10 @@ class ItemsController < ApplicationController
     @item = Item.where(id: params[:id]) 
     if params[:decision] == "true"
       @item.update(ba_approval: true)
+      redirect_back(fallback_location: :back)
     else
       @taf_item.update(ba_approval: false)
+      redirect_back(fallback_location: :back)
     end
   end
   
