@@ -24,9 +24,11 @@
         <td><%= taf_item.dept %></td>
         <td><%= taf_item.ba_approval %></td>
         <td><%= taf_item.ba_reason %></td>
-        <td><%= link_to 'Show', taf_item %></td>
-        <td><%= link_to 'Edit', edit_taf_item_path(taf_item) %></td>
-        <td><%= link_to 'Destroy', taf_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_account.accountable_type=="Employee" %>
+          <td><%= link_to 'Show', taf_item %></td>
+          <td><%= link_to 'Edit', edit_taf_item_path(taf_item) %></td>
+          <td><%= link_to 'Destroy', taf_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

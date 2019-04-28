@@ -31,15 +31,19 @@
     <%= form.select :dept, ['QA', 'RnD','DnD']%>
   </div>
 
-  <div class="field">
-    <%= form.label :ba_approval %>
-    <%= form.check_box :ba_approval %>
-  </div>
+  <% if current_account.accountable_type=="Budget Approver"%>
+    <div class="field">
+      <%= form.label :ba_approval %>
+      <%= form.check_box :ba_approval %>
+    </div>
 
-  <div class="field">
-    <%= form.label :ba_reason %>
-    <%= form.text_area :ba_reason, id: :ba_reason, rows: 10, cols: 60 %>
-  </div>
+    <div class="field">
+      <%= form.label :ba_reason %>
+      <%= form.text_area :ba_reason, id: :ba_reason, rows: 10, cols: 60 %>
+    </div>
+  <% else %>
+  
+  <% end %>
 
   <br>
 

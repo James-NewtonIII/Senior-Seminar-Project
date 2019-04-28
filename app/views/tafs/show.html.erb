@@ -5,7 +5,7 @@
 
     <h2>Your Pragmatic Travel Authorization Form</h2>
 
-    <% if false %> <!-- Employee -->
+    <% if current_account.accountable_type=="Employee" %> <!-- Employee -->
         <table>
             <thead>
                 <tr>
@@ -25,9 +25,6 @@
                     <td> <%= taf_item.expense_type %> </td> 
                     <td> <%= taf_item.dept %> </td> 
                     <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
-                    <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
-                    <td> <%= taf_item.ba_reason %> </td>
-                
                 </tr>
                 
                 <li style="display:none"><%=@taf.quantity+=1%></li>
@@ -37,7 +34,7 @@
             
         <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
 
-    <% elsif true %> <!-- BUDGET APPROVER -->
+    <% elsif current_account.accountable_type=="Budget Approver" %><!-- BUDGET APPROVER -->
         <div class="Funds" style="allign-right">
             <table>
                 <thead>
@@ -96,7 +93,7 @@
 
         <%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>
 
-    <% elsif true %> <!-- Payment Manager -->
+    <% elsif current_account.accountable_type=="Payment Manager" %> <!-- Payment Manager -->
         <div class="pm_top_div">
             <div class="pm_funds_div">
                 <table>

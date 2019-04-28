@@ -1,4 +1,5 @@
 <tr class="nested-fields">
+<% if current_account.accountable_type=="Employee" %>
     <td><%= f.input :estimated_amount %></td>
     <td>
         <%= f.label :expense_type %>
@@ -6,7 +7,10 @@
     </td>
     <td><%= f.input :dept %></td>
     <td><%= f.input :expense_date %></td>
+    <td><%= link_to_remove_association "remove item", f, class: 'btn btn-danger' %></td>
+<% elsif current_account.accountable_type=="Budget Approver" %>
     <td><%= f.input :ba_approval, :as => :boolean %></td>
     <td><%= f.input :ba_reason %></td>
-    <td><%= link_to_remove_association "remove item", f, class: 'btn btn-danger' %></td>
+<% else%>
+<% end %>
 <tr>

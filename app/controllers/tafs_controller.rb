@@ -26,6 +26,7 @@ class TafsController < ApplicationController
   def new
     @taf = Taf.new
     @taf.taf_items.build
+    
 
     if current_account && current_account.accountable_type == "Employee"
       @taf.employee_id  = Employee.find_by_name(current_account.accountable.name).id
@@ -58,8 +59,9 @@ class TafsController < ApplicationController
   def create
     @taf = Taf.new(taf_params)
     if current_account && current_account.accountable_type == "Employee"
-      @taf_item.employee = current_account.accountable
+      @taf.employee_id  = Employee.find_by_name(current_account.accountable.name).id
     end
+    
     respond_to do |format|
       if @taf.save
         format.html { redirect_to @taf, notice: 'Taf was successfully created.' }

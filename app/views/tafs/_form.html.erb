@@ -26,13 +26,18 @@
 <%= simple_form_for(@taf) do |f| %>
   <%= f.error_notification %>
   <br><br>
-  <div class="form-inputs">
-    <%= f.input :pm_approval %>
-    <%= f.input :pm_reason %>
-  </div>
-  <br><br>
+  <% if current_account.accountable_type=="Payment Manager"%>
+    <div class="form-inputs">
+      <%= f.input :pm_approval %>
+      <%= f.input :pm_reason %>
+    </div>
+    <br><br>
+   <% else %>
+  
+  <% end %>
 
   <h3>Items</h3>
+  <% if current_account.accountable_type=="Employee" %>
   <table class='table'>
     <thead>
       <tr>
@@ -40,12 +45,20 @@
         <th> Expense Type </th>
         <th> Department </th>
         <th> Expense Date </th>
-        <th> Was Approved? </th>
-        <th> Rejection Reason </th>
+
         <th></th>
       </tr>
     </thead>
-
+  <% elsif current_account.accountable_type=="Budget Approver" %>
+    <table class='table'>
+    <thead>
+      <tr>
+        <th> Was Approved? </th>
+        <th> Rejection Reason </th>
+  <% else %>
+    <table class='table'>
+      <thead>
+  <% end %>
     <tbody class='taf_items'>
     
       <%= f.simple_fields_for :taf_items do |builder| %>
@@ -55,13 +68,15 @@
     </tbody>
 
   </table>
+  <div class='links'>
   
-  <%= link_to_add_association 'Add Item', 
-        f, :taf_items, 
-        class: 'btn btn-primary', data: { 
-          association_insertion_node: '.table', 
-          association_insertion_method: :append 
-        } %>
+    <%= link_to_add_association 'Add Item', 
+          f, :taf_items, 
+          class: 'btn btn-primary', data: { 
+            association_insertion_node: '.taf_items', 
+            association_insertion_method: :append 
+          } %>
+  </div>
 
   <br><br><br><br>
 
