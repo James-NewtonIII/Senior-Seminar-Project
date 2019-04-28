@@ -56,13 +56,17 @@ class TafItemsController < ApplicationController
   def create
     @taf_item = TafItem.new(taf_item_params)
 
+    puts current_account.accountable_id
+    puts current_account.id
     if current_account && current_account.accountable_type == "Employee"
       @taf_item.employee = current_account.accountable
+      
     
       @taf_item = @taf.add_taf_item(@taf_item)
       respond_to do |format|
         if @taf_item.save
           format.html { redirect_back(fallback_location: :back) }
+          @taf_item.update(employee_id: current_account.accountable_id)
         else
           format.html { render :new }
           format.json { render json: @taf_item.errors, status: :unprocessable_entity }
