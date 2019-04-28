@@ -3,7 +3,7 @@
 <% end %>
 <h2>Your Pragmatic Expense Report</h2>
 
-<% if true %> <!-- Employee -->
+<% if current_account.accountable_type=="Employee" %> <!-- Employee -->
     <table>
         <thead>
             <tr>
@@ -31,7 +31,7 @@
 
     <%=@cart.quantity%> | <%=number_to_currency(@cart.total_expense)%>
 
-<% elsif true %> <!-- BUDGET APPROVER -->
+<% elsif current_account.accountable_type=="BudgetApprover" %> <!-- BUDGET APPROVER -->
     <div class="Funds" style="align-right">
         <table>
             <thead>
@@ -89,7 +89,7 @@
 
     <%=@cart.quantity%> | <%=number_to_currency(@cart.total_expense)%>
 
-<% elsif true %> <!-- Payment Manager -->
+<% elsif current_account.accountable_type=="PaymentManager" %> <!-- Payment Manager -->
     <div class="pm_top_div">
         <div class="pm_funds_div">
             <table>
