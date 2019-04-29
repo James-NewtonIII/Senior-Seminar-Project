@@ -67,6 +67,13 @@ class TafItemsController < ApplicationController
         if @taf_item.save
           format.html { redirect_back(fallback_location: :back) }
           @taf_item.update(employee_id: current_account.accountable_id)
+          @taf_item.update(request_reason: taf_item_params[:request_reason])
+          @taf_item.update(expense_date: taf_item_params[:expense_date])
+          @taf_item.update(estimated_amount: taf_item_params[:estimated_amount])
+          @taf_item.update(expense_type: taf_item_params[:expense_type])
+
+          
+
         else
           format.html { render :new }
           format.json { render json: @taf_item.errors, status: :unprocessable_entity }
