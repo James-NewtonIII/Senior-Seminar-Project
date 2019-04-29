@@ -7,12 +7,10 @@ Rails.application.routes.draw do
     resources :departments
     resources :employees
     resources :items
-    resources :line_items
     resources :payment_managers
     resources :request_items
     resources :tafs
     resources :taf_items
-    resources :taf_line_items
     resources :super_accounts
     root to: "accounts#index"
   end
@@ -20,11 +18,9 @@ Rails.application.routes.draw do
   devise_for :account, :controllers => { :registrations => 'registrations' }
   
   resources :taf_items
-  resources :taf_line_items
   resources :tafs
   
   resources :items
-  resources :line_items
   resources :carts
   
   resources :departments
@@ -35,12 +31,6 @@ Rails.application.routes.draw do
 
 
   resources :taf_items do
-    member do
-        post :decision
-    end
-  end
-
-  resources :taf_line_items do
     member do
         post :decision
     end

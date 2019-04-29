@@ -26,6 +26,7 @@ class TafItemsController < ApplicationController
   # GET /taf_items/1.json
   def show
     authorize @taf_item
+    puts "SHOW MOTHER FUCKER"
   end
 
   # GET /taf_items/new
@@ -111,8 +112,10 @@ class TafItemsController < ApplicationController
   # PATCH/PUT /taf_items/1
   # PATCH/PUT /taf_items/1.json
   def update
+    puts "UPDATE MOTHER FUCKER"
     respond_to do |format|
       if @taf_item.update(taf_item_params)
+        @taf_item.update(budget_approver_id: current_account.accountable_id)
         format.html { redirect_back(fallback_location: :back) }
         format.json { render :show, status: :ok, location: @taf_item }
       else
