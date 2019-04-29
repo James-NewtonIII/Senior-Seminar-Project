@@ -72,6 +72,25 @@ class TafItemsController < ApplicationController
           @taf_item.update(estimated_amount: taf_item_params[:estimated_amount])
           @taf_item.update(expense_type: taf_item_params[:expense_type])
 
+          if taf_item_params[:dept] == "QA"
+            @taf_item.update(dept: 1)
+          elsif taf_item_params[:dept] == "RnD"
+            @taf_item.update(dept: 2)
+          else
+            @taf_item.update(dept: 3)
+          end
+
+          if taf_item_params[:expense_type] == "Travel"
+            @taf_item.update(expense_type: "Travel")
+          elsif taf_item_params[:expense_type] == "Taxi"
+            @taf_item.update(expense_type: "Taxi")
+          elsif taf_item_params[:expense_type] == "Lodging"
+            @taf_item.update(expense_type: "Lodging")
+          elsif taf_item_params[:expense_type] == "Food"
+            @taf_item.update(expense_type: "Food")
+          else
+            @taf_item.update(expense_type: "Other")
+          end
           
 
         else
