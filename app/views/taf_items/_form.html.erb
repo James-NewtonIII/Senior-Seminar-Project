@@ -11,10 +11,16 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :request_reason %>
-    <%= form.select :request_reason, ['Travel','Taxi','Lodging','Food','Other'] %>
+ <div class="field">
+    <%= form.label :expense_type %>
+    <%= form.select :expense_type, ['Travel','Taxi','Lodging','Food','Other'] %>
   </div>
+ 
+ <div class="field">
+    <%= form.label :request_reason %>
+    <%= form.text_area :request_reason, rows: 10, cols: 60 %>
+  </div>
+
 
   <div class="field">
     <%= form.label :expense_date %>

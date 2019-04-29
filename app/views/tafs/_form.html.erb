@@ -99,7 +99,12 @@
     <%= form.select :dept, ['QA', 'RnD','DnD']%>
   </div>
 
-  <% if current_account.accountable_type=="Budget Approver"%>
+  <div class="field">
+    <%= form.label :request_reason %>
+    <%= form.text_area :request_reason, rows: 10, cols: 60 %>
+  </div>
+
+  <% if current_account.accountable_type=="BudgetApprover"%>
     <div class="field">
       <%= form.label :ba_approval %>
       <%= form.check_box :ba_approval %>

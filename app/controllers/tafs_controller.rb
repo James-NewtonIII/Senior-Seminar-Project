@@ -49,9 +49,11 @@ class TafsController < ApplicationController
     @tafs = Taf.where(id: params[:id]) 
     if params[:decision] == "true"
       @tafs.update(pm_approval: true)
+      @taf.update(payment_manager: current_account.accountable_id)
       redirect_back(fallback_location: :back)
     else
       @tafs.update(pm_approval: false)
+      @taf.update(payment_manager: current_account.accountable_id)
       redirect_back(fallback_location: :back)
     end
   end

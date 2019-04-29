@@ -43,9 +43,11 @@ class TafItemsController < ApplicationController
     @taf_item = TafItem.where(id: params[:id]) 
     if params[:decision] == "true"
       @taf_item.update(ba_approval: true)
+      @taf_item.update(budget_approver_id: current_account.accountable_id)
       redirect_back(fallback_location: :back)
     else
       @taf_item.update(ba_approval: false)
+      @taf_item.update(budget_approver_id: current_account.accountable_id)
       redirect_back(fallback_location: :back)
     end
   end
@@ -56,13 +58,48 @@ class TafItemsController < ApplicationController
   def create
     @taf_item = TafItem.new(taf_item_params)
 
+    puts current_account.accountable_id
+    puts current_account.id
     if current_account && current_account.accountable_type == "Employee"
       @taf_item.employee = current_account.accountable
+      
     
       @taf_item = @taf.add_taf_item(@taf_item)
       respond_to do |format|
         if @taf_item.save
           format.html { redirect_back(fallback_location: :back) }
+          @taf_item.update(employee_id: current_account.accountable_id)
+          @taf_item.update(request_reason: taf_item_params[:request_reason])
+          @taf_item.update(expense_date: taf_item_params[:expense_date])
+          @taf_item.update(estimated_amount: taf_item_params[:estimated_amount])
+          @taf_item.update(expense_type: taf_item_params[:expense_type])
+
+          if taf_item_params[:dept] == "QA"
+            @taf_item.update(dept: 1)
+          elsif taf_item_params[:dept] == "RnD"
+            @taf_item.update(dept: 2)
+          else
+            @taf_item.update(dept: 3)
+          end
+
+          if taf_item_params[:expense_type] == 'Travel'
+            @taf_item.update(expense_type: "Travel")
+            puts "\nTravel\n"
+          elsif taf_item_params[:expense_type] == 'Taxi'
+            @taf_item.update(expense_type: "Taxi")
+            puts "\nTaxi\n"
+          elsif taf_item_params[:expense_type] == 'Lodging'
+            @taf_item.update(expense_type: "Lodging")
+            puts "\nLodging\n"
+          elsif taf_item_params[:expense_type] == 'Food'
+            @taf_item.update(expense_type: "Food")
+            puts "\nFood\n"
+          else
+            @taf_item.update(expense_type: "Other")
+            puts "\nOther\n\n"
+          end
+          
+
         else
           format.html { render :new }
           format.json { render json: @taf_item.errors, status: :unprocessable_entity }
