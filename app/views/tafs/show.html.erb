@@ -80,7 +80,8 @@
                                                 :id => taf_item.id,
                                                 :decision => "true"}, method: 'post', class: "btn btn-success" %>
                         </td>
-                        <td> <%= button_to 'Reject', { :controller => "taf_items",
+                        <td><input type="text" id="text_field"/>
+                            <%= button_to 'Reject', { :controller => "taf_items",
                                                 :action => "decision",
                                                 :id => taf_item.id,
                                                 :decision => "false"}, method: 'post', class: "btn btn-danger" %>
