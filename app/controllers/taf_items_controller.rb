@@ -43,9 +43,11 @@ class TafItemsController < ApplicationController
     @taf_item = TafItem.where(id: params[:id]) 
     if params[:decision] == "true"
       @taf_item.update(ba_approval: true)
+      @taf_item.update(budget_approver_id: current_account.accountable_id)
       redirect_back(fallback_location: :back)
     else
       @taf_item.update(ba_approval: false)
+      @taf_item.update(budget_approver_id: current_account.accountable_id)
       redirect_back(fallback_location: :back)
     end
   end
@@ -80,16 +82,21 @@ class TafItemsController < ApplicationController
             @taf_item.update(dept: 3)
           end
 
-          if taf_item_params[:expense_type] == "Travel"
+          if taf_item_params[:expense_type] == 'Travel'
             @taf_item.update(expense_type: "Travel")
-          elsif taf_item_params[:expense_type] == "Taxi"
+            puts "\nTravel\n"
+          elsif taf_item_params[:expense_type] == 'Taxi'
             @taf_item.update(expense_type: "Taxi")
-          elsif taf_item_params[:expense_type] == "Lodging"
+            puts "\nTaxi\n"
+          elsif taf_item_params[:expense_type] == 'Lodging'
             @taf_item.update(expense_type: "Lodging")
-          elsif taf_item_params[:expense_type] == "Food"
+            puts "\nLodging\n"
+          elsif taf_item_params[:expense_type] == 'Food'
             @taf_item.update(expense_type: "Food")
+            puts "\nFood\n"
           else
             @taf_item.update(expense_type: "Other")
+            puts "\nOther\n\n"
           end
           
 

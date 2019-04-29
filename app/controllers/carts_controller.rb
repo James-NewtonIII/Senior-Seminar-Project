@@ -46,8 +46,10 @@ class CartsController < ApplicationController
     @cart = Cart.where(id: params[:id]) 
     if params[:decision] == "true"
       @cart.update(pm_approval: true)
+      @cart.update(payment_manager: current_account.accountable_id)
     else
       @cart.update(pm_approval: false)
+      @cart.update(payment_manager: current_account.accountable_id)
     end
   end
 
