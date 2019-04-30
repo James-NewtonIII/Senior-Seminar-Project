@@ -109,10 +109,10 @@
                         <% end %>
                     </table>
                 </div>
-                    <%= form_with(model: @taf, local: true) do |form| %>
-                        <td> <%= form.check_box :pm_approval %></td>
-                        <td> <%= form.text_field :pm_reason %> </td>
-                        <td> <%= form.submit %> </td>
+                    <%= form_with(model: @taf, local: true) do |form2| %>
+                        <td> <%= form2.check_box :pm_approval %></td>
+                        <td> <%= form2.text_field :pm_reason %> </td>
+                        <td> <%= form2.submit %> </td>
                     <% end %>
                 </div>
             </div>
