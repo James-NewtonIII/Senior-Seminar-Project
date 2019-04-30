@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :taf_items do
     member do
         post :decision
+        get 'tafs', to: 'tafs#show'
     end
   end
 

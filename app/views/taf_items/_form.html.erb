@@ -37,6 +37,10 @@
     <%= form.select :dept, ['QA', 'RnD','DnD']%>
   </div>
 
+  <div>
+    <%= button_to "New TAF", taf_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
+
   <% if current_account.accountable_type=="Budget Approver"%>
     <div class="field">
       <%= form.label :ba_approval %>
