@@ -65,7 +65,7 @@ class TafsController < ApplicationController
     @taf_item = TafItem.new
 
     if current_account && current_account.accountable_type == "Employee"
-      @taf.employee_id  = Employee.find_by_name(current_account.accountable.name).id
+      @taf.update(employee_id: current_account.accountable_id)
     end
     
     respond_to do |format|
@@ -84,7 +84,9 @@ class TafsController < ApplicationController
   def update
     respond_to do |format|
       if @taf.update(taf_params)
-        @taf.update(payment_manager_id: current_account.accountable_id)
+        if current_account && current_account.accountable_type == "PaymentManager"
+          @taf.update(payment_manager_id: current_account.accountable_id)
+        end
         format.html { redirect_to @taf, notice: 'Taf was successfully updated.' }
         format.json { render :show, status: :ok, location: @taf }
       else
