@@ -78,8 +78,6 @@
                         <%= form_with(model: taf_item, local: true) do |form| %>
                             <td> <%= form.check_box :ba_approval %></td>
                             <td> <%= form.text_field :ba_reason %> </td>
-                            
-                            
                             <td> <%= form.submit %> </td>
                         <% end %>
                     </tr>
@@ -111,17 +109,11 @@
                         <% end %>
                     </table>
                 </div>
-                <div class="pm_accept_div">
-                    <td> <%= button_to 'Accept', { :controller => "tafs",
-                                                :action => "decision",
-                                                :id => @taf.id,
-                                                :decision => "true"}, method: 'post', class: "btn btn-success" %>
-                    </td>
-                    <td> <%= button_to 'Reject', { :controller => "tafs",
-                                                :action => "decision",
-                                                :id => @taf.id,
-                                                :decision => "false"}, method: 'post', class: "btn btn-danger" %>
-                    </td>
+                    <%= form_with(model: @taf, local: true) do |form| %>
+                        <td> <%= form.check_box :pm_approval %></td>
+                        <td> <%= form.text_field :pm_reason %> </td>
+                        <td> <%= form.submit %> </td>
+                    <% end %>
                 </div>
             </div>
             <table>

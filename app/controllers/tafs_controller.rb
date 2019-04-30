@@ -84,6 +84,7 @@ class TafsController < ApplicationController
   def update
     respond_to do |format|
       if @taf.update(taf_params)
+        @taf.update(payment_manager_id: current_account.accountable_id)
         format.html { redirect_to @taf, notice: 'Taf was successfully updated.' }
         format.json { render :show, status: :ok, location: @taf }
       else
@@ -113,7 +114,7 @@ class TafsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def taf_params
-      params.fetch(:taf, {})
+      params.require(:taf).permit(:total_estimated_amount, :payemnt_manager_id, :pm_approval, :pm_reason)
     end
 
     def show_tafs_for_payment_manager?
