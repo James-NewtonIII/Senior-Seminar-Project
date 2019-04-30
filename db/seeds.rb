@@ -152,9 +152,13 @@ Taf.transaction do
     )
     Taf.create!(    :id => 2,
                     :employee_id => Employee.find_by_name("Earl").id,
+                    :all_approved => true,
     )
     Taf.create!(    :id => 3,
                     :employee_id => Employee.find_by_name("Ernie").id,
+                    :all_approved => true,
+                    :payment_manager_id => PaymentManager.find_by_name("Pam").id,
+                    :pm_approval => true,
     )
 end
 
@@ -167,9 +171,13 @@ Cart.transaction do
     )
     Cart.create!(   :id => 2,
                     :employee_id => Employee.find_by_name("Earl").id,
+                    :all_approved => true,
     )
     Cart.create!(   :id => 3,
                     :employee_id => Employee.find_by_name("Ernie").id,
+                    :all_approved => true,
+                    :payment_manager_id => PaymentManager.find_by_name("Pam").id,
+                    :pm_approval => true,
     )
 end
 
@@ -243,7 +251,7 @@ TafItem.transaction do
                         :estimated_amount => 900.00,
                         :request_reason => 'One does not simply walk to England',
                         :dept => 1,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
     TafItem.create!(    :id => 8,
@@ -253,7 +261,7 @@ TafItem.transaction do
                         :estimated_amount => 1000.00,
                         :request_reason => 'Ye Olde Presidential Suite',
                         :dept => 2,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
     TafItem.create!(    :id => 9,
@@ -263,7 +271,7 @@ TafItem.transaction do
                         :estimated_amount => 80.00,
                         :request_reason => 'Yes I can eat $80 of food.',
                         :dept => 3,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
     TafItem.create!(    :id => 10,
@@ -273,7 +281,7 @@ TafItem.transaction do
                         :estimated_amount => 60.00,
                         :request_reason => 'Ye olde 7Eleven',
                         :dept => 1,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
     TafItem.create!(    :id => 11,
@@ -283,7 +291,7 @@ TafItem.transaction do
                         :estimated_amount => 700.00,
                         :request_reason => 'Fatty ate the whole dinner bar.',
                         :dept => 2,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
     TafItem.create!(    :id => 12,
@@ -293,7 +301,7 @@ TafItem.transaction do
                         :estimated_amount => 65.00,
                         :request_reason => 'We didn\'t eat at the other place again',
                         :dept => 3,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
     TafItem.create!(    :id => 13,
@@ -303,7 +311,7 @@ TafItem.transaction do
                         :estimated_amount => 120.00,
                         :request_reason => 'Client in the armpit of Florida',
                         :dept => 1,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
     TafItem.create!(    :id => 14,
@@ -313,7 +321,7 @@ TafItem.transaction do
                         :estimated_amount => 40.00,
                         :request_reason => 'Used to be Motel 6, Florida man knocked it down to Motel 3.2',
                         :dept => 2,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
     TafItem.create!(    :id => 15,
@@ -323,7 +331,7 @@ TafItem.transaction do
                         :estimated_amount => 12.00,
                         :request_reason => 'Chicken feet for Florida Man\'s Breakfast',
                         :dept => 3,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
     TafItem.create!(    :id => 16,
@@ -333,7 +341,7 @@ TafItem.transaction do
                         :estimated_amount => 11.00,
                         :request_reason => 'Meth for Florida Man\'s Lunch',
                         :dept => 1,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
     TafItem.create!(    :id => 17,
@@ -343,7 +351,7 @@ TafItem.transaction do
                         :estimated_amount => 5.00,
                         :request_reason => 'VERY CHEAP VODKA',
                         :dept => 2,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
     TafItem.create!(    :id => 18,
@@ -353,7 +361,7 @@ TafItem.transaction do
                         :estimated_amount => 8.00,
                         :request_reason => 'Le candy from ze quickie mart',
                         :dept => 3,
-                        :ba_approval => nil,
+                        :ba_approval => true,
                         :ba_reason => '',
     )
 end
@@ -428,7 +436,7 @@ Item.transaction do
                     :expense_type => 'Travel',
                     :amount => 900.00,               
                     :department => 1,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt3.jpg',
     )
@@ -438,7 +446,7 @@ Item.transaction do
                     :expense_type => 'Lodging',
                     :amount => 1000.00,
                     :department => 2,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt4.jpg',
     )
@@ -448,7 +456,7 @@ Item.transaction do
                     :expense_type => 'Food',
                     :amount => 80.00,
                     :department => 3,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
     )
@@ -458,7 +466,7 @@ Item.transaction do
                     :expense_type => 'Food',
                     :amount => 60.00,
                     :department => 1,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt2.jpg',
     )
@@ -468,7 +476,7 @@ Item.transaction do
                     :expense_type => 'Food',
                     :amount => 700.00,
                     :department => 2,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt3.jpg',
     )
@@ -478,7 +486,7 @@ Item.transaction do
                     :expense_type => 'Food',
                     :amount => 65.00,
                     :department => 3,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt4.jpg',
     )
@@ -488,7 +496,7 @@ Item.transaction do
                     :expense_type => 'Travel',
                     :amount => 120.00,
                     :department => 1,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
     )
@@ -498,7 +506,7 @@ Item.transaction do
                     :expense_type => 'Lodging',
                     :amount => 40.00,
                     :department => 2,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt2.jpg',
     )
@@ -508,7 +516,7 @@ Item.transaction do
                     :expense_type => 'Food',
                     :amount => 12.00,
                     :department => 3,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt3.jpg',
     )
@@ -518,7 +526,7 @@ Item.transaction do
                     :expense_type => 'Food',
                     :amount  => 11.00,
                     :department => 1,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt4.jpg',
     )
@@ -528,7 +536,7 @@ Item.transaction do
                     :expense_type => 'Food',
                     :amount => 5.00,
                     :department => 2,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
     )
@@ -538,7 +546,7 @@ Item.transaction do
                     :expense_type => 'Food',
                     :amount => 8.00,
                     :department => 3,
-                    :ba_approval => nil,
+                    :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
     )

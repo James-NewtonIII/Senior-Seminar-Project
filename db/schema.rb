@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_230423) do
     t.integer "payment_manager_id"
     t.boolean "pm_approval"
     t.string "pm_reason"
+    t.boolean "all_approved", default: false
     t.integer "employee_id"
     t.index ["payment_manager_id"], name: "index_carts_on_payment_manager_id"
   end
@@ -117,6 +118,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_230423) do
     t.integer "quantity", default: 0
     t.boolean "pm_approval"
     t.string "pm_reason"
+    t.boolean "all_approved", default: false
     t.integer "employee_id"
     t.index ["payment_manager_id"], name: "index_tafs_on_payment_manager_id"
   end

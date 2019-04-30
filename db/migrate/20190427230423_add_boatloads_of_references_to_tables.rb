@@ -20,7 +20,10 @@ class AddBoatloadsOfReferencesToTables < ActiveRecord::Migration[5.2]
     add_column :items, :budget_approver_id, :integer, index: true
     add_foreign_key :items, :budget_approvers, column: :budget_approver_id
 
+    add_column :tafs, :all_approved, :boolean, default: false
+    add_column :carts, :all_approved, :boolean, default: false
 
+    
 
     add_column :taf_items, :employee_id, :integer, index: true
     add_foreign_key :taf_items, :employees, column: :employee_id

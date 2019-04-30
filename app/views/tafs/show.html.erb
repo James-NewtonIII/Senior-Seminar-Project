@@ -26,6 +26,8 @@
                         <td> <%= taf_item.expense_type %> </td> 
                         <td> <%= taf_item.dept %> </td> 
                         <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
+                        <td> <%= taf_item.ba_approval %> </td> 
+                        <td> <%= taf_item.ba_reason %> </td> 
                     </tr>
                     
                     <li style="display:none"><%=@taf.quantity+=1%></li>
@@ -153,6 +155,5 @@
     <% end %>
     
     <br>
-    <%= link_to 'Edit', edit_taf_path(@taf) %> |
     <%= link_to 'Back', tafs_path %>
 </article>
