@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_230423) do
   create_table "taf_items", force: :cascade do |t|
     t.string "request_reason"
     t.date "expense_date"
-    t.decimal "estimated_amount"
+    t.decimal "estimated_amount", default: "0.0"
     t.string "dept"
     t.boolean "ba_approval"
     t.text "ba_reason"
