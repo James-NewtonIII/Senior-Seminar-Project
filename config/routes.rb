@@ -57,31 +57,17 @@ Rails.application.routes.draw do
   end
 
   resources :employees do
-    resources :taf_items
-    resources :items
+    resources :taf_items                                          # a nested route: employee_taf_items_path
+    resources :items                                              # a nested route: employee_items_path
     member do
-        get 'tafs', to: 'taf_items#show_taf_items_for_employee'
-        get 'carts', to: 'items#show_items_for_employee'
+        get 'tafs', to: 'taf_items#show_taf_items_for_employee'   # a nested route: orders_seller_path
+        get 'carts', to: 'items#show_items_for_employee'          # a nested route: orders_seller_path
     end
   end
 
-  resources :budget_approvers do
-    resources :taf_items
-    resources :items
-    member do
-        get 'tafs', to: 'taf_items#show_taf_items_for_budget_approver'
-        get 'carts', to: 'items#show_items_for_budget_approver'
-    end
-  end
+
  
-  resources :payment_managers do
-    resources :taf_items
-    resources :items
-    member do
-        get 'tafs', to: 'taf_items#show_taf_items_for_payment_manager'
-        get 'carts', to: 'items#show_items_for_payment_manager'
-    end
-  end
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

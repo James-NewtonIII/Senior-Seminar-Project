@@ -1,7 +1,7 @@
 class TafItemsController < ApplicationController
   skip_before_action :verify_authenticity_token
   include CurrentTaf
-  before_action :set_current_taf, only: [:create]
+  before_action :set_current_taf, only: [:create, :show, :edit, :update]
   before_action :set_taf_item, only: [:show, :edit, :update, :destroy]
 
   def pundit_user
