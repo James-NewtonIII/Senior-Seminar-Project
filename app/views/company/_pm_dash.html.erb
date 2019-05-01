@@ -1,28 +1,43 @@
-<table>
+
+<h3>Approved TAF Items</h3>
+<table class="table table-hover">
     <thead class="thead-dark">
         <tr>
             <th> TAF ID </th>
             <th> Estimated Amount </th>
-            <th> Payment Manager ID </th>
-            <th> Was Approved? </th>
-            <th> Rejection Reason </th>
             <th></th>
             <th></th>
         </tr>
     </thead>
-    <% @tafs.each do |taf| %>
-        <li style="display:none"> 
-            <% taf.taf_items.each do |taf_item| %>
-                <%= taf.total_estimated_amount+=taf_item.estimated_amount %>
-            <% end %>
-        </li>
+    <% @taf_items.each do |taf_item| %>
+       <% if taf_item.ba_approval%>
         <tr>
-            <td> <%= taf.id %></li>
-            <td> <%= number_to_currency(taf.total_estimated_amount)%> </td>
-            <td> <%= taf.payment_manager_id %> </td> 
-            <td> <%= taf.pm_approval ? "true" : "false" %> </td>
-            <td> <%= taf.pm_reason %> </td>
-            <td><%= link_to 'Show', taf %></td>
+            <td> <%= taf_item.id %></li>
+            <td> <%= number_to_currency(taf_item.estimated_amount)%> </td>
         </tr>
+        <%end%>
     <% end %>
-</table>        
+</table>       
+
+<h3>Approved Items</h3>
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th> Report ID </th>
+            <th> Amount </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <% @items.each do |item| %>
+       <% if item.ba_approval%>
+        <tr>
+            <td> <%= item.id %></li>
+            <td> <%= number_to_currency(item.amount)%> </td>
+        </tr>
+        <%end%>
+    <% end %>
+</table>       
+
+
+
