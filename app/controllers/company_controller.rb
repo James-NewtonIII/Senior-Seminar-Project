@@ -3,9 +3,9 @@ class CompanyController < ApplicationController
   before_action :set_current_taf, only: [:new, :create]
 
   def index
-    if (params[:employee_id])
-      @employee = Employee.find(params[:employee_id])
-      @tafs = @employee.tafs
+    if (current_account.accountable_type=="Employee")
+      @employee = Employee.find(current_account.accountable_id)
+      @tafs = Taf.where(employee_id: @employee.id)
     else
       @tafs = Taf.all
     end 
