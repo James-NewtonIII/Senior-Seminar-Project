@@ -1,4 +1,4 @@
-<%= form_with(model: taf_item, local: true) do |form| %>
+<%= bootstrap_form_with(model: taf_item, local: true) do |form| %>
   <% if taf_item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(taf_item.errors.count, "error") %> prohibited this taf_item from being saved:</h2>
@@ -12,28 +12,28 @@
   <% end %>
 
  <div class="field">
-    <%= form.label :expense_type %>
+    
     <%= form.select :expense_type, ['Travel','Taxi','Lodging','Food','Other'] %>
   </div>
  
  <div class="field">
-    <%= form.label :request_reason %>
+    
     <%= form.text_area :request_reason, rows: 10, cols: 60 %>
   </div>
 
 
   <div class="field">
-    <%= form.label :expense_date %>
+   
     <%= form.date_select :expense_date %>
   </div>
 
   <div class="field">
-    <%= form.label :estimated_amount %>
+    
     <%= form.text_field :estimated_amount %>
   </div>
 
   <div class="field">
-    <%= form.label :dept %>
+    
     <%= form.select :dept, ['QA', 'RnD','DnD']%>
   </div>
 
@@ -41,12 +41,12 @@
 
   <% if current_account.accountable_type=="Budget Approver"%>
     <div class="field">
-      <%= form.label :ba_approval %>
+      
       <%= form.check_box :ba_approval %>
     </div>
 
     <div class="field">
-      <%= form.label :ba_reason %>
+      
       <%= form.text_area :ba_reason, id: :ba_reason, rows: 10, cols: 60 %>
     </div>
   <% else %>

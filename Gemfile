@@ -77,3 +77,5 @@ group :production do
 end
 
 gem 'administrate'
+
+gem "bootstrap_form", ">= 4.2.0"
