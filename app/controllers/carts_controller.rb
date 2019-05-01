@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   include CurrentCart
-  before_action :authenticate_account!
+  skip_before_action :verify_authenticity_token
    before_action :set_current_cart, only: [:new]
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
@@ -25,7 +25,8 @@ class CartsController < ApplicationController
   # GET /carts/new
   def new
     @cart = Cart.new
-    @cart.items.build
+    @item= Item.new
+    @item.image_url='receipt.jpg'
     if current_account && current_account.accountable_type == "Employee"
       @cart.employee_id  = Employee.find_by_name(current_account.accountable.name).id
     end
@@ -37,6 +38,7 @@ class CartsController < ApplicationController
 
   # GET /carts/1/edit
   def edit
+     @item = Item.new
     if current_account && current_account.accountable_type == "Payment Manager"
       @cart.payment_manager_id = PaymentManager.find_by_name(current_account.accountable.name).id
     end
@@ -47,9 +49,11 @@ class CartsController < ApplicationController
     if params[:decision] == "true"
       @cart.update(pm_approval: true)
       @cart.update(payment_manager: current_account.accountable_id)
+       redirect_back(fallback_location: :back)
     else
       @cart.update(pm_approval: false)
       @cart.update(payment_manager: current_account.accountable_id)
+       redirect_back(fallback_location: :back)
     end
   end
 
@@ -57,12 +61,13 @@ class CartsController < ApplicationController
   # POST /carts.json
   def create
     @cart = Cart.new(cart_params)
+    @item = Item.new
     if current_account && current_account.accountable_type == "Employee"
-      @item.employee = current_account.accountable
+       @cart.update(employee_id: current_account.accountable_id)
     end
     respond_to do |format|
       if @cart.save
-        format.html { redirect_to @cart, notice: 'Expense Report was successfully created.' }
+        format.html { redirect_back(fallback_location: :back) }
         format.json { render :show, status: :created, location: @cart }
       else
         format.html { render :new }

@@ -53,6 +53,7 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
+    @item.image_url='receipt.jpg'
     authorize @item
     if current_account && current_account.accountable_type == "Employee"
         @item.employee = current_account.accountable
