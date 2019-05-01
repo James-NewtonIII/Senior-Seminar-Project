@@ -1,27 +1,28 @@
 <table>
-    <thead>
+    <thead class="thead-dark">
         <tr>
-            <th> ID </th>
-            <th> Expense Type </th>
-            <th> From Department </th>
-            <th> Amount </th>
+            <th> TAF ID </th>
+            <th> Estimated Amount </th>
+            <th> Payment Manager ID </th>
             <th> Was Approved? </th>
             <th> Rejection Reason </th>
             <th></th>
             <th></th>
         </tr>
     </thead>
-    <% @taf.taf_items.each do |taf_item| %>
+    <% @tafs.each do |taf| %>
+        <li style="display:none"> 
+            <% taf.taf_items.each do |taf_item| %>
+                <%= taf.total_estimated_amount+=taf_item.estimated_amount %>
+            <% end %>
+        </li>
         <tr>
-            <td> <%= taf_item.id %></li>
-            <td> <%= taf_item.expense_type %> </td> 
-            <td> <%= taf_item.dept %> </td> 
-            <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
-            <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
-            <td> <%= taf_item.ba_reason %> </td>        
-        </tr>    
-        <li style="display:none"><%=@taf.quantity+=1%></li>
-        <li style="display:none"><%=@taf.total_estimated_amount+=taf_item.estimated_amount%></li>
+            <td> <%= taf.id %></li>
+            <td> <%= number_to_currency(taf.total_estimated_amount)%> </td>
+            <td> <%= taf.payment_manager_id %> </td> 
+            <td> <%= taf.pm_approval ? "true" : "false" %> </td>
+            <td> <%= taf.pm_reason %> </td>
+            <td><%= link_to 'Show', taf %></td>
+        </tr>
     <% end %>
 </table>        
-<%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>

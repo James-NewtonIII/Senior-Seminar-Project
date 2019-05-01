@@ -32,27 +32,27 @@ Rails.application.routes.draw do
 
   resources :taf_items do
     member do
-        post :decision
-        get 'tafs', to: 'tafs#show'
+      post :decision
+      get 'tafs', to: 'tafs#show'
     end
   end
 
 
   resources :items do
     member do
-        post :decision
+      post :decision
     end
   end
 
   resources :carts do
     member do
-        post :decision
+      post :decision
     end
   end
 
   resources :tafs do
     member do
-        post :decision
+      post :decision
     end
   end
 
@@ -60,8 +60,8 @@ Rails.application.routes.draw do
     resources :taf_items                                          # a nested route: employee_taf_items_path
     resources :items                                              # a nested route: employee_items_path
     member do
-        get 'tafs', to: 'taf_items#show_taf_items_for_employee'   # a nested route: orders_seller_path
-        get 'carts', to: 'items#show_items_for_employee'          # a nested route: orders_seller_path
+      get 'tafs', to: 'taf_items#show_taf_items_for_employee'   # a nested route: orders_seller_path
+      get 'carts', to: 'items#show_items_for_employee'          # a nested route: orders_seller_path
     end
   end
 

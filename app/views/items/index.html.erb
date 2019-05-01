@@ -15,12 +15,11 @@
 
   <thead>
     <tr>
-      <th> Expense Type |</th>
-      <th> Amount |</th>
-      <th> BA's approval |</th>
-      <th> BA's reason |</th>
-      <th> Image url |</th>
-      <th colspan="3"></th>
+      <th> Expense Type </th>
+      <th> Amount </th>
+      <th> Image url </th>
+      <th> BA's approval </th>
+      <th> BA's reason </th>
     </tr>
   </thead>
 
@@ -29,14 +28,32 @@
       <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
         <td class="type"><%= item.expense_type %></td>
         <td class="amount"><%= number_to_currency(item.amount) %></td>
-        <td class="wasApproved"><%= item.ba_approval %></td>
-        <td class="rejectReason"><%= item.ba_reason %></td>
-        <td class="image"><%=image_tag(item.image_url,class: 'list_image')%></td>
+        <td class="image">
+          <% if item.image_url.present? %>
+            <%=image_tag(item.image_url,class: 'list_image') %>
+          <% else %>
+            <%=image_tag("DEFAULT_RECEIPT.jpg",class: 'list_image') %>
+          <% end %>
+        </td>
+        <% if current_account.accountable_type=="Employee" %>
+          <td><%= item.ba_approval %></td>
+          <td><%= item.ba_reason %></td>
+        <% end %>
+        <% if current_account.accountable_type=="BudgetApprover" %>
+          <%= form_with(model: item, local: true) do |form| %>
+            <td> <%= form.check_box :ba_approval %></td>
+            <td> <%= form.text_field :ba_reason %> </td>
+            <td> <%= form.submit %> </td>
+          <% end %>
+        <% else %>
+        <% end %>
       <td class="actions">
           <ul>
-            <li><%= link_to 'Show', item %></li>
-            <li><%= link_to 'Edit', edit_item_path(item) %></li>
-            <li><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+            <% if current_account.accountable_type=="Employee" %>
+              <td><%= link_to 'Show', item %></td>
+              <td><%= link_to 'Edit', edit_item_path(item) %></td>
+              <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
           </ul>
         </td>
       </tr>
