@@ -17,6 +17,7 @@
                 <%= taf.total_estimated_amount+=taf_item.estimated_amount %>
             <% end %>
         </li>
+        <% if taf.employee_id!=2 && taf.employee_id!=3%>
         <tr>
             <td> <%= taf.id %></li>
             <td> <%= number_to_currency(taf.total_estimated_amount)%> </td>
@@ -25,7 +26,7 @@
             <td> <%= taf.pm_reason %> </td>
             <td><%= link_to 'Show', taf %></td>
         </tr>
-
+        <%end%>
     <% end %>
 </table>   
 <table class="table table-hover">
@@ -47,6 +48,7 @@
                 <%= cart.total_expense+=item.amount %>
             <% end %>
         </li>
+        <% if cart.employee_id!=2 && cart.employee_id!=3%>
         <tr>
             <td> <%= cart.id %></li>
             <td> <%= number_to_currency(cart.total_expense)%> </td>
@@ -55,6 +57,6 @@
             <td> <%= cart.pm_reason %> </td>
             <td><%= link_to 'Show', cart %></td>
         </tr>
-
+        <%end%>
     <% end %>
 </table>        
