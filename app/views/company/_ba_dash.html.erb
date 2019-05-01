@@ -12,15 +12,13 @@
         </tr>
     </thead>
     <% @taf_items.each do |taf_item| %>
-
-            <tr>
-                <td> <%= taf_item.id %></li>
-                <td> <%= taf_item.expense_type %> </td> 
-                <td> <%= taf_item.dept %> </td> 
-                <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
-                <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
-                <td> <%= taf_item.ba_reason %> </td>        
-            </tr>    
-
+        <tr>
+            <td> <%= taf_item.id %></li>
+            <td> <%= taf_item.expense_type %> </td> 
+            <td> <%= taf_item.dept %> </td> 
+            <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
+            <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
+            <td> <%= taf_item.ba_reason %> </td>        
+        </tr>    
     <% end %>
 </table>        

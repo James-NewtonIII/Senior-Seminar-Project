@@ -77,11 +77,6 @@
                         <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
                         <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
                         <td> <%= taf_item.ba_reason %> </td>
-                        <%= form_with(model: taf_item, local: true) do |form| %>
-                            <td> <%= form.check_box :ba_approval %></td>
-                            <td> <%= form.text_field :ba_reason %> </td>
-                            <td> <%= form.submit %> </td>
-                        <% end %>
                     </tr>
                 
                 <li style="display:none"><%=@taf.quantity+=1%></li>

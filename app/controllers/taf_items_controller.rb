@@ -11,14 +11,16 @@ class TafItemsController < ApplicationController
   # GET /taf_items
   # GET /taf_items.json
   def index
-    if (params[:employee_id])
-      @employee = Employee.find(params[:employeeid])
-      @taf_items = @employee.taf_items
-    elsif (params[:budget_approver_id])
-      @department = Department.find(params[:budget_approver_id])
-      @taf_items = @department.taf_items
+    if ( account_signed_in? )
+      if (current_account.accountable_type=="Employee")
+        @employee = Employee.find(current_account.accountable_id)
+        @tafs = Taf.where(employee_id: @employee.id)
+      elsif (current_account.accountable_type=="BudgetApprover")
+        @budget_approver = BudgetApprover.find(current_account.accountable_id)
+        @taf_items = TafItem.where(dept: @budget_approver.department_id)
+      end
     else
-      @taf_items = TafItem.all
+      @tafs = Taf.all
     end
   end
 
