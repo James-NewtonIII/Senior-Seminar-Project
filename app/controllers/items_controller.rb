@@ -118,7 +118,16 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        @item.update(budget_approver_id: current_account.accountable_id)
+        
+        if current_account.accountable_type == "BudgetApprover"
+          @item.update(budget_approver_id: current_account.accountable_id)
+        end
+        
+        if current_account.accountable_type == "PaymentManager"
+          @item.update(payment_manager_id: current_account.accountable_id)
+        end
+        @item.update(pm_reason: item_params[:pm_reason])
+        
         @total = @cart.total_expense+=@item.amount
         @dpt = Department.find(@item.department)
         @dpt.update(available_funds: (@dpt.available_funds - @item.amount))
@@ -150,7 +159,7 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:expense_type, :department, :actual_expense_date, :amount, :ba_approval, :ba_reason, :image_url)
+      params.require(:item).permit(:expense_type, :department, :actual_expense_date, :amount, :ba_approval, :ba_reason, :image_url, :pm_approval, :pm_reason)
     end
 
     def show_items_for_payment_manager?
