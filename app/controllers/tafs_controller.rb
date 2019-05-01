@@ -150,4 +150,5 @@ class TafsController < ApplicationController
       logger.error "Attempt to access invalid TAF #{params[:id]}"
       redirect_to company_index_url, notice: 'Invalid TAF'
     end
+
 end

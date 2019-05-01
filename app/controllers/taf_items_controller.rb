@@ -1,7 +1,9 @@
 class TafItemsController < ApplicationController
   skip_before_action :verify_authenticity_token
   include CurrentTaf
-  before_action :set_current_taf, only: [:create, :show, :edit, :update]
+  include HaveAllBaApproved
+  before_action :set_current_taf, only: [:create, :show, :edit, :update, :have_all_ba_approved]
+  before_action :have_all_ba_approved, only: [:update, :show, :edit]
   before_action :set_taf_item, only: [:show, :edit, :update, :destroy]
 
   def pundit_user
@@ -28,7 +30,6 @@ class TafItemsController < ApplicationController
   # GET /taf_items/1.json
   def show
     authorize @taf_item
-    puts "SHOW MOTHER FUCKER"
   end
 
   # GET /taf_items/new
@@ -114,7 +115,6 @@ class TafItemsController < ApplicationController
   # PATCH/PUT /taf_items/1
   # PATCH/PUT /taf_items/1.json
   def update
-    puts "UPDATE MOTHER FUCKER"
     respond_to do |format|
       if @taf_item.update(taf_item_params)
         @taf_item.update(budget_approver_id: current_account.accountable_id)
