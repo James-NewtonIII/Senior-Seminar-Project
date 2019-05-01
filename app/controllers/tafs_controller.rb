@@ -26,9 +26,10 @@ class TafsController < ApplicationController
   def new
     @taf = Taf.new
     @taf_item = TafItem.new
-
-    if current_account && current_account.accountable_type == "Employee"
-      @taf.employee_id  = Employee.find_by_name(current_account.accountable.name).id
+    if ( account_signed_in? )
+      if current_account && current_account.accountable_type == "Employee"
+        @taf.employee_id  = Employee.find_by_name(current_account.accountable.name).id
+      end
     end
 
     respond_to do |format|
@@ -40,8 +41,10 @@ class TafsController < ApplicationController
   # GET /tafs/1/edit
   def edit
     @taf_item = TafItem.new
-    if current_account && current_account.accountable_type == "Payment Manager"
-      @taf.payment_manager_id = PaymentManager.find_by_name(current_account.accountable.name).id
+    if ( account_signed_in? )
+      if current_account && current_account.accountable_type == "Payment Manager"
+        @taf.payment_manager_id = PaymentManager.find_by_name(current_account.accountable.name).id
+      end
     end
   end
 
@@ -63,9 +66,10 @@ class TafsController < ApplicationController
   def create
     @taf = Taf.new(taf_params)
     @taf_item = TafItem.new
-
-    if current_account && current_account.accountable_type == "Employee"
-      @taf.update(employee_id: current_account.accountable_id)
+    if ( account_signed_in? )
+      if current_account && current_account.accountable_type == "Employee"
+        @taf.update(employee_id: current_account.accountable_id)
+      end
     end
     
     respond_to do |format|
@@ -84,8 +88,10 @@ class TafsController < ApplicationController
   def update
     respond_to do |format|
       if @taf.update(taf_params)
-        if current_account && current_account.accountable_type == "PaymentManager"
-          @taf.update(payment_manager_id: current_account.accountable_id)
+        if ( account_signed_in? )
+          if current_account && current_account.accountable_type == "PaymentManager"
+            @taf.update(payment_manager_id: current_account.accountable_id)
+          end
         end
         format.html { redirect_to @taf, notice: 'Taf was successfully updated.' }
         format.json { render :show, status: :ok, location: @taf }

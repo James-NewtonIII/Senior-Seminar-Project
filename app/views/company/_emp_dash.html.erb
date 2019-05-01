@@ -1,4 +1,5 @@
 <table class="table table-hover">
+
     <thead class="thead-dark">
         <tr>
             <th> TAF ID </th>
@@ -23,6 +24,36 @@
             <td> <%= taf.pm_approval ? "true" : "false" %> </td>
             <td> <%= taf.pm_reason %> </td>
             <td><%= link_to 'Show', taf %></td>
+        </tr>
+
+    <% end %>
+</table>   
+<table class="table table-hover">
+
+    <thead class="thead-dark">
+        <tr>
+            <th> Expense Report ID </th>
+            <th> Actual Amount </th>
+            <th> Payment Manager ID </th>
+            <th> Was Approved? </th>
+            <th> Rejection Reason </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <% @carts.each do |cart| %>
+        <li style="display:none"> 
+            <% cart.items.each do |item| %>
+                <%= cart.total_expense+=item.amount %>
+            <% end %>
+        </li>
+        <tr>
+            <td> <%= cart.id %></li>
+            <td> <%= number_to_currency(cart.total_expense)%> </td>
+            <td> <%= cart.payment_manager_id %> </td> 
+            <td> <%= cart.pm_approval ? "true" : "false" %> </td>
+            <td> <%= cart.pm_reason %> </td>
+            <td><%= link_to 'Show', cart %></td>
         </tr>
 
     <% end %>

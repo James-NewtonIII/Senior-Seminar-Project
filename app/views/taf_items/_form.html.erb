@@ -1,4 +1,5 @@
 <%= bootstrap_form_with(model: taf_item, local: true) do |form| %>
+
   <% if taf_item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(taf_item.errors.count, "error") %> prohibited this taf_item from being saved:</h2>
