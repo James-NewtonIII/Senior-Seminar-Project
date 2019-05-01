@@ -23,6 +23,9 @@ class AddBoatloadsOfReferencesToTables < ActiveRecord::Migration[5.2]
     add_column :tafs, :all_approved, :boolean, default: false
     add_column :carts, :all_approved, :boolean, default: false
 
+    add_column :items, :payment_manager_id, :integer, index: true
+    add_foreign_key :items, :payment_managers, column: :payment_manager_id
+
     
 
     add_column :taf_items, :employee_id, :integer, index: true

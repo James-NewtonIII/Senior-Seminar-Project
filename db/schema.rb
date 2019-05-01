@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_230423) do
     t.string "pm_reason"
     t.integer "cart_id"
     t.integer "budget_approver_id"
+    t.integer "payment_manager_id"
     t.integer "employee_id"
   end
 
