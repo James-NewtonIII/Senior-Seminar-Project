@@ -58,7 +58,7 @@
   <div class="actions">
     <%= form.submit %>
   </div>
-  % if current_account.accountable_type=="Budget Approver"%>
+  <% if current_account.accountable_type=="Budget Approver"%>
     <div class="field">
       
       <%= form.check_box :ba_approval %>
@@ -70,4 +70,4 @@
     </div>
   <% else %>
   <% end %>
-
+<%end%>
