@@ -20,6 +20,7 @@ class TafItemsController < ApplicationController
       elsif (current_account.accountable_type=="BudgetApprover")
         @budget_approver = BudgetApprover.find(current_account.accountable_id)
         @taf_items = TafItem.where(dept: @budget_approver.department_id)
+        @dpt = Department.find(@budget_approver.department_id)
       end
     else
       @tafs = Taf.all
@@ -120,9 +121,14 @@ class TafItemsController < ApplicationController
         
          @taf_item.update(ba_reason: taf_item_params[:ba_reason])
         @taf_item.update(budget_approver_id: current_account.accountable_id)
-        @total = @taf.total_estimated_amount+=@taf_item.estimated_amount
-        @dpt = Department.find(@taf_item.dept)
-        @dpt.update(available_funds: (@dpt.available_funds - @taf_item.estimated_amount))
+        
+        if @taf_item.ba_approval == true
+          @total = @taf.total_estimated_amount+=@taf_item.estimated_amount
+          @dpt = Department.find(@taf_item.dept)
+          @dpt.update(available_funds: (@dpt.available_funds - @taf_item.estimated_amount))
+        end
+        
+        
         format.html { redirect_back(fallback_location: :back) }
         format.json { render :show, status: :ok, location: @taf_item }
       else

@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
-
+<div>
 <h1>Taf Items</h1>
-
+<h3>Department: <%= @dpt.name%> </h3>
+<h3>Department Funds: <%= number_to_currency(@dpt.available_funds) %></h3>
+</div>
 <table class="table table-hover">
   <thead class="thead-dark">
     <tr>
