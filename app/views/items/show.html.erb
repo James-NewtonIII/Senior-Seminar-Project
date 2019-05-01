@@ -25,7 +25,15 @@
             <td> <%= @item.ba_approval %></li>
             <td> <%= @item.ba_reason %></li>
             <td> <%= @item.image_url %></li>
-            
+            <% if current_account.accountable_type=="PaymentManager" %>
+                <%= form_with(model: @item, local: true) do |form| %>
+                    <td> <%= form.check_box :pm_approval %></td>
+                    <td> <%= @item.pm_reason %></td>
+                    <td> <%= form.text_field :pm_reason %> </td>
+                    <td> <%= form.submit 'Updated by Payment Manager' %> </td>
+            <% end %>
+        <% else %>
+        <% end %>
         </tr>
         
 </table>       

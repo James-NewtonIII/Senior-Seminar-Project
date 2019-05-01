@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 2019_04_27_230423) do
     t.datetime "updated_at", null: false
     t.date "actual_expense_date"
     t.integer "department"
+    t.boolean "pm_approval"
+    t.string "pm_reason"
     t.integer "cart_id"
     t.integer "budget_approver_id"
     t.integer "employee_id"
@@ -104,6 +106,8 @@ ActiveRecord::Schema.define(version: 2019_04_27_230423) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "taf_id"
+    t.boolean "pm_approval"
+    t.string "pm_reason"
     t.integer "budget_approver_id"
     t.integer "employee_id"
     t.index ["taf_id"], name: "index_taf_items_on_taf_id"
