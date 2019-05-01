@@ -19,13 +19,13 @@
             <tr>
                 <td> <%= item.id %> </td> 
                 <td> <%= item.expense_type %> </td> 
-                <td> <%= number_to_currency(item.item.amount) %> </td>
+                <td> <%= number_to_currency(item.amount) %> </td>
                 <td> <%= item.image_url %> </td>
                 <td> <%= item.ba_approval ? "true" : "false" %> </td>
                 <td> <%= item.ba_reason %> </td>
             </tr>
             <li style="display:none"><%=@cart.quantity+=1%></li>
-            <li style="display:none"><%=@cart.total_expense+=item.item.amount%></li>
+            <li style="display:none"><%=@cart.total_expense+=item.amount%></li>
         <% end %>
     </table>
 

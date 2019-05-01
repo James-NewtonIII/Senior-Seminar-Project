@@ -1,4 +1,5 @@
 <div class="Created_Items_Form">
+  
   <table>
     <thead>
       <tr>
@@ -25,37 +26,100 @@
 
 <%= simple_form_for(@cart) do |f| %>
   <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :pm_approval %>
-    <%= f.input :pm_reason %>
-  </div>
+  <br><br>
+  <% if current_account.accountable_type=="Payment Manager"%>
+    <div class="form-inputs">
+      <%= f.input :pm_approval %>
+      <%= f.input :pm_reason %>
+    </div>
+    <br><br>
+   <% else %>
+  
+  <% end %>
 
   <h3>Items</h3>
-
+  <% if current_account.accountable_type=="Employee" %>
   <table class='table'>
     <thead>
       <tr>
-        <th> ID </th>
-        <th> Expense Type </th>
-        <th> Department </th>
+        <th> Report Type </th>
+        <th> Expense Date </th>
         <th> Amount </th>
-        <th> Was Approved? </th>
-        <th> Rejection Reason </th>
+        <th> Department </th>
 
         <th></th>
       </tr>
     </thead>
-    <tbody class='items'>
-      <%= f.simple_fields_for :items do |builder| %>
-        <%= render 'item_fields', f: builder %>
-      <% end %>
-    </tbody>
 
-  </table>
+    <% elsif current_account.accountable_type=="Budget Approver" %>
+      <table class='table'>
+      <thead>
+        <tr>
+          <th> Was Approved? </th>
+          <th> Rejection Reason </th>
+    <% else %>
+      <table class='table'>
+        <thead>
+    <% end %>
 
   <div class="form-actions">
-    <%= link_to_add_association 'Add Item', f, :items, class: 'btn btn-primary', data: { association_insertion_node: '.items', association_insertion_method: :append } %>
     <%= f.button :submit %>
+  </div>
+
+<% end %>
+
+<%= simple_form_for(@item) do |form| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+      <ul>
+        <% @item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :expense_type %>
+    <%= form.select :expense_type, ['Travel','Taxi','Lodging','Food','Other'] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :actual_expense_date %>
+    <%= form.date_select :actual_expense_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :department %>
+    <%= form.select :department, ['QA', 'RnD','DnD']%>
+  </div>
+
+  <div class="field">
+   
+  </div>
+
+  <% if current_account.accountable_type=="BudgetApprover"%>
+    <div class="field">
+      <%= form.label :ba_approval %>
+      <%= form.check_box :ba_approval %>
+    </div>
+
+    <div class="field">
+      <%= form.label :ba_reason %>
+      <%= form.text_area :ba_reason, id: :ba_reason, rows: 10, cols: 60 %>
+    </div>
+  <% else %>
+  <% end %>
+
+  <br>
+
+  <div class="actions">
+    <%= form.submit %>
   </div>
 <% end %>

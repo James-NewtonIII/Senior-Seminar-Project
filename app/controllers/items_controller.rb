@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_account!
+  skip_before_action :verify_authenticity_token
+  include CurrentCart
+  before_action :set_current_cart, only: [:create, :show, :edit, :update]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def pundit_user
@@ -9,21 +11,37 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    if (params[:employee_id])
-      @employee = Employee.find(params[:employee_id])
-      @items = @employee.items
-    elsif (params[:budget_approver_id])
-      @department = Department.find(params[:budget_approver_id])
-      @items = @department.items
-    else
-      @items = Item.all
-    end  
+   # if (params[:employee_id])
+    #  @employee = Employee.find(params[:employee_id])
+     # @items = @employee.items
+    #elsif (params[:budget_approver_id])
+     # @department = Department.find(params[:budget_approver_id])
+    #  @items = @department.items
+  #  else
+   #   @items = Item.all
+  #  end  
+  if ( account_signed_in? )
+      if (current_account.accountable_type=="Employee")
+        @employee = Employee.find(current_account.accountable_id)
+        @carts = Cart.where(employee_id: @employee.id)
+        @items = @employee.items
+      elsif (current_account.accountable_type=="BudgetApprover")
+        @budget_approver = BudgetApprover.find(current_account.accountable_id)
+        @items = Item.where(dept: @budget_approver.department_id)
+      end
+  else
+    @carts = Cart.all
+  end
+  
+  
+  
   end
 
   # GET /items/1
   # GET /items/1.json
   def show
     authorize @item
+    puts "SHOW MOTHER FUCKER"
   end
 
   # GET /items/new
@@ -38,12 +56,14 @@ class ItemsController < ApplicationController
   end
   
   def decision
-    @item = Item.where(id: params[:id]) 
+     @item = Item.where(id: params[:id]) 
     if params[:decision] == "true"
       @item.update(ba_approval: true)
+      @item.update(budget_approver_id: current_account.accountable_id)
       redirect_back(fallback_location: :back)
     else
-      @taf_item.update(ba_approval: false)
+      @item.update(ba_approval: false)
+      @item.update(budget_approver_id: current_account.accountable_id)
       redirect_back(fallback_location: :back)
     end
   end
@@ -53,17 +73,52 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
-    authorize @item
+    @item.image_url='receipt.jpg'
+     puts current_account.accountable_id
+    puts current_account.id
     if current_account && current_account.accountable_type == "Employee"
-        @item.employee = current_account.accountable
-    end
-    respond_to do |format|
-      if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
-        format.json { render :show, status: :created, location: @item }
-      else
-        format.html { render :new }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+      @item.employee = current_account.accountable
+      
+    
+      @item = @cart.add_item(@item)
+      respond_to do |format|
+        if @item.save
+          format.html { redirect_back(fallback_location: :back) }
+          @item.update(employee_id: current_account.accountable_id)
+          @item.update(actual_expense_date: item_params[:actual_expense_date])
+          @item.update(amount: item_params[:amount])
+          @item.update(expense_type: item_params[:expense_type])
+
+          if item_params[:department] == "QA"
+            @item.update(department: 1)
+          elsif item_params[:department] == "RnD"
+            @item.update(department: 2)
+          else
+            @item.update(department: 3)
+          end
+
+          if item_params[:expense_type] == 'Travel'
+            @item.update(expense_type: "Travel")
+            puts "\nTravel\n"
+          elsif item_params[:expense_type] == 'Taxi'
+            @item.update(expense_type: "Taxi")
+            puts "\nTaxi\n"
+          elsif item_params[:expense_type] == 'Lodging'
+            @item.update(expense_type: "Lodging")
+            puts "\nLodging\n"
+          elsif item_params[:expense_type] == 'Food'
+            @item.update(expense_type: "Food")
+            puts "\nFood\n"
+          else
+            @item.update(expense_type: "Other")
+            puts "\nOther\n\n"
+          end
+          
+
+        else
+          format.html { render :new }
+          format.json { render json: @taf_item.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -71,10 +126,14 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
-    authorize @item
+    puts "UPDATE MOTHER FUCKER"
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+        @item.update(budget_approver_id: current_account.accountable_id)
+        @total = @cart.total_expense+=@item.amount
+        @dpt = Department.find(@item.department)
+        @dpt.update(available_funds: (@dpt.available_funds - @item.amount))
+        format.html { redirect_back(fallback_location: :back) }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
