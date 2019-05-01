@@ -19,8 +19,14 @@
                         <th></th>
                         <th></th>
                     </tr>
+                    
+                    
+                    
+                    
+                    
                 </thead>
                 <% @taf.taf_items.each do |taf_item| %>
+                    <% if !taf_item.ba_approval && taf_item.ba_reason==nil%>
                     <tr>
                         <td> <%= taf_item.id %></li>
                         <td> <%= taf_item.expense_type %> </td> 
@@ -30,6 +36,18 @@
                         <td> <%= taf_item.ba_reason %> </td> 
                     </tr>
                     
+                    <% elsif !taf_item.ba_approval && taf_item.ba_reason!=nil  %>
+                    <tr>
+                        <td> <%= taf_item.id %> </td> 
+                        <td> <%= taf_item.expense_type %> </td> 
+                        <td> <%= taf_item.dept %> </td> 
+                        <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
+                        <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
+                        <td> <%= taf_item.ba_reason %> </td>
+                        <td><%= link_to 'Edit', edit_taf_item_path(taf_item) %></td>
+                    </tr>
+                    
+                    <%end%>
                     <li style="display:none"><%=@taf.quantity+=1%></li>
                     <li style="display:none"><%=@taf.total_estimated_amount+=taf_item.estimated_amount%></li>
                     <% end %>
@@ -70,6 +88,7 @@
                     </tr>
                 </thead>
                 <% @taf.taf_items.each do |taf_item| %>
+                
                     <tr>
                         <td> <%= taf_item.id %> </td> 
                         <td> <%= taf_item.expense_type %> </td> 
@@ -79,6 +98,7 @@
                         <td> <%= taf_item.ba_reason %> </td>
                     </tr>
                 
+               
                 <li style="display:none"><%=@taf.quantity+=1%></li>
                 <li style="display:none"><%=@taf.total_estimated_amount+=taf_item.estimated_amount%></li>
                 <% end %>

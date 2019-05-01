@@ -117,6 +117,8 @@ class TafItemsController < ApplicationController
   def update
     respond_to do |format|
       if @taf_item.update(taf_item_params)
+        
+         @taf_item.update(ba_reason: taf_item_params[:ba_reason])
         @taf_item.update(budget_approver_id: current_account.accountable_id)
         @total = @taf.total_estimated_amount+=@taf_item.estimated_amount
         @dpt = Department.find(@taf_item.dept)
