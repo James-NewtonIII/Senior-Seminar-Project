@@ -116,7 +116,9 @@ class TafItemsController < ApplicationController
     respond_to do |format|
       if @taf_item.update(taf_item_params)
         @taf_item.update(budget_approver_id: current_account.accountable_id)
-        @taf.total_estimated_amount+=@taf_item.estimated_amount
+        @total = @taf.total_estimated_amount+=@taf_item.estimated_amount
+        @dpt = Department.find(@taf_item.dept)
+        @dpt.update(available_funds: (@dpt.available_funds - @taf_item.estimated_amount))
         format.html { redirect_back(fallback_location: :back) }
         format.json { render :show, status: :ok, location: @taf_item }
       else
