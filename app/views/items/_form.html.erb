@@ -1,7 +1,8 @@
-<%= form_with(model: item, local: true) do |form| %>
+<%= bootstrap_form_with(model: item, local: true) do |form| %>
+
   <% if item.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+      <h2><%= pluralize(item.errors.count, "error") %> prohibited this taf_item from being saved:</h2>
 
       <ul>
       <% item.errors.full_messages.each do |message| %>
@@ -11,36 +12,42 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :expense_type %>
+ <div class="field">
+    
     <%= form.select :expense_type, ['Travel','Taxi','Lodging','Food','Other'] %>
   </div>
+ 
   <div class="field">
-    <%= form.label :actual_expense_date %>
-    <%= form.date_field :actual_expense_date %>
-  </div>
-  <div class="field">
-    <%= form.label :amount %>
-    <%= form.text_field :amount %>
-  </div>
-   <div class="field">
-    <%= form.label :department %>
-    <%= form.select :department, ['QA', 'RnD','DnD']%>
-  </div>
-  <div class="field">
-    <%= form.label :ba_approval %>
-    <%= form.check_box :ba_approval %>
-  </div>
-  
-  <div class="field">
-    <%= form.label :ba_reason %>
-    <%= form.text_field :ba_reason %>
+   
+    <%= form.date_select :actual_expense_date %>
   </div>
 
   <div class="field">
-    <%= form.label :image_url %>
-    <%= form.file_field :image_url %>
+    
+    <%= form.text_field :amount %>
   </div>
+
+  <div class="field">
+    
+    <%= form.select :department, ['QA', 'RnD','DnD']%>
+  </div>
+
+ 
+
+  <% if current_account.accountable_type=="Budget Approver"%>
+    <div class="field">
+      
+      <%= form.check_box :ba_approval %>
+    </div>
+
+    <div class="field">
+      
+      <%= form.text_area :ba_reason, id: :ba_reason, rows: 10, cols: 60 %>
+    </div>
+  <% else %>
+  <% end %>
+
+  <br>
 
   <div class="actions">
     <%= form.submit %>
