@@ -48,11 +48,11 @@ class CartsController < ApplicationController
     @cart = Cart.where(id: params[:id]) 
     if params[:decision] == "true"
       @cart.update(pm_approval: true)
-      @cart.update(payment_manager: current_account.accountable_id)
+      @cart.update(payment_manager_id: current_account.accountable_id)
        redirect_back(fallback_location: :back)
     else
       @cart.update(pm_approval: false)
-      @cart.update(payment_manager: current_account.accountable_id)
+      @cart.update(payment_manager_id: current_account.accountable_id)
        redirect_back(fallback_location: :back)
     end
   end
