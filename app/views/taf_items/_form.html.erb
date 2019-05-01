@@ -58,4 +58,16 @@
   <div class="actions">
     <%= form.submit %>
   </div>
-<% end %>
+  % if current_account.accountable_type=="Budget Approver"%>
+    <div class="field">
+      
+      <%= form.check_box :ba_approval %>
+    </div>
+
+    <div class="field">
+      
+      <%= form.text_area :ba_reason, id: :ba_reason, rows: 10, cols: 60 %>
+    </div>
+  <% else %>
+  <% end %>
+

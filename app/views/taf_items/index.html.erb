@@ -10,6 +10,7 @@
       <th>Estimated amount</th>
       <th>Dept</th>
       <th>Ba approval</th>
+      <th>Was approved</th>
       <th>Ba reason</th>
     </tr>
   </thead>
@@ -30,8 +31,9 @@
         <% elsif current_account.accountable_type=="BudgetApprover" %>
           <%= form_with(model: taf_item, local: true) do |form| %>
                               <td> <%= form.check_box :ba_approval %></td>
+                              <td><%= taf_item.ba_approval %></td>
                               <td> <%= form.text_field :ba_reason %> </td>
-                              <td> <%= form.submit %> </td>
+                              <td> <%= form.submit 'update taf item'%> </td>
           <% end %>
         <% else %>
         <% end %>
