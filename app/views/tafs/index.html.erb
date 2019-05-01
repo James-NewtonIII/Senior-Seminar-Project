@@ -33,5 +33,6 @@
 </table>
 
 <br>
-
-<%= link_to 'New Taf', new_taf_path %>
+<% if account_signed_in? && current_account.accountable_type=="Employee "%>
+  <%= link_to 'New Taf', new_taf_path %>
+<% end %>

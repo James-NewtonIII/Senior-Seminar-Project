@@ -6,9 +6,9 @@
 
     <% if current_account.accountable_type=="Employee"%>
         <%= render 'company/emp_dash' %>
-    <% elsif current_account.accountable_type=="Budget Approver"%>
+    <% elsif current_account.accountable_type=="BudgetApprover"%>
         <%= render 'company/ba_dash' %>
-    <% elsif current_account.accountable_type=="Payment Manager"%>
+    <% elsif current_account.accountable_type=="PaymentManager"%>
         <%= render 'company/pm_dash' %>
     <% else %> <!-- SUPER ACCOUNT-->
 

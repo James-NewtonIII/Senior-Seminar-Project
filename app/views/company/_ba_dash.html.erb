@@ -11,18 +11,16 @@
             <th></th>
         </tr>
     </thead>
-    <% @taf.taf_items.each do |taf_item| %>
-        <% if taf_item.dept==BudgetApprover.find(current_account.accountable_id).department_id%>
-        <tr>
-            <td> <%= taf_item.id %></li>
-            <td> <%= taf_item.expense_type %> </td> 
-            <td> <%= taf_item.dept %> </td> 
-            <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
-            <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
-            <td> <%= taf_item.ba_reason %> </td>        
-        </tr>    
-        <li style="display:none"><%=@taf.quantity+=1%></li>
-        <li style="display:none"><%=@taf.total_estimated_amount+=taf_item.estimated_amount%></li>
+    <% @taf_items.each do |taf_item| %>
+
+            <tr>
+                <td> <%= taf_item.id %></li>
+                <td> <%= taf_item.expense_type %> </td> 
+                <td> <%= taf_item.dept %> </td> 
+                <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
+                <td> <%= taf_item.ba_approval ? "true" : "false" %> </td>
+                <td> <%= taf_item.ba_reason %> </td>        
+            </tr>    
+
     <% end %>
 </table>        
-<%=@taf.quantity%> | <%=number_to_currency(@taf.total_estimated_amount)%>

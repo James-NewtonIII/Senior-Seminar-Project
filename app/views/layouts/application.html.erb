@@ -35,8 +35,8 @@
               <% elsif current_account.accountable_type == "Employee"%>
                 <li><a href="/taf_items/new">New Travel Auth Form</a></li>
                 <li><a href="/carts/new">New Expense Report</a></li>
-              <% elsif current_account.accountable_type == "Budget Approver"%>
-                <li><a href="/tafs">Approve Travel Authorizations</a></li>
+              <% elsif current_account.accountable_type == "BudgetApprover"%>
+                <li><a href="/taf_items">Approve Travel Authorizations</a></li>
                 <li></li>
                 <li><a href="/carts">Approve Expenses</a></li>
               <% else %> <!-- Payment Manager-->
