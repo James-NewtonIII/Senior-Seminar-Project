@@ -41,7 +41,6 @@ class ItemsController < ApplicationController
   # GET /items/1.json
   def show
     authorize @item
-    puts "SHOW MOTHER FUCKER"
   end
 
   # GET /items/new
@@ -126,7 +125,6 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
-    puts "UPDATE MOTHER FUCKER"
     respond_to do |format|
       if @item.update(item_params)
         @item.update(budget_approver_id: current_account.accountable_id)
