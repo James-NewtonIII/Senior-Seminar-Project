@@ -1,34 +1,31 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Request reason:</strong>
-  <%= @taf_item.request_reason %>
-</p>
 
-<p>
-  <strong>Expense date:</strong>
-  <%= @taf_item.expense_date %>
-</p>
-
-<p>
-  <strong>Estimated amount:</strong>
-  <%= number_to_currency(@taf_item.estimated_amount) %>
-</p>
-
-<p>
-  <strong>Dept:</strong>
-  <%= @taf_item.dept %>
-</p>
-
-<p>
-  <strong>Ba approval:</strong>
-  <%= @taf_item.ba_approval %>
-</p>
-
-<p>
-  <strong>Ba reason:</strong>
-  <%= @taf_item.ba_reason %>
-</p>
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th> Report ID </th>
+            <th> Request reason </th>
+            <th> Expense date </th>
+            <th> Estimated amount </th>
+            <th> Dept </th>
+            <th> Ba approval </th>
+            <th> Ba reason </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    
+        <tr>
+            <td> <%= @taf_item.id %></li>
+            <td> <%= @taf_item.request_reason %></li>
+            <td> <%= @taf_item.expense_date%> </td>
+            <td> <%= number_to_currency(@taf_item.estimated_amount) %></li>
+            <td> <%= @taf_item.dept %></li>
+            <td> <%= @taf_item.ba_approval %></li>
+            <td> <%= @taf_item.ba_reason %></li>
+        </tr>
+        
+</table>       
 
 <%= link_to 'Edit', edit_taf_item_path(@taf_item) %> |
 
