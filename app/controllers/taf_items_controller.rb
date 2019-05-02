@@ -72,7 +72,7 @@ class TafItemsController < ApplicationController
       @taf_item = @taf.add_taf_item(@taf_item)
       respond_to do |format|
         if @taf_item.save
-          format.html { redirect_back(fallback_location: :back) }
+          format.html { redirect_to( company_index_path) }
           @taf_item.update(employee_id: current_account.accountable_id)
           @taf_item.update(request_reason: taf_item_params[:request_reason])
           @taf_item.update(expense_date: taf_item_params[:expense_date])

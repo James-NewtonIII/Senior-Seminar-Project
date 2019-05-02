@@ -74,7 +74,7 @@ class ItemsController < ApplicationController
       @item = @cart.add_item(@item)
       respond_to do |format|
         if @item.save
-          format.html { redirect_back(fallback_location: :back) }
+          format.html { redirect_to( company_index_path) }
           @item.update(employee_id: current_account.accountable_id)
           @item.update(actual_expense_date: item_params[:actual_expense_date])
           @item.update(amount: item_params[:amount])
