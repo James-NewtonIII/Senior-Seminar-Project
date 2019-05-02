@@ -12,6 +12,7 @@ class ItemPolicy
 
   def show?
     @current_account == @item.employee.account
+    current_account.accountable_type == "Employee"
     current_account.accountable_type == "PaymentManager"
   end
 
@@ -30,6 +31,7 @@ class ItemPolicy
 
   def update?
     @current_account == @item.employee.account
+    current_account.accountable_type == "Employee"
     current_account.accountable_type == "PaymentManager"
   end
 
