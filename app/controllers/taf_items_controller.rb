@@ -139,6 +139,9 @@ class TafItemsController < ApplicationController
           @total = @taf.total_estimated_amount+=@taf_item.estimated_amount
           @dpt = Department.find(@taf_item.dept)
           @dpt.update(available_funds: (@dpt.available_funds - @taf_item.estimated_amount))
+        else
+          @dpt = Department.find(@taf_item.dept)
+          @dpt.update(available_funds: (@dpt.available_funds + @taf_item.estimated_amount))
         end
         
         
