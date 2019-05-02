@@ -19,6 +19,7 @@ class ItemsController < ApplicationController
       elsif (current_account.accountable_type=="BudgetApprover")
         @budget_approver = BudgetApprover.find(current_account.accountable_id)
         @items = Item.where(department: @budget_approver.department_id)
+        @dpt = Department.find(@budget_approver.department_id)
       end
   else
     @carts = Cart.all
