@@ -378,7 +378,8 @@ Item.transaction do
                     :department => 1,
                     :ba_approval => nil,
                     :ba_reason => '',
-                    :image_url => 'receipt.jpg',  
+                    :image_url => 'receipt.jpg',
+                    :taf_items_id => 1,
     )
     Item.create!(   :id => 2,
                     :cart_id => 1,
@@ -389,6 +390,7 @@ Item.transaction do
                     :ba_approval => nil,
                     :ba_reason => '',
                     :image_url => 'receipt2.jpg',
+                    :taf_items_id => 2,
     )
     Item.create!(   :id => 3,
                     :cart_id => 1,
@@ -399,6 +401,7 @@ Item.transaction do
                     :ba_approval => nil,
                     :ba_reason => '',
                     :image_url => 'receipt3.jpg',
+                    :taf_items_id => 3,
     )
     Item.create!(   :id => 4,
                     :cart_id => 1,
@@ -409,6 +412,7 @@ Item.transaction do
                     :ba_approval => nil,
                     :ba_reason => '',
                     :image_url => 'receipt4.jpg',
+                    :taf_items_id => 4,
     )
     Item.create!(   :id => 5,
                     :cart_id => 1,
@@ -419,6 +423,7 @@ Item.transaction do
                     :ba_approval => nil,
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
+                    :taf_items_id => 5,
     )
     Item.create!(   :id =>6,
                     :cart_id => 1,
@@ -429,6 +434,7 @@ Item.transaction do
                     :ba_approval => nil,
                     :ba_reason => '',
                     :image_url => 'receipt2.jpg',
+                    :taf_items_id => 6,
     )
     Item.create!(   :id =>7,
                     :cart_id => 2,
@@ -439,6 +445,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt3.jpg',
+                    :taf_items_id => 7,
     )
     Item.create!(   :id =>8,
                     :cart_id => 2,
@@ -449,6 +456,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt4.jpg',
+                    :taf_items_id => 8,
     )
     Item.create!(   :id =>9,
                     :cart_id => 2,
@@ -459,6 +467,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
+                    :taf_items_id => 9,
     )
     Item.create!(   :id =>10,
                     :cart_id => 2,
@@ -469,6 +478,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt2.jpg',
+                    :taf_items_id => 10,
     )
     Item.create!(   :id =>11,
                     :cart_id => 2,
@@ -479,6 +489,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt3.jpg',
+                    :taf_items_id => 11,
     )
     Item.create!(   :id =>12,
                     :cart_id => 2,
@@ -489,6 +500,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt4.jpg',
+                    :taf_items_id => 12,
     )
     Item.create!(   :id =>13,
                     :cart_id => 3,
@@ -499,6 +511,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
+                    :taf_items_id => 13,
     )
     Item.create!(   :id =>14,
                     :cart_id => 3,
@@ -509,6 +522,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt2.jpg',
+                    :taf_items_id => 14,
     )
     Item.create!(   :id =>15,
                     :cart_id => 3,
@@ -519,6 +533,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt3.jpg',
+                    :taf_items_id => 15,
     )
     Item.create!(   :id =>16,
                     :cart_id => 3,
@@ -529,6 +544,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt4.jpg',
+                    :taf_items_id => 16,
     )
     Item.create!(   :id =>17,
                     :cart_id => 3,
@@ -539,6 +555,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
+                    :taf_items_id => 17,
     )
     Item.create!(   :id =>18,
                     :cart_id => 3,
@@ -549,6 +566,7 @@ Item.transaction do
                     :ba_approval => true,
                     :ba_reason => '',
                     :image_url => 'receipt.jpg',
+                    :taf_items_id => 18,
     )
 end 
 

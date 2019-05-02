@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2019_04_27_230423) do
     t.integer "cart_id"
     t.integer "budget_approver_id"
     t.integer "payment_manager_id"
+    t.integer "taf_items_id"
     t.integer "employee_id"
   end
 
