@@ -162,7 +162,7 @@ class TafItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def taf_item_params
-      params.require(:taf_item).permit(:request_reason, :expense_date, :estimated_amount, :dept, :ba_approval, :ba_reason, :expense_type)
+      params.require(:taf_item).permit(:request_reason, :expense_date, :estimated_amount, :dept, :ba_approval, :ba_reason, :expense_type, :employee_id)
     end
 
     def show_taf_items_for_payment_manager?
