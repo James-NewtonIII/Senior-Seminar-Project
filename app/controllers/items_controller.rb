@@ -118,18 +118,25 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        
+        @bool = false
         if current_account.accountable_type == "BudgetApprover"
           @item.update(budget_approver_id: current_account.accountable_id)
         end
         
         if current_account.accountable_type == "PaymentManager"
           @item.update(payment_manager_id: current_account.accountable_id)
-
-          if @item.pm_approval == true
+          
+          if @item.pm_approval == true && @bool == false
             @total = @cart.total_expense+=@item.amount
             @dpt = Department.find(@item.department)
             @dpt.update(actual_funds: (@dpt.actual_funds - @item.amount))
+            @bool = true
+          else
+            @dpt = Department.find(@item.department)
+            @dpt.update(actual_funds: (@dpt.actual_funds + @item.amount))
+            if @item.pm_approval == true
+              @bool = false
+            end
           end
         end
         @item.update(pm_reason: item_params[:pm_reason])
