@@ -6,10 +6,11 @@
             <th> Report ID </th>
             <th> Expense Type </th>
             <th> Amount </th>
-            <th> Approved </th>
             <th> Department ID </th>
             <th> BA Approval </th>
             <th> BA Reason </th>
+            <th> Pm approval </th>
+            <th> pm reason </th>
             <th> Receipt </th>
             <th></th>
             <th></th>
@@ -20,10 +21,11 @@
             <td> <%= @item.id %></li>
             <td> <%= @item.expense_type %></li>
             <td> <%= number_to_currency(@item.amount)%> </td>
-            <td> <%= @item.ba_approval %></li>
             <td> <%= @item.department %></li>
             <td> <%= @item.ba_approval %></li>
             <td> <%= @item.ba_reason %></li>
+            <td> <%= @item.pm_approval %></li>
+            <td> <%= @item.pm_reason %></li>
             <td> <%= @item.image_url %></li>
             <% if current_account.accountable_type=="PaymentManager" %>
                 <%= form_with(model: @item, local: true) do |form| %>
