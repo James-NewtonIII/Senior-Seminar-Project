@@ -139,16 +139,16 @@ class ItemsController < ApplicationController
         if current_account.accountable_type == "BudgetApprover"
           @item.update(budget_approver_id: current_account.accountable_id)
 
-          if @item.ba_approval == true 
-            @total = @cart.total_expense+=@item.amount
-            @dpt = Department.find(@item.department)
-            @dpt.update(available_funds: (@dpt.available_funds - @item.amount))
+          # if @item.ba_approval == true 
+          #   @total = @cart.total_expense+=@item.amount
+          #   @dpt = Department.find(@item.department)
+          #   @dpt.update(available_funds: (@dpt.available_funds - @item.amount))
             
-          else
-            @dpt = Department.find(@item.department)
-            @dpt.update(available_funds: (@dpt.available_funds + @item.amount))
+          # else
+          #   @dpt = Department.find(@item.department)
+          #   @dpt.update(available_funds: (@dpt.available_funds + @item.amount))
            
-          end
+          # end
 
         end
         

@@ -1,10 +1,6 @@
-<% if notice %>
-  <aside id="notice"><%= notice %></aside>
-<% end %>
-
 <h1>Items</h1>
 <h3>Department: <%= @dpt.name%> </h3>
-<h3>Department Funds: <%= number_to_currency(@dpt.available_funds) %></h3>
+<h3>Department Funds: <%= number_to_currency(@dpt.actual_funds) %></h3>
 <table>
   <tfoot>
     <tr>
