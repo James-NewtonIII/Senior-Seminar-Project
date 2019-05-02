@@ -1,62 +1,175 @@
 <table class="table table-hover">
-
+<h3>Pending TAF Forms</h3>
     <thead class="thead-dark">
         <tr>
             <th> TAF ID </th>
             <th> Estimated Amount </th>
-            <th> Payment Manager ID </th>
             <th> Was Approved? </th>
             <th> Rejection Reason </th>
             <th></th>
             <th></th>
         </tr>
     </thead>
-    <% @tafs.each do |taf| %>
-        <li style="display:none"> 
-            <% taf.taf_items.each do |taf_item| %>
-                <%= taf.total_estimated_amount+=taf_item.estimated_amount %>
-            <% end %>
-        </li>
-        <% if taf.employee_id!=2 && taf.employee_id!=3%>
-        <tr>
-            <td> <%= taf.id %></li>
-            <td> <%= number_to_currency(taf.total_estimated_amount)%> </td>
-            <td> <%= taf.payment_manager_id %> </td> 
-            <td> <%= taf.pm_approval ? "true" : "false" %> </td>
-            <td> <%= taf.pm_reason %> </td>
-            <td><%= link_to 'Show', taf %></td>
-        </tr>
+    <% @taf_items.each do |taf_item| %>
+        
+        <% if taf_item.employee_id!=2 && taf_item.employee_id!=3%>
+            <% if !taf_item.ba_approval && (taf_item.ba_reason=="" || taf_item.ba_reason==nil) %>
+                <tr>
+                    <td> <%= taf_item.id %></li>
+                    <td> <%= number_to_currency(taf_item.estimated_amount)%> </td>
+                    <td> Pending </td>
+                    <td> <%= taf_item.ba_reason %> </td>
+                    <td><%= link_to 'Show', taf_item %></td>
+                </tr>
+            <%end%>
         <%end%>
     <% end %>
 </table>   
 <table class="table table-hover">
-
+<h3>Rejected TAF Forms (Resubmit)</h3>
     <thead class="thead-dark">
         <tr>
-            <th> Expense Report ID </th>
-            <th> Actual Amount </th>
-            <th> Payment Manager ID </th>
+            <th> TAF ID </th>
+            <th> Estimated Amount </th>
             <th> Was Approved? </th>
             <th> Rejection Reason </th>
             <th></th>
             <th></th>
         </tr>
     </thead>
-    <% @carts.each do |cart| %>
-        <li style="display:none"> 
-            <% cart.items.each do |item| %>
-                <%= cart.total_expense+=item.amount %>
-            <% end %>
-        </li>
-        <% if cart.employee_id!=2 && cart.employee_id!=3%>
-        <tr>
-            <td> <%= cart.id %></li>
-            <td> <%= number_to_currency(cart.total_expense)%> </td>
-            <td> <%= cart.payment_manager_id %> </td> 
-            <td> <%= cart.pm_approval ? "true" : "false" %> </td>
-            <td> <%= cart.pm_reason %> </td>
-            <td><%= link_to 'Show', cart %></td>
-        </tr>
+    <% @taf_items.each do |taf_item| %>
+        
+        <% if taf_item.employee_id!=2 && taf_item.employee_id!=3%>
+            <% if !taf_item.ba_approval && taf_item.ba_reason!="" && taf_item.ba_reason!=nil %>
+                <tr>
+                    <td> <%= taf_item.id %> </td> 
+                     <td> <%= number_to_currency(taf_item.estimated_amount) %> </td>
+                     <td> Rejected </td>
+                    <td> <%= taf_item.ba_reason %> </td>
+                    <td><%= link_to 'Edit', edit_taf_item_path(taf_item) %></td>
+                </tr>
+                    
+            <%end%>
         <%end%>
     <% end %>
-</table>        
+</table>   
+
+<table class="table table-hover">
+<h3>Pending Reports</h3>
+    <thead class="thead-dark">
+        <tr>
+            <th> Report ID </th>
+            <th> Amount </th>
+            <th> Was Approved? </th>
+            <th> Rejection Reason </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <% @items.each do |item| %>
+        
+        <% if item.employee_id!=2 && item.employee_id!=3%>
+            <% if !item.ba_approval && (item.ba_reason=="" || item.ba_reason==nil)&& ( item.pm_reason=="" || item.pm_reason==nil) %>
+                <tr>
+                    <td> <%= item.id %></li>
+                    <td> <%= number_to_currency(item.amount)%> </td>
+                    <td> Pending </td>
+                    <td> <%= item.ba_reason %> </td>
+                    <td><%= link_to 'Show', item %></td>
+                </tr>
+            <%end%>
+        <%end%>
+    <% end %>
+</table>   
+<table class="table table-hover">
+<h3>Rejected Reports (Resubmit)</h3>
+    <thead class="thead-dark">
+        <tr>
+            <th> Report ID </th>
+            <th> Amount </th>
+            <th> Was Approved? </th>
+            <th> Rejection Reason </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <% @items.each do |item| %>
+        
+        <% if item.employee_id!=2 && item.employee_id!=3%>
+            <% if !item.ba_approval && item.ba_reason!="" && item.ba_reason!=nil %>
+                <tr>
+                    <td> <%= item.id %> </td> 
+                     <td> <%= number_to_currency(item.amount) %> </td>
+                     <td> Rejected </td>
+                    <td> <%= item.ba_reason %> </td>
+                    <td><%= link_to 'Edit', edit_item_path(item) %></td>
+                </tr>
+                    
+            
+            <% elsif !item.pm_approval && item.pm_reason!="" && item.pm_reason!=nil %>
+                <tr>
+                    <td> <%= item.id %> </td> 
+                     <td> <%= number_to_currency(item.amount) %> </td>
+                     <td> Rejected </td>
+                    <td> <%= item.ba_reason %> </td>
+                    <td><%= link_to 'Edit', edit_item_path(item) %></td>
+                </tr>
+                    
+            <%end%>
+        <%end%>
+    <% end %>
+</table>  
+<table class="table table-hover">
+<h3>TAF Forms History</h3>
+    <thead class="thead-dark">
+        <tr>
+            <th> TAF ID </th>
+            <th> Estimated Amount </th>
+            <th> Was Approved? </th>
+            <th> Rejection Reason </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <% @taf_items.each do |taf_item| %>
+        
+        <% if taf_item.employee_id!=2 && taf_item.employee_id!=3%>
+                <tr>
+                    <td> <%= taf_item.id %></li>
+                    <td> <%= number_to_currency(taf_item.estimated_amount)%> </td>
+                    <td> Pending </td>
+                    <td> <%= taf_item.ba_reason %> </td>
+                    <td><%= link_to 'Show', taf_item %></td>
+                </tr>
+            
+        <%end%>
+    <% end %>
+</table> 
+<table class="table table-hover">
+<h3>Report History</h3>
+    <thead class="thead-dark">
+        <tr>
+            <th> Report ID </th>
+            <th> Amount </th>
+            <th> Was Approved? </th>
+            <th> Rejection Reason </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <% @items.each do |item| %>
+        
+        <% if item.employee_id!=2 && item.employee_id!=3%>
+            
+                <tr>
+                    <td> <%= item.id %></li>
+                    <td> <%= number_to_currency(item.amount)%> </td>
+                    <td> Pending </td>
+                    <td> <%= item.ba_reason %> </td>
+                    <td><%= link_to 'Show', item %></td>
+                </tr>
+            
+        <%end%>
+    <% end %>
+</table>   
+
