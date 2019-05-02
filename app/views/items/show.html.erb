@@ -32,11 +32,13 @@
             <td> <%= image_tag("DEFAULT_RECEIPT.jpg", class: 'list_image')%> </td>
             <% end %>
             <% if current_account.accountable_type=="PaymentManager" %>
+                <% if @item.ba_approval %>
                 <%= form_with(model: @item, local: true) do |form| %>
                     <td> <%= form.check_box :pm_approval %></td>
                     <td> <%= @item.pm_reason %></td>
                     <td> <%= form.text_field :pm_reason %> </td>
                     <td> <%= form.submit 'Updated by Payment Manager' %> </td>
+                <%end%>
             <% end %>
         <% else %>
         <% end %>
