@@ -13,6 +13,7 @@ class TafItemPolicy
   
     def show?
       @current_account == @taf_item.employee.account
+      current_account.accountable_type == "Employee"
 
     end
   
