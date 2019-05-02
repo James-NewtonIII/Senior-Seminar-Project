@@ -125,9 +125,12 @@ class ItemsController < ApplicationController
         
         if current_account.accountable_type == "PaymentManager"
           @item.update(payment_manager_id: current_account.accountable_id)
-          @total = @cart.total_expense+=@item.amount
-          @dpt = Department.find(@item.department)
-          @dpt.update(actual_funds: (@dpt.actual_funds - @item.amount))
+
+          if @item.pm_approval == true
+            @total = @cart.total_expense+=@item.amount
+            @dpt = Department.find(@item.department)
+            @dpt.update(actual_funds: (@dpt.actual_funds - @item.amount))
+          end
         end
         @item.update(pm_reason: item_params[:pm_reason])
         
