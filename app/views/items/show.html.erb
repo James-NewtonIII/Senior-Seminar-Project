@@ -26,7 +26,11 @@
             <td> <%= @item.ba_reason %></li>
             <td> <%= @item.pm_approval %></li>
             <td> <%= @item.pm_reason %></li>
-            <td> <%= @item.image_url %></li>
+            <% if @item.image_url.present? %>
+            <td> <%= image_tag(@item.image_url, class: 'list_image') %></li>
+            <% else %>
+            <td> <%= image_tag("DEFAULT_RECEIPT.jpg", class: 'list_image')%> </td>
+            <% end %>
             <% if current_account.accountable_type=="PaymentManager" %>
                 <%= form_with(model: @item, local: true) do |form| %>
                     <td> <%= form.check_box :pm_approval %></td>
