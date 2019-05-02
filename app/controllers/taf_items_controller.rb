@@ -125,6 +125,8 @@ class TafItemsController < ApplicationController
         if current_account.accountable_type == "Employee"
           @taf_item.update(ba_reason: nil)
           @taf_item.update(ba_approval: false)
+          @dpt = Department.find(@taf_item.dept)
+          @taf_item.update(dept: @dept.id)
         end
         
         if @taf_item.ba_approval == true
