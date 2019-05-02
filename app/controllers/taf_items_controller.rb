@@ -121,6 +121,11 @@ class TafItemsController < ApplicationController
         
          @taf_item.update(ba_reason: taf_item_params[:ba_reason])
         @taf_item.update(budget_approver_id: current_account.accountable_id)
+
+        if current_account.accountable_type == "Employee"
+          @taf_item.update(ba_reason: nil)
+          @taf_item.update(ba_approval: false)
+        end
         
         if @taf_item.ba_approval == true
           @total = @taf.total_estimated_amount+=@taf_item.estimated_amount
