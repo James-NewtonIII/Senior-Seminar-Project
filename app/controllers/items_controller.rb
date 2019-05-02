@@ -125,12 +125,13 @@ class ItemsController < ApplicationController
         
         if current_account.accountable_type == "PaymentManager"
           @item.update(payment_manager_id: current_account.accountable_id)
+          @total = @cart.total_expense+=@item.amount
+          @dpt = Department.find(@item.department)
+          @dpt.update(actual_funds: (@dpt.actual_funds - @item.amount))
         end
         @item.update(pm_reason: item_params[:pm_reason])
         
-        @total = @cart.total_expense+=@item.amount
-        @dpt = Department.find(@item.department)
-        @dpt.update(available_funds: (@dpt.available_funds - @item.amount))
+       
         format.html { redirect_back(fallback_location: :back) }
         format.json { render :show, status: :ok, location: @item }
       else
