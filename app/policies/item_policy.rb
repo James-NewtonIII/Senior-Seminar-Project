@@ -25,6 +25,7 @@ class ItemPolicy
 
   def edit?
     @current_account == @item.employee.account
+    current_account.accountable_type == "Employee"
   end
 
   def update?

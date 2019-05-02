@@ -119,6 +119,22 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.update(item_params)
         @bool = false
+
+        if current_account.accountable_type == "Employee"
+          @item.update(ba_reason: nil)
+          @item.update(ba_approval: false)
+          @item.update(pm_approval: false)
+          @item.update(pm_reason: nil)
+        end
+
+        if item_params[:department] == "QA"
+          @item.update(department: 1)
+        elsif item_params[:department] == "RnD"
+          @item.update(department: 2)
+        else
+          @item.update(department: 3)
+        end
+        
         if current_account.accountable_type == "BudgetApprover"
           @item.update(budget_approver_id: current_account.accountable_id)
         end
